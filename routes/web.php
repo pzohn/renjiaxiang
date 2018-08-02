@@ -19,6 +19,10 @@ Route::get('/hh', function () {
     return "hi world";
 });
 
+Route::get('hi',function() {
+    return "jj";
+});
+ 
 Route::post('/user/save', 'UserController@setUser');
 
 Route::get('/user/save', 'UserController@setUser');
