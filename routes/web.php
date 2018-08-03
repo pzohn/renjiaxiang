@@ -19,7 +19,7 @@ Route::get('/hh', function () {
     return "hi world";
 });
 
-Route::get('hi',function() {
+Route::post('/hi',function() {
     return "jj";
 });
  
