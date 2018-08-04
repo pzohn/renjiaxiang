@@ -78,7 +78,8 @@ class PayController extends Controller
                  $resultPay = GuzzleHttp:: postXml($urlPay, $data);
                  $decode = $this->decodeXml($resultPay);
                  $resign = $this->createReSign($decode);
-                 return $this->wxBack($decode,$resign);
+                 //return $this->wxBack($decode,$resign);
+                 return $resign;
             }
 
         } catch (\Exception $e) {
@@ -127,7 +128,6 @@ class PayController extends Controller
             'package' => "prepay_id=" . $req['prepay_id'],
             'signType' => "MD5",
             'timeStamp' => "1533390092",
-            'key' => "renzheng840728chengboren15081900",
             ];
 
             ksort($params);
@@ -166,8 +166,12 @@ class PayController extends Controller
 
         $StringTmp = $StringTmp . $stringB;
         */
-        $resign = strtoupper(md5($StringTmp));
-        return $resign;
+        $resign = $this->createSign($StringTmp);
+        //return $resign;
+        return [
+            "arr" => $StringTmp,
+            "sign" => $resign,
+        ];
     }
 
     public function onPayBack(Request $req) {
