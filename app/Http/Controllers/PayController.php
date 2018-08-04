@@ -166,11 +166,7 @@ class PayController extends Controller
         $StringTmp = $StringTmp . $stringB;
         */
         $resign = $this->createSign($StringTmp);
-        //return $resign;
-        return [
-            "arr" => $StringTmp,
-            "sign" => $resign,
-        ];
+        return $resign;
     }
 
     public function onPayBack(Request $req) {
