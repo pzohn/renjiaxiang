@@ -18,10 +18,6 @@ Route::get('/', function () {
 Route::get('/hh', function () {
     return "hi world";
 });
-
-Route::post('/hi',function() {
-    return "jj";
-});
  
 Route::post('/user/save', 'UserController@setUser');
 

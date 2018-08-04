@@ -16,22 +16,23 @@ class PayController extends Controller
             'grant_type' => $req->get('grant_type'),
         ];
         try {
+            \Log::info("----------", [$params]);
             $resultLogin = GuzzleHttp::guzzleGet($urlLogin, $params);
-            $errMsg = $resultLogin->get('errcode');
-            if($errMsg)
-            {
-                return 0;
+            \Log::info("==========", $resultLogin);
+
+            if (isset($resultLogin['errcode'])) {
+                return $resultLogin['errcode'];
             }
-            $openid = $resultLogin->get('openid');
-            $session_key = $resultLogin->get('session_key');
-            if($openid && $session_key)
-            {
+            $openid = $resultLogin['openid'];
+            $session_key = $resultLogin['session_key'];
+
+            if ($openid && $session_key) {
                 $urlPay = "https://api.mch.weixin.qq.com/pay/unifiedorder";
                 $params = [
                     'appid' => $req->get('appid'),
                     'body' => "JSAPI支付测试",
                     'mch_id' => $req->get('mch_id'),
-                    'nonce_str' => createRand(32),
+                    'nonce_str' => $this->createRand(32),
                     'notify_url' => "https://www.hattonstar.com/onPayBack",
                     'openid' => $openid,
                     'out_trade_no'=> $req->get('out_trade_no'),
@@ -50,14 +51,14 @@ class PayController extends Controller
 
                     $appid = $req->get('appid');
                     $mch_id = $req->get('mch_id');
-                    $nonce_str = createRand(32);
+                    $nonce_str = $params["nonce_str"];
                     $body = "JSAPI支付测试";
                     $out_trade_no = $req->get('out_trade_no');
                     $total_fee = $req->get('total_fee');
                     $spbill_create_ip = $req->getClientIp();
                     $notify_url = "https://www.hattonstar.com/onPayBack";
                     $trade_type = "JSAPI";
-                    $sign = createSign($stringA);
+                    $sign = $this->createSign($stringA);
 
 
                     $data = "<xml>
@@ -73,14 +74,31 @@ class PayController extends Controller
                     <trade_type>$trade_type</trade_type>
                     <sign>$sign</sign>
                  </xml>";
-
+                 \Log::info("-----------", [$data]);
                  $resultPay = GuzzleHttp:: postXml($urlPay, $data);
+                 $decode = $this->decodeXml($resultPay);
+                 $resign = $this->createReSign($decode);
+                 return $this->wxBack($decode,$resign);
             }
 
         } catch (\Exception $e) {
             // 异常处理
+            \Log::info("----------", [$e]);
+            return [
+                "code" => $e->getCode(),
+                "msg"  => $e->getMessage(),
+                "data" => [],
+            ];
         }
-        return $resultPay;
+    }
+
+    protected function decodeXml($xml) {
+        libxml_disable_entity_loader(true);
+        $values = json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
+        return $values;
+        // return [
+            
+        // ];
     }
 
     protected function createRand($length) {
@@ -95,12 +113,54 @@ class PayController extends Controller
     }
 
     protected function createSign($stringA) {
+        \Log::info("------- stringA --------", [$stringA]);
         $stringSignTemp = $stringA . "&key=renzheng840728chengboren15081900";
         $sign = strtoupper(md5($stringSignTemp));
         return $sign;
     }
 
+    protected function createReSign($req) {
+        $params1 = [
+            'appId' => $req['appid'],
+            'nonceStr' => $req['nonce_str'],
+            ];
+        ksort($params1);
+        $stringA = "";
+        foreach ($params1 as $k => $v) {
+            $stringA = $stringA . "&" . $k . "=" . $v;
+        }
+        $StringTmp = $stringA . "&" . "package=prepay_id=";
+        $StringTmp = $StringTmp . $req['prepay_id']. "&";
+
+        $params2 = [
+            'signType' => "MD5",
+            'timeStamp' => "1533390092",
+            'key' => "renzheng840728chengboren15081900",
+            ];
+        //ksort($params2);
+        $stringB = "";
+        foreach ($params2 as $k => $v) {
+            $stringB = $stringB . "&" . $k . "=" . $v;
+        }
+
+        $stringB=ltrim($stringB, "&");
+
+        $StringTmp = $StringTmp . $stringB;
+        $resign = strtoupper(md5($StringTmp));
+        return $resign;
+    }
+
     public function onPayBack(Request $req) {
         return $req;
+    }
+
+    public function wxBack($decode,$resign) {
+        return [
+            "timeStamp" => "1533390092",
+            "nonceStr"  => $decode['nonce_str'],
+            "package" => $decode['prepay_id'],
+            "signType" => "MD5",
+            "paySign" => $resign,
+        ];
     }
 }

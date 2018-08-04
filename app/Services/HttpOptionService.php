@@ -10,6 +10,12 @@ class HttpOptionService {
     CONST CONNECT_TIME_OUT = 5;
 
     public function __construct() {
+        $headers = [
+            'accept' => 'application/x-www-form-urlencoded',
+        ];
+        $this->options['headers'] = $headers;
+        $this->options['timeout'] = self::TIME_OUT;
+        $this->options['connect_timeout'] = self::CONNECT_TIME_OUT;
     }
 
     public static function getInstance() {
