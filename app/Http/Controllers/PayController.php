@@ -120,6 +120,25 @@ class PayController extends Controller
     }
 
     protected function createReSign($req) {
+
+        $params = [
+            'appId' => $req['appid'],
+            'nonceStr' => $req['nonce_str'],
+            'package' => "prepay_id=" . $req['prepay_id'],
+            'signType' => "MD5",
+            'timeStamp' => "1533390092",
+            'key' => "renzheng840728chengboren15081900",
+            ];
+
+            ksort($params);
+
+        $stringA = "";
+        foreach ($params as $k => $v) {
+            $stringA = $stringA . "&" . $k . "=" . $v;
+        }
+
+        $StringTmp = ltrim($stringA, "&");
+        /*
         $params1 = [
             'appId' => $req['appid'],
             'nonceStr' => $req['nonce_str'],
@@ -146,6 +165,7 @@ class PayController extends Controller
         $stringB=ltrim($stringB, "&");
 
         $StringTmp = $StringTmp . $stringB;
+        */
         $resign = strtoupper(md5($StringTmp));
         return $resign;
     }
@@ -158,7 +178,7 @@ class PayController extends Controller
         return [
             "timeStamp" => "1533390092",
             "nonceStr"  => $decode['nonce_str'],
-            "package" => $decode['prepay_id'],
+            "package" => "prepay_id=" . $decode['prepay_id'],
             "signType" => "MD5",
             "paySign" => $resign,
         ];
