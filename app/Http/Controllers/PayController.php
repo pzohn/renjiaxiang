@@ -78,8 +78,7 @@ class PayController extends Controller
                  $resultPay = GuzzleHttp:: postXml($urlPay, $data);
                  $decode = $this->decodeXml($resultPay);
                  $resign = $this->createReSign($decode);
-                 //return $this->wxBack($decode,$resign);
-                 return $resign;
+                 return $this->wxBack($decode,$resign);
             }
 
         } catch (\Exception $e) {
