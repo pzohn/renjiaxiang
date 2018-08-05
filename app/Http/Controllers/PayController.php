@@ -16,12 +16,12 @@ class PayController extends Controller
             'grant_type' => $req->get('grant_type'),
         ];
         try {
-            \Log::info("----------", [$params]);
             $resultLogin = GuzzleHttp::guzzleGet($urlLogin, $params);
-            \Log::info("==========", $resultLogin);
-
             if (isset($resultLogin['errcode'])) {
-                return $resultLogin['errcode'];
+                return [
+                    "errcode" => $resultLogin['errcode'],
+                    "errmsg" => "无效登录信息",
+                ];
             }
             $openid = $resultLogin['openid'];
             $session_key = $resultLogin['session_key'];
@@ -30,12 +30,12 @@ class PayController extends Controller
                 $urlPay = "https://api.mch.weixin.qq.com/pay/unifiedorder";
                 $params = [
                     'appid' => $req->get('appid'),
-                    'body' => "JSAPI支付测试",
+                    'body' => $req->get('body'),
                     'mch_id' => $req->get('mch_id'),
                     'nonce_str' => $this->createRand(32),
                     'notify_url' => "https://www.hattonstar.com/onPayBack",
                     'openid' => $openid,
-                    'out_trade_no'=> $req->get('out_trade_no'),
+                    'out_trade_no'=> $this->createTradeNo(),
                     'spbill_create_ip' => $req->getClientIp(),
                     'total_fee' => $req->get('total_fee'),
                     'trade_type' => "JSAPI",
@@ -49,15 +49,15 @@ class PayController extends Controller
                     }
                     $stringA = ltrim($stringA, "&");
 
-                    $appid = $req->get('appid');
-                    $mch_id = $req->get('mch_id');
+                    $appid = $params["appid"];
+                    $mch_id = $params["mch_id"];
                     $nonce_str = $params["nonce_str"];
-                    $body = "JSAPI支付测试";
-                    $out_trade_no = $req->get('out_trade_no');
-                    $total_fee = $req->get('total_fee');
+                    $body = $params["body"];
+                    $out_trade_no = $params["out_trade_no"];
+                    $total_fee = $params["total_fee"];
                     $spbill_create_ip = $req->getClientIp();
                     $notify_url = "https://www.hattonstar.com/onPayBack";
-                    $trade_type = "JSAPI";
+                    $trade_type = $params["trade_type"];
                     $sign = $this->createSign($stringA);
 
 
@@ -77,8 +77,19 @@ class PayController extends Controller
                  \Log::info("-----------", [$data]);
                  $resultPay = GuzzleHttp:: postXml($urlPay, $data);
                  $decode = $this->decodeXml($resultPay);
-                 $resign = $this->createReSign($decode);
-                 return $this->wxBack($decode,$resign);
+                 if ($decode["result_code"] == "SUCCESS")
+                 {
+                    $resign = $this->createReSign($decode);
+                    return $this->wxBack($decode,$resign);
+                 }
+                 else if($decode["result_code"] == "FAIL")
+                 {
+                     return [
+                        "errcode" => $decode["err_code"],
+                        "errmsg" => $decode["err_code_des"],
+                     ];
+                 }
+
             }
 
         } catch (\Exception $e) {
@@ -96,9 +107,6 @@ class PayController extends Controller
         libxml_disable_entity_loader(true);
         $values = json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
         return $values;
-        // return [
-            
-        // ];
     }
 
     protected function createRand($length) {
@@ -137,37 +145,23 @@ class PayController extends Controller
         }
 
         $StringTmp = ltrim($stringA, "&");
-        /*
-        $params1 = [
-            'appId' => $req['appid'],
-            'nonceStr' => $req['nonce_str'],
-            ];
-        ksort($params1);
-        $stringA = "";
-        foreach ($params1 as $k => $v) {
-            $stringA = $stringA . "&" . $k . "=" . $v;
-        }
-        $StringTmp = $stringA . "&" . "package=prepay_id=";
-        $StringTmp = $StringTmp . $req['prepay_id']. "&";
-
-        $params2 = [
-            'signType' => "MD5",
-            'timeStamp' => "1533390092",
-            'key' => "renzheng840728chengboren15081900",
-            ];
-        //ksort($params2);
-        $stringB = "";
-        foreach ($params2 as $k => $v) {
-            $stringB = $stringB . "&" . $k . "=" . $v;
-        }
-
-        $stringB=ltrim($stringB, "&");
-
-        $StringTmp = $StringTmp . $stringB;
-        */
         $resign = $this->createSign($StringTmp);
         return $resign;
     }
+
+    protected function getDateTime() {
+        date_default_timezone_set("Asia/Shanghai");
+        $date = date("Ymd");
+        $time = date("his");
+        $datetime = $date . $time;
+        return $datetime;
+    }
+
+    protected function createTradeNo() {
+        $trade_no = $this->getDateTime() . $this->createRand(6);
+        return $trade_no;
+    }
+
 
     public function onPayBack(Request $req) {
         return $req;
