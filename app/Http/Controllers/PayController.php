@@ -4,19 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Libs\GuzzleHttp;
+use App\Models\Trade;
 
 class PayController extends Controller
 {
     public function onPay(Request $req) {
         $urlLogin = "https://api.weixin.qq.com/sns/jscode2session";
-        $params = [
+        $paramsLogin = [
         	'appid' => $req->get('appid'),
             'secret' => $req->get('secret'),
             'js_code' => $req->get('js_code'),
             'grant_type' => $req->get('grant_type'),
+            'detail_id' => $req->get('detail_id'),
+            'phone' => $req->get('phone'),
         ];
         try {
-            $resultLogin = GuzzleHttp::guzzleGet($urlLogin, $params);
+            $resultLogin = GuzzleHttp::guzzleGet($urlLogin, $paramsLogin);
             if (isset($resultLogin['errcode'])) {
                 return [
                     "errcode" => $resultLogin['errcode'],
@@ -56,7 +59,7 @@ class PayController extends Controller
                     $out_trade_no = $params["out_trade_no"];
                     $total_fee = $params["total_fee"];
                     $spbill_create_ip = $req->getClientIp();
-                    $notify_url = "https://www.hattonstar.com/onPayBack";
+                    $notify_url = $params["notify_url"];
                     $trade_type = $params["trade_type"];
                     $sign = $this->createSign($stringA);
 
@@ -75,12 +78,21 @@ class PayController extends Controller
                     <sign>$sign</sign>
                  </xml>";
                  \Log::info("-----------", [$data]);
+                 $trade = [
+                    'out_trade_no' => $params["out_trade_no"],
+                    'body' => $params["body"],
+                    'detail_id' => $paramsLogin["detail_id"],
+                    'total_fee' => $params["total_fee"],
+                    'phone' => $paramsLogin["phone"],
+                 ];
+                 Trade::payInsert($trade);
                  $resultPay = GuzzleHttp:: postXml($urlPay, $data);
                  $decode = $this->decodeXml($resultPay);
                  if ($decode["result_code"] == "SUCCESS")
                  {
-                    $resign = $this->createReSign($decode);
-                    return $this->wxBack($decode,$resign);
+                    $sian_time = (string)time();
+                    $resign = $this->createReSign($decode,$sian_time);
+                    return $this->wxBack($decode,$resign,$sian_time);
                  }
                  else if($decode["result_code"] == "FAIL")
                  {
@@ -127,14 +139,14 @@ class PayController extends Controller
         return $sign;
     }
 
-    protected function createReSign($req) {
+    protected function createReSign($req,$sian_time) {
 
         $params = [
             'appId' => $req['appid'],
             'nonceStr' => $req['nonce_str'],
             'package' => "prepay_id=" . $req['prepay_id'],
             'signType' => "MD5",
-            'timeStamp' => "1533390092",
+            'timeStamp' => $sian_time,
             ];
 
             ksort($params);
@@ -164,12 +176,14 @@ class PayController extends Controller
 
 
     public function onPayBack(Request $req) {
-        return $req;
+        $comment = [file_get_contents("php://input")];
+        \Log::info("----------- onPayBack -----------", [$comment]);
+        return $comment;
     }
 
-    public function wxBack($decode,$resign) {
+    public function wxBack($decode,$resign,$sian_time) {
         return [
-            "timeStamp" => "1533390092",
+            "timeStamp" => $sian_time,
             "nonceStr"  => $decode['nonce_str'],
             "package" => "prepay_id=" . $decode['prepay_id'],
             "signType" => "MD5",

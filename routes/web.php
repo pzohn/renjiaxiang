@@ -27,7 +27,4 @@ Route::get('/onPay', 'PayController@onPay');
 
 Route::post('/onPay', 'PayController@onPay');
 
-
-Route::get('/onPayBack', 'PayController@onPayBack');
-
 Route::post('/onPayBack', 'PayController@onPayBack');
