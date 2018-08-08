@@ -177,11 +177,22 @@ class PayController extends Controller
 
     public function onPayBack(Request $req) {
         $content = [file_get_contents("php://input")];
-        $content=str_replace("\n","",$content);
+        $content = str_replace("\n","",$content);
         \Log::info("----------- onPayBack --content---------", [$content]);
-        $decode = $this->decodeXml($content);
-        \Log::info("----------- onPayBack -----decode------", [$decode]);
-        return $decode;
+
+        if($content){
+            $xml = simplexml_load_string($content);
+            $appid = (string)$xml->appid;
+            $out_trade_no = (string)$xml->out_trade_no;
+            $return_code = (string)$xml->return_code;
+            $total_fee = (string)$xml->total_fee;
+            $transaction_id = (string)$xml->transaction_id;
+            $sign = (string)$xml->sign;
+
+            \Log::info("----------- onPayBack -----appid------", [$appid]);
+            \Log::info("----------- onPayBack -----transaction_id------", [$transaction_id]);
+            \Log::info("----------- onPayBack -----sign------", [$sign]);
+        }
     }
 
     public function wxBack($decode,$resign,$sian_time) {
