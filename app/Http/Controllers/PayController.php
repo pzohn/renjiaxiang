@@ -177,8 +177,9 @@ class PayController extends Controller
 
     public function onPayBack(Request $req) {
         $comment = [file_get_contents("php://input")];
-        \Log::info("----------- onPayBack -----------", [$comment]);
-        return $comment;
+        $decode = $this->decodeXml($comment);
+        \Log::info("----------- onPayBack -----------", [$decode]);
+        return $decode;
     }
 
     public function wxBack($decode,$resign,$sian_time) {
