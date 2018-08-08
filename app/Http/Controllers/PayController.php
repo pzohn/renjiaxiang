@@ -176,8 +176,9 @@ class PayController extends Controller
 
 
     public function onPayBack(Request $req) {
-        $comment = [file_get_contents("php://input")];
-        $decode = $this->decodeXml($comment);
+        $content = [file_get_contents("php://input")];
+        $content=str_replace("\n","",$content);
+        $decode = $this->decodeXml($content);
         \Log::info("----------- onPayBack -----------", [$decode]);
         return $decode;
     }
