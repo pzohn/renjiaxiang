@@ -176,28 +176,32 @@ class PayController extends Controller
 
 
     public function onPayBack(Request $req) {
+
+        $post = post_data();
+        $post_data = $this->decodeXml($post);
+        \Log::info("----------- onPayBack -----sign------", [$post_data]);
         // $content = [file_get_contents("php://input")];
         // $content = str_replace("\n","",$content);
         // \Log::info("----------- onPayBack --content---------", [$content]);
 
-        $input = file_get_contents("php://input");
+        // $input = file_get_contents("php://input");
         
-        $myfile = fopen("wxtestfile.txt", "a");
-        fwrite($myfile, "\r\n");
-        fwrite($myfile, $input);
-        if($input){
-            $xml = simplexml_load_string($input);
-            $appid = (string)$xml->appid;
-            $out_trade_no = (string)$xml->out_trade_no;
-            $return_code = (string)$xml->return_code;
-            $total_fee = (string)$xml->total_fee;
-            $transaction_id = (string)$xml->transaction_id;
-            $sign = (string)$xml->sign;
+        // $myfile = fopen("wxtestfile.txt", "a");
+        // fwrite($myfile, "\r\n");
+        // fwrite($myfile, $input);
+        // if($input){
+        //     $xml = simplexml_load_string($input);
+        //     $appid = (string)$xml->appid;
+        //     $out_trade_no = (string)$xml->out_trade_no;
+        //     $return_code = (string)$xml->return_code;
+        //     $total_fee = (string)$xml->total_fee;
+        //     $transaction_id = (string)$xml->transaction_id;
+        //     $sign = (string)$xml->sign;
 
-            \Log::info("----------- onPayBack -----appid------", [$appid]);
-            \Log::info("----------- onPayBack -----transaction_id------", [$transaction_id]);
-            \Log::info("----------- onPayBack -----sign------", [$sign]);
-        }
+        //     \Log::info("----------- onPayBack -----appid------", [$appid]);
+        //     \Log::info("----------- onPayBack -----transaction_id------", [$transaction_id]);
+        //     \Log::info("----------- onPayBack -----sign------", [$sign]);
+        // }
     }
 
     public function wxBack($decode,$resign,$sian_time) {
