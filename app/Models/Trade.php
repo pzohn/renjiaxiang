@@ -17,10 +17,10 @@ class  Trade extends Model {
         return $trade;
     }
 
-    public static function payUpdate($params) {
-        $trade = Trade::where("phone", array_get($params,"phone"))->first();
+    public static function payUpdate($out_trade_no) {
+        $trade = Trade::where("out_trade_no", $out_trade_no)->first();
         if ($trade) {
-            $trade->pay_status = array_get($params,"pay_status");
+            $trade->pay_status = 1;
             $trade->update();
             return $trade;
         }
