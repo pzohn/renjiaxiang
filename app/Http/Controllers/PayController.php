@@ -9,6 +9,7 @@ use App\Models\Trade;
 class PayController extends Controller
 {
     public function onPay(Request $req) {
+
         $urlLogin = "https://api.weixin.qq.com/sns/jscode2session";
         $paramsLogin = [
         	'appid' => $req->get('appid'),
@@ -177,31 +178,25 @@ class PayController extends Controller
 
     public function onPayBack(Request $req) {
 
-        $post = post_data();
-        $post_data = $this->decodeXml($post);
-        \Log::info("----------- onPayBack -----sign------", [$post_data]);
-        // $content = [file_get_contents("php://input")];
-        // $content = str_replace("\n","",$content);
-        // \Log::info("----------- onPayBack --content---------", [$content]);
+        $content = file_get_contents("php://input");
+        $content = str_replace("\n","",$content);
+        $params = $this->decodeXml($content);
 
-        // $input = file_get_contents("php://input");
+        $sign_str = $params['sign'];
+        unset($params['sign']);
         
-        // $myfile = fopen("wxtestfile.txt", "a");
-        // fwrite($myfile, "\r\n");
-        // fwrite($myfile, $input);
-        // if($input){
-        //     $xml = simplexml_load_string($input);
-        //     $appid = (string)$xml->appid;
-        //     $out_trade_no = (string)$xml->out_trade_no;
-        //     $return_code = (string)$xml->return_code;
-        //     $total_fee = (string)$xml->total_fee;
-        //     $transaction_id = (string)$xml->transaction_id;
-        //     $sign = (string)$xml->sign;
-
-        //     \Log::info("----------- onPayBack -----appid------", [$appid]);
-        //     \Log::info("----------- onPayBack -----transaction_id------", [$transaction_id]);
-        //     \Log::info("----------- onPayBack -----sign------", [$sign]);
-        // }
+        ksort($params);
+        $str = "";
+        foreach ($params as $k => $v) {
+            $str .= "&".$k ."=" . $v;
+        }
+        $str .= "&key=renzheng840728chengboren15081900";
+        $str = ltrim($str, "&");
+        $sign_strTmp = strtoupper(md5($str));
+        if($sign_strTmp == $sign_str)
+        {
+            Trade::payUpdate($params["out_trade_no"]);
+        }
     }
 
     public function wxBack($decode,$resign,$sian_time) {
