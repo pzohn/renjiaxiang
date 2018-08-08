@@ -176,12 +176,17 @@ class PayController extends Controller
 
 
     public function onPayBack(Request $req) {
-        $content = [file_get_contents("php://input")];
-        $content = str_replace("\n","",$content);
-        \Log::info("----------- onPayBack --content---------", [$content]);
+        // $content = [file_get_contents("php://input")];
+        // $content = str_replace("\n","",$content);
+        // \Log::info("----------- onPayBack --content---------", [$content]);
 
-        if($content){
-            $xml = simplexml_load_string($content);
+        $input = file_get_contents("php://input");
+        
+        $myfile = fopen("wxtestfile.txt", "a");
+        fwrite($myfile, "\r\n");
+        fwrite($myfile, $input);
+        if($input){
+            $xml = simplexml_load_string($input);
             $appid = (string)$xml->appid;
             $out_trade_no = (string)$xml->out_trade_no;
             $return_code = (string)$xml->return_code;
