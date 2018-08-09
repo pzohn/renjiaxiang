@@ -12,12 +12,10 @@ class PayController extends Controller
 
         $urlLogin = "https://api.weixin.qq.com/sns/jscode2session";
         $paramsLogin = [
-        	'appid' => $req->get('appid'),
-            'secret' => $req->get('secret'),
+        	'appid' => "wxa7eeeae70646a1c0",
+            'secret' => "0b9476e6f8c8eac6cc5b71026f9bb23a",
             'js_code' => $req->get('js_code'),
-            'grant_type' => $req->get('grant_type'),
-            'detail_id' => $req->get('detail_id'),
-            'phone' => $req->get('phone'),
+            'grant_type' => "authorization_code",
         ];
         try {
             $resultLogin = GuzzleHttp::guzzleGet($urlLogin, $paramsLogin);
@@ -33,9 +31,9 @@ class PayController extends Controller
             if ($openid && $session_key) {
                 $urlPay = "https://api.mch.weixin.qq.com/pay/unifiedorder";
                 $params = [
-                    'appid' => $req->get('appid'),
+                    'appid' => $paramsLogin["appid"],
                     'body' => $req->get('body'),
-                    'mch_id' => $req->get('mch_id'),
+                    'mch_id' => "1509185861",
                     'nonce_str' => $this->createRand(32),
                     'notify_url' => "https://www.hattonstar.com/onPayBack",
                     'openid' => $openid,
@@ -82,9 +80,9 @@ class PayController extends Controller
                  $trade = [
                     'out_trade_no' => $params["out_trade_no"],
                     'body' => $params["body"],
-                    'detail_id' => $paramsLogin["detail_id"],
+                    'detail_id' => $req->get('detail_id'),
                     'total_fee' => $params["total_fee"],
-                    'phone' => $paramsLogin["phone"],
+                    'phone' => $req->get('phone'),
                  ];
                  Trade::payInsert($trade);
                  $resultPay = GuzzleHttp:: postXml($urlPay, $data);
@@ -163,7 +161,6 @@ class PayController extends Controller
     }
 
     protected function getDateTime() {
-        date_default_timezone_set("Asia/Shanghai");
         $date = date("Ymd");
         $time = date("his");
         $datetime = $date . $time;
