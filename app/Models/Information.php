@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Card;
 
 class  Information extends Model {
 
@@ -33,8 +34,27 @@ class  Information extends Model {
                 {
                     return 1;
                 }
+                $cardid = $information->CARDID;
+                $carddesc = "";
+                if($cardid != 0)
+                {
+                    $carddesc = Card::getCard($cardid)->DESC;
+                }
+                unset($information['cardid']);
+                $result = [
+                    "ID"=> $information->ID,
+                    "NAME"=> $information->NAME,
+                    "AGE"=> $information->AGE,
+                    "SEX"=> $information->SEX,
+                    "PHONE"=> $information->PHONE,
+                    "ADDRESS"=> $information->ADDRESS,
+                    "FATHER"=> $information->FATHER,
+                    "MOTHER"=> $information->MOTHER,
+                    "CARDDESC"=> $carddesc,
+                    "CARDNUM"=> $information->CARDNUM
+                ];
+                return $result;
             }
-            return $information;
         }
         else if($type == "insert")
         {
@@ -77,5 +97,16 @@ class  Information extends Model {
             }
             return 0;   
         }  
+    }
+
+    public static function updateCard($params) {
+        $information = Information::where("CODE", array_get($params,"PHONE"))->first();
+        if ($information) {
+            $information->CARDID = array_get($params,"CARDID");
+            $information->CARDNUM = array_get($params,"CARDNUM");
+            \DB::update('update information set CARDID = ?, CARDNUM = ? where CODE = ?', [$information->CARDID,
+            $information->CARDNUM,$information->PHONE]);
+            return $information;
+        }
     }
 }

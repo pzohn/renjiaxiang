@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Libs\GuzzleHttp;
 use App\Models\Trade;
+use App\Models\Card;
+use App\Models\Information;
 
 class PayController extends Controller
 {
@@ -193,6 +195,15 @@ class PayController extends Controller
         if($sign_strTmp == $sign_str)
         {
             Trade::payUpdate($params["out_trade_no"]);
+            $trade = Trade::paySelect($params["out_trade_no"]);
+            $card = Card::getCard($trade->detail_id);
+            $infoPara =[
+                'PHONE' => $trade->phone,
+                'CARDID' => $trade->detail_id,
+                'CARDNUM' => $card->USENUM
+            ];
+            $info = Information::updateCard($infoPara);
+            return $info;
         }
     }
 

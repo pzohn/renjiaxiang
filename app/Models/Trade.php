@@ -26,8 +26,8 @@ class  Trade extends Model {
         }
     }
 
-    public static function paySelect($params) {
-        $trade = Trade::where("phone", array_get($params,"phone"))->first();
+    public static function paySelect($out_trade_no) {
+        $trade = Trade::where("out_trade_no", $out_trade_no)->first();
         if ($trade) {
             return $trade;
         }
