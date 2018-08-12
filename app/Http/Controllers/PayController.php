@@ -220,7 +220,7 @@ class PayController extends Controller
 
     public function getCard(Request $req) {
         $detail_id = $req->get('detail_id');
-        $card = Card::getCard($trade->detail_id);
+        $card = Card::getCard($detail_id);
         return $card;
     }
 }
