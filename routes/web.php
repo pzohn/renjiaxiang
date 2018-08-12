@@ -21,10 +21,8 @@ Route::get('/hh', function () {
  
 Route::post('/user/save', 'UserController@setUser');
 
-Route::get('/user/save', 'UserController@setUser');
-
-Route::get('/onPay', 'PayController@onPay');
-
 Route::post('/onPay', 'PayController@onPay');
 
 Route::post('/onPayBack', 'PayController@onPayBack');
+
+Route::post('/getCard', 'PayController@getCard');
