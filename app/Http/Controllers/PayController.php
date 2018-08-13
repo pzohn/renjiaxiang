@@ -86,6 +86,7 @@ class PayController extends Controller
                     'detail_id' => $req->get('detail_id'),
                     'total_fee' => $params["total_fee"],
                     'phone' => $req->get('phone'),
+                    'shop_id' => $req->get('shop_id'),
                  ];
                  Trade::payInsert($trade);
                  $resultPay = GuzzleHttp:: postXml($urlPay, $data);
