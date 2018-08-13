@@ -112,8 +112,24 @@ class  Information extends Model {
 
     public static function getInformation($params) {
         $information = Information::where("CODE", array_get($params,"PHONE"))->first();
-        if ($information) {
-            return $information;
+        $cardid = $information->CARDID;
+        $carddesc = "";
+        if($cardid != 0)
+        {
+            $carddesc = Card::getCard($cardid)->DESC;
         }
+        $result = [
+            "ID"=> $information->ID,
+            "NAME"=> $information->NAME,
+            "AGE"=> $information->AGE,
+            "SEX"=> $information->SEX,
+            "PHONE"=> $information->PHONE,
+            "ADDRESS"=> $information->ADDRESS,
+            "FATHER"=> $information->FATHER,
+            "MOTHER"=> $information->MOTHER,
+            "CARDDESC"=> $carddesc,
+            "CARDNUM"=> $information->CARDNUM
+        ];
+        return $result;
     }
 }
