@@ -109,4 +109,11 @@ class  Information extends Model {
             return $information;
         }
     }
+
+    public static function getInformation($params) {
+        $information = Information::where("CODE", array_get($params,"PHONE"))->first();
+        if ($information) {
+            return $information;
+        }
+    }
 }
