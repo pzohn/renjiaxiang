@@ -71,7 +71,8 @@ class  Information extends Model {
                 $information->MOTHER = array_get($params,"MOTHER");
                 $information->CARDID = array_get($params,"CARDID");
                 $information->CARDNUM = array_get($params,"CARDNUM");
-                $information->PASSWORD = array_get($params,"PASSWORD");;
+                $information->PASSWORD = array_get($params,"PASSWORD");
+                $information->EDITFLAG = 1;
                 $information->save();
                 return $information;
             }
@@ -89,10 +90,11 @@ class  Information extends Model {
                 $information->MOTHER = array_get($params,"MOTHER");
                 $information->CARDID = array_get($params,"CARDID");
                 $information->CARDNUM = array_get($params,"CARDNUM");
+                $information->EDITFLAG = 1;
                 
                 \DB::update('update information set NAME = ?, AGE = ?,ADDRESS = ?,FATHER = ?,
-                MOTHER = ?,CARDID = ?, CARDNUM = ? where CODE = ?', [$information->NAME,$information->AGE,$information->ADDRESS,
-                $information->FATHER,$information->MOTHER,$information->CARDID,$information->CARDNUM,$information->PHONE]);
+                MOTHER = ?,CARDID = ?, CARDNUM = ? ,EDITFLAG = ? where CODE = ?', [$information->NAME,$information->AGE,$information->ADDRESS,
+                $information->FATHER,$information->MOTHER,$information->CARDID,$information->CARDNUM,$information->EDITFLAG,$information->PHONE]);
                 return $information;
             }
             return 0;   
@@ -104,8 +106,9 @@ class  Information extends Model {
         if ($information) {
             $information->CARDID = array_get($params,"CARDID");
             $information->CARDNUM = array_get($params,"CARDNUM");
-            \DB::update('update information set CARDID = ?, CARDNUM = ? where CODE = ?', [$information->CARDID,
-            $information->CARDNUM,$information->PHONE]);
+            $information->EDITFLAG = 1;
+            \DB::update('update information set CARDID = ?, CARDNUM = ?, EDITFLAG = ? where CODE = ?', [$information->CARDID,
+            $information->CARDNUM,$information->EDITFLAG,$information->PHONE]);
             return $information;
         }
     }

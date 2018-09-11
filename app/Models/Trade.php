@@ -22,6 +22,7 @@ class  Trade extends Model {
         $trade = Trade::where("out_trade_no", $out_trade_no)->first();
         if ($trade) {
             $trade->pay_status = 1;
+            $trade->edit_flag = 1;
             $trade->update();
             return $trade;
         }
