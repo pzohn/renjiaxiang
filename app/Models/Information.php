@@ -88,13 +88,11 @@ class  Information extends Model {
                 $information->ADDRESS = array_get($params,"ADDRESS");
                 $information->FATHER = array_get($params,"FATHER");
                 $information->MOTHER = array_get($params,"MOTHER");
-                $information->CARDID = array_get($params,"CARDID");
-                $information->CARDNUM = array_get($params,"CARDNUM");
                 $information->EDITFLAG = 1;
                 
                 \DB::update('update information set NAME = ?, AGE = ?,ADDRESS = ?,FATHER = ?,
-                MOTHER = ?,CARDID = ?, CARDNUM = ? ,EDITFLAG = ? where CODE = ?', [$information->NAME,$information->AGE,$information->ADDRESS,
-                $information->FATHER,$information->MOTHER,$information->CARDID,$information->CARDNUM,$information->EDITFLAG,$information->PHONE]);
+                MOTHER = ?, EDITFLAG = ? where CODE = ?', [$information->NAME,$information->AGE,$information->ADDRESS,
+                $information->FATHER,$information->MOTHER,$information->EDITFLAG,$information->PHONE]);
                 return $information;
             }
             return 0;   
