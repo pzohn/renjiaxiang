@@ -7,6 +7,7 @@ use App\Libs\GuzzleHttp;
 use App\Models\Trade;
 use App\Models\Card;
 use App\Models\Information;
+use App\Models\Shop;
 
 class PayController extends Controller
 {
@@ -223,5 +224,11 @@ class PayController extends Controller
         $detail_id = $req->get('detail_id');
         $card = Card::getCard($detail_id);
         return $card;
+    }
+
+    public function getShop(Request $req) {
+        $phone = $req->get('phone');
+        $shop = Shop::shopSelect($phone);
+        return $shop;
     }
 }

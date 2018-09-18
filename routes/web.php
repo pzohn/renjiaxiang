@@ -28,3 +28,5 @@ Route::post('/onPay', 'PayController@onPay');
 Route::post('/onPayBack', 'PayController@onPayBack');
 
 Route::post('/getCard', 'PayController@getCard');
+
+Route::post('/getShop', 'PayController@getShop');
