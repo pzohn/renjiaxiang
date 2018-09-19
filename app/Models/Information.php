@@ -140,9 +140,9 @@ class  Information extends Model {
         if($information)
         {
             $information->PASSWORD = '000000';
-            $information->CARDNUM = array_get($params,"CARDNUM");
             $information->EDITFLAG = 1;
-            \DB::update('update information set PASSWORD = ? where CODE = ?', [$information->PASSWORD,$information->PHONE]);
+            \DB::update('update information set PASSWORD = ? , EDITFLAG = ? where CODE = ?', [$information->PASSWORD,
+            $information->EDITFLAG,$information->PHONE]);
             return 1;
         };
         return 0;
