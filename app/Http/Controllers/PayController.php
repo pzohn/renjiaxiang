@@ -228,7 +228,8 @@ class PayController extends Controller
 
     public function getShop(Request $req) {
         $phone = $req->get('phone');
-        $shop = Shop::shopSelect($phone);
+        $pass = $req->get('pass');
+        $shop = Shop::shopSelect($phone,$pass);
         return $shop;
     }
 }

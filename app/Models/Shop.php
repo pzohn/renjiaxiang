@@ -34,10 +34,22 @@ class Shop extends Model {
             return $shop;
         }
     }
-    public static function shopSelect($phone) {
+    public static function shopSelect($phone,$pass) {
         $shop = Shop::where("phone", $phone)->first();
         if ($shop) {
-            return $shop;
+            $shop = Shop::where("phone", $phone)->where("pass", $pass)->first();
+            if( $shop)
+            {
+                return $shop;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+        else
+        {
+            return 0;
         }
     }
 }
