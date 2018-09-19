@@ -133,4 +133,18 @@ class  Information extends Model {
         ];
         return $result;
     }
+
+
+    public static function resetPass($params) {
+        $information = Information::where("CODE", array_get($params,"PHONE"))->where("NAME", array_get($params,"NAME"))->first();
+        if($information)
+        {
+            $information->PASSWORD = '000000';
+            $information->CARDNUM = array_get($params,"CARDNUM");
+            $information->EDITFLAG = 1;
+            \DB::update('update information set PASSWORD = ? where CODE = ?', [$information->PASSWORD,$information->PHONE]);
+            return 1;
+        };
+        return 0;
+    }
 }

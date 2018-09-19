@@ -17,4 +17,9 @@ class UserController extends Controller
         $return_data = Information::getInformation($req->all());
         return $return_data;
     }
+
+    public function resetPass(Request $req) {
+        $return_data = Information::resetPass($req->all());
+        return $return_data;
+    }
 }
