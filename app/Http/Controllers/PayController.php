@@ -232,4 +232,10 @@ class PayController extends Controller
         $shop = Shop::shopSelect($phone,$pass);
         return $shop;
     }
+
+    public function flashShop(Request $req) {
+        $phone = $req->get('phone');
+        $shop = Shop::getShop($phone);
+        return $shop;
+    }
 }

@@ -32,3 +32,5 @@ Route::post('/getCard', 'PayController@getCard');
 Route::post('/getShop', 'PayController@getShop');
 
 Route::post('/resetPass', 'UserController@resetPass');
+
+Route::post('/flashShop', 'PayController@flashShop');

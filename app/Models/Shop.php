@@ -52,4 +52,16 @@ class Shop extends Model {
             return 0;
         }
     }
+
+    public static function getShop($phone) {
+        $shop = Shop::where("phone", $phone)->first();
+        if ($shop) {
+            return $shop;
+        }
+        else
+        {
+            return 0;
+        }
+
+    }
 }
