@@ -14,7 +14,7 @@ class  Trade extends Model {
         $trade->total_fee = array_get($params,"total_fee");
         $trade->phone = array_get($params,"phone");
         $trade->shop_id = array_get($params,"shop_id");
-        $trade->name = array_get($params,"name");
+       // $trade->name = array_get($params,"name");
         $trade->save();
         return $trade;
     }
