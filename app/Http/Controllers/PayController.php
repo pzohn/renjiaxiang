@@ -261,6 +261,12 @@ class PayController extends Controller
             $session_key = $resultLogin['session_key'];
 
             if ($openid && $session_key) {
+                $shopprice = 0;
+                if($req->get('detail_id') == 1){
+                    $shopprice = $req->get('card_one_price');
+                }else if ($req->get('detail_id') == 2){
+                    $shopprice = $req->get('card_two_price');
+                }
                 $card = Card::getCard($req->get('detail_id'));
                 $urlPay = "https://api.mch.weixin.qq.com/pay/unifiedorder";
                 $params = [
@@ -272,7 +278,7 @@ class PayController extends Controller
                     'openid' => $openid,
                     'out_trade_no'=> $this->createTradeNo(),
                     'spbill_create_ip' => $req->getClientIp(),
-                    'total_fee' => $card->PRICE * $req->get('num'),
+                    'total_fee' => $shopprice * $req->get('num'),
                     'trade_type' => "JSAPI",
                     ];
 
