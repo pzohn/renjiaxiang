@@ -393,6 +393,7 @@ class PayController extends Controller
                 $shopinfo = Shop::vipTwoUpdate($trade->phone,$sell_num);
                 return $shopinfo;
             }
+            return “other”;
         }
     }
 
