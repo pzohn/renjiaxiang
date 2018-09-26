@@ -380,6 +380,10 @@ class PayController extends Controller
         $sign_strTmp = strtoupper(md5($str));
         if($sign_strTmp == $sign_str)
         {
+            $trade = Trade::paySelect($req->get('out_trade_no'));
+            if($trade->pay_status == 1){
+                return;
+            }
             Trade::payUpdate($params["out_trade_no"]);
             $trade = Trade::paySelect($params["out_trade_no"]);
             $shop = Shop::getShop($trade->phone);
