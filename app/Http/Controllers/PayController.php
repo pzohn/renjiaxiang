@@ -395,4 +395,9 @@ class PayController extends Controller
             }
         }
     }
+
+    public function onVip1(Request $req) {
+        $shopinfo = Shop::vipOneUpdate($req->get('phone'),$req->get('num'));
+        return $shopinfo;
+    }
 }
