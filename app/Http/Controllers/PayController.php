@@ -380,9 +380,9 @@ class PayController extends Controller
         $sign_strTmp = strtoupper(md5($str));
         if($sign_strTmp == $sign_str)
         {
-            $trade = Trade::paySelect($req->get('out_trade_no'));
-            if($trade->pay_status == 1){
-                return;
+            $trade1 = Trade::paySelect($req->get('out_trade_no'));
+            if($trade1->pay_status == 1){
+                return  $trade1;
             }
             Trade::payUpdate($params["out_trade_no"]);
             $trade = Trade::paySelect($params["out_trade_no"]);
@@ -403,6 +403,32 @@ class PayController extends Controller
                 $shopinfo = Shop::vipTwoUpdate($trade->phone,$sell_num);
                 return $shopinfo;
             }
+        }
+    }
+
+    public function ceshiShop(Request $req) {
+        $trade1 = Trade::paySelect($req->get('out_trade_no'));
+        if($trade1->pay_status == 1){
+            return $trade1;
+        }
+        Trade::payUpdate($req->get('out_trade_no'));
+        $trade = Trade::paySelect($req->get('out_trade_no'));
+        $shop = Shop::getShop($trade->phone);
+        $price = 0;
+        $sell_num = 0;
+        if($trade->detail_id == 1)
+        {
+            $sell_num = ($trade->total_fee)/($shop->card_one_price);
+            $sell_num = $shop->card_one_num + $sell_num;
+            $shopinfo = Shop::vipOneUpdate($trade->phone,$sell_num);
+            return $shopinfo;
+        }
+        else if($trade->detail_id == 2)
+        {
+            $sell_num = ($trade->total_fee)/($shop->card_two_price);
+            $sell_num = $shop->card_two_num + $sell_num;
+            $shopinfo = Shop::vipTwoUpdate($trade->phone,$sell_num);
+            return $shopinfo;
         }
     }
 }
