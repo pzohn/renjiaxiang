@@ -234,6 +234,12 @@ class PayController extends Controller
         return $shop;
     }
 
+    public function getShopNopass(Request $req) {
+        $phone = $req->get('phone');
+        $shop = Shop::getShop($phone);
+        return $shop;
+    }
+
     public function flashShop(Request $req) {
         $phone = $req->get('phone');
         $shop = Shop::getShop($phone);
@@ -377,7 +383,6 @@ class PayController extends Controller
             Trade::payUpdate($params["out_trade_no"]);
             $trade = Trade::paySelect($params["out_trade_no"]);
             return $trade;
-            /*
             $shop = Shop::getShop($trade->phone);
             $price = 0;
             $sell_num = 0;
@@ -395,12 +400,6 @@ class PayController extends Controller
                 $shopinfo = Shop::vipTwoUpdate($trade->phone,$sell_num);
                 return $shopinfo;
             }
-            */
         }
-    }
-
-    public function onVip1(Request $req) {
-        $shopinfo = Shop::vipOneUpdate($req->get('phone'),$req->get('num'));
-        return $shopinfo;
     }
 }
