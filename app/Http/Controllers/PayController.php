@@ -382,7 +382,6 @@ class PayController extends Controller
         {
             Trade::payUpdate($params["out_trade_no"]);
             $trade = Trade::paySelect($params["out_trade_no"]);
-            return $trade;
             $shop = Shop::getShop($trade->phone);
             $price = 0;
             $sell_num = 0;
