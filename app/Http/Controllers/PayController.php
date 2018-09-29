@@ -8,6 +8,7 @@ use App\Models\Trade;
 use App\Models\Card;
 use App\Models\Information;
 use App\Models\Shop;
+use App\Models\Parter;
 
 class PayController extends Controller
 {
@@ -405,4 +406,12 @@ class PayController extends Controller
             }
         }
     }
+
+    public function getParter(Request $req) {
+        $phone = $req->get('phone');
+        $parter = Parter::getParter($phone);
+        \Log::debug("------ get Partner ------", [$phone, $parter]);
+        return $parter;
+    }
+
 }

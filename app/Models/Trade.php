@@ -49,7 +49,7 @@ class  Trade extends Model {
 
     public static function getShopDay($id) {
         $trade = Trade::where("shop_id", $id)
-            ->whereBetween("updated_at", date("Y-m-d 00:00:00"), date("Y-m-d 23:59:59"))
+            ->whereBetween("updated_at", [date("Y-m-d 00:00:00"), date("Y-m-d 23:59:59")])
             ->get();
         if ($trade) {
             return count($trade);
@@ -60,7 +60,7 @@ class  Trade extends Model {
         $begin = date("Y-m-d H:i:s", mktime(0,0,0,date('m'),1,date('Y')));
         $ended = date("Y-m-d H:i:s", mktime(23,59,59,date('m'),date('t'),date('Y')));
         $trade = Trade::where("shop_id", $id)
-            ->whereBetween("updated_at", $begin, $ended)
+            ->whereBetween("updated_at", [$begin, $ended])
             ->get();
         if ($trade) {
             return count($trade);

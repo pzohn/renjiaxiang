@@ -40,3 +40,5 @@ Route::post('/resetPass', 'UserController@resetPass');
 Route::post('/flashShop', 'PayController@flashShop');
 
 Route::post('/getShopNopass', 'PayController@getShopNopass');
+
+Route::post('/getParter', 'PayController@getParter');

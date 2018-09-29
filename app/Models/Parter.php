@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Trade;
 
 class Parter extends Model {
 
@@ -32,12 +33,18 @@ class Parter extends Model {
 
     public static function getParter($phone) {
         $parter = Parter::where("phone", $phone)->first();
+        \Log::debug("----- model get parter ------", [$phone, $parter]);
         if ($parter) {
             $id = $parter->id;
-            
-        }
-        else
-        {
+            $params = [
+                'id' => $id,
+                'day_num' => Trade::getShopDay($id),
+                'month_num' => Trade::getShopMonth($id),
+                'total_num' => Trade::getShopTotal($id),
+             ];
+             $parterUpdate = Parter::numUpdate($params);
+             return $parterUpdate;
+        } else {
             return 0;
         }
 
