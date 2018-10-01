@@ -24,7 +24,7 @@ class  Trade extends Model {
         if ($trade) {
             if($trade->pay_status == 1)
             {
-                return $trade;
+                return 111111;
             }
             $trade->pay_status = 1;
             $trade->edit_flag = 1;
