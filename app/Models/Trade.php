@@ -2,6 +2,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Information;
+use App\Models\Card;
 
 class  Trade extends Model {
         
@@ -24,11 +26,20 @@ class  Trade extends Model {
         if ($trade) {
             if($trade->pay_status == 1)
             {
-                return 111111;
+                return $trade;
             }
             $trade->pay_status = 1;
             $trade->edit_flag = 1;
             $trade->update();
+
+            $trade = Trade::paySelect($out_trade_no);
+            $card = Card::getCard($trade->detail_id);
+            $infoPara =[
+                'PHONE' => $trade->phone,
+                'CARDID' => $trade->detail_id,
+                'CARDNUM' => $card->USENUM
+            ];
+            Information::updateCard($infoPara);
             return $trade;
         }
     }
