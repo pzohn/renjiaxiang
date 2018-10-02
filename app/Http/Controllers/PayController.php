@@ -200,8 +200,11 @@ class PayController extends Controller
         $updateTrade;
         if($sign_strTmp == $sign_str)
         {
-            $updateTrade = Trade::payUpdate($params["out_trade_no"]);
-            /*
+            $trade1 = Trade::paySelect($params["out_trade_no"]);
+            if($trade1->pay_status == 1){
+                return  $trade1;
+            }
+            Trade::payUpdate($params["out_trade_no"]);
             $trade = Trade::paySelect($params["out_trade_no"]);
             $card = Card::getCard($trade->detail_id);
             $infoPara =[
@@ -209,11 +212,8 @@ class PayController extends Controller
                 'CARDID' => $trade->detail_id,
                 'CARDNUM' => $card->USENUM
             ];
-            
             $info = Information::updateCard($infoPara);
             return $info;
-
-            */
         }
     }
 
