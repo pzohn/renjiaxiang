@@ -419,4 +419,11 @@ class PayController extends Controller
         return $parter;
     }
 
+    public function getParterInfo(Request $req) {
+        $phone = $req->get('phone');
+        $pass = $req->get('pass');
+        $parter = Parter::getParterInfo($phone,$pass);
+        return $parter;
+    }
+
 }

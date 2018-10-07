@@ -41,12 +41,31 @@ class Parter extends Model {
                 'day_num' => Trade::getShopDay($id),
                 'month_num' => Trade::getShopMonth($id),
                 'total_num' => Trade::getShopTotal($id),
+                'phone' => $phone
              ];
              $parterUpdate = Parter::numUpdate($params);
              return $parterUpdate;
         } else {
             return 0;
         }
+    }
 
+    public static function getParterInfo($phone,$pass) {
+        $parter = Parter::where("phone", $phone)->first();
+        if ($parter) {
+            $parter = Parter::where("phone", $phone)->where("pass", $pass)->first();
+            if( $parter)
+            {
+                return $parter;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+        else
+        {
+            return 0;
+        }
     }
 }

@@ -42,3 +42,5 @@ Route::post('/flashShop', 'PayController@flashShop');
 Route::post('/getShopNopass', 'PayController@getShopNopass');
 
 Route::post('/getParter', 'PayController@getParter');
+
+Route::post('/getParterInfo', 'PayController@getParterInfo');
