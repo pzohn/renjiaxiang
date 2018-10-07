@@ -56,7 +56,8 @@ class Parter extends Model {
             $parter = Parter::where("phone", $phone)->where("pass", $pass)->first();
             if( $parter)
             {
-                return $parter;
+                $parterUpdate = Parter::getParter($params);
+                return $parterUpdate;
             }
             else
             {
