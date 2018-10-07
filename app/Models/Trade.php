@@ -43,7 +43,6 @@ class  Trade extends Model {
     public static function getShopTotal($id) {
         $trade = Trade::where("shop_id", $id)->get();
         if ($trade) {
-            \Log::debug("----- getShopTotal ------", [count($trade)]);
             return count($trade);
         }
     }
@@ -53,7 +52,6 @@ class  Trade extends Model {
             ->whereBetween("updated_at", [date("Y-m-d 00:00:00"), date("Y-m-d 23:59:59")])
             ->get();
         if ($trade) {
-            \Log::debug("----- getShopDay ------", [count($trade)]);
             return count($trade);
         }
     }
@@ -65,7 +63,6 @@ class  Trade extends Model {
             ->whereBetween("updated_at", [$begin, $ended])
             ->get();
         if ($trade) {
-            \Log::debug("----- getShopMonth ------", [count($trade)]);
             return count($trade);
         }
     }
