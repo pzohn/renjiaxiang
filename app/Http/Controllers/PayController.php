@@ -273,7 +273,7 @@ class PayController extends Controller
             $session_key = $resultLogin['session_key'];
 
             if ($openid && $session_key) {
-                $shopprice = $req->get('balance');
+                $money = $req->get('money');
                 $urlPay = "https://api.mch.weixin.qq.com/pay/unifiedorder";
                 $params = [
                     'appid' => $paramsLogin["appid"],
@@ -284,7 +284,7 @@ class PayController extends Controller
                     'openid' => $openid,
                     'out_trade_no'=> $this->createTradeNo(),
                     'spbill_create_ip' => $req->getClientIp(),
-                    'total_fee' => $shopprice,
+                    'total_fee' => $money,
                     'trade_type' => "JSAPI",
                     ];
 
