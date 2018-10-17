@@ -274,7 +274,6 @@ class PayController extends Controller
 
             if ($openid && $session_key) {
                 $shopprice = $req->get('balance');
-                $card = Card::getCard($req->get('detail_id'));
                 $urlPay = "https://api.mch.weixin.qq.com/pay/unifiedorder";
                 $params = [
                     'appid' => $paramsLogin["appid"],
