@@ -273,12 +273,7 @@ class PayController extends Controller
             $session_key = $resultLogin['session_key'];
 
             if ($openid && $session_key) {
-                $shopprice = 0;
-                if($req->get('detail_id') == 1){
-                    $shopprice = $req->get('card_one_price');
-                }else if ($req->get('detail_id') == 2){
-                    $shopprice = $req->get('card_two_price');
-                }
+                $shopprice = $req->get('balance');
                 $card = Card::getCard($req->get('detail_id'));
                 $urlPay = "https://api.mch.weixin.qq.com/pay/unifiedorder";
                 $params = [
@@ -290,7 +285,7 @@ class PayController extends Controller
                     'openid' => $openid,
                     'out_trade_no'=> $this->createTradeNo(),
                     'spbill_create_ip' => $req->getClientIp(),
-                    'total_fee' => $shopprice * $req->get('num') * 100,
+                    'total_fee' => $shopprice * 100,
                     'trade_type' => "JSAPI",
                     ];
 
@@ -393,22 +388,9 @@ class PayController extends Controller
             Trade::payUpdate($params["out_trade_no"]);
             $trade = Trade::paySelect($params["out_trade_no"]);
             $shop = Shop::getShop($trade->phone);
-            $price = 0;
-            $sell_num = 0;
-            if($trade->detail_id == 1)
-            {
-                $sell_num = ($trade->total_fee)/($shop->card_one_price);
-                $sell_num = $shop->card_one_num + $sell_num;
-                $shopinfo = Shop::vipOneUpdate($trade->phone,$sell_num);
-                return $shopinfo;
-            }
-            else if($trade->detail_id == 2)
-            {
-                $sell_num = ($trade->total_fee)/($shop->card_two_price);
-                $sell_num = $shop->card_two_num + $sell_num;
-                $shopinfo = Shop::vipTwoUpdate($trade->phone,$sell_num);
-                return $shopinfo;
-            }
+            $balance = $shop->balance + $trade->total_fee;
+            $shopinfo = Shop::balanceUpdate($trade->phone,$balance);
+            return $shopinfo;
         }
     }
 

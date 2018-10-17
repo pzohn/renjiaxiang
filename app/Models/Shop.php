@@ -19,23 +19,15 @@ class Shop extends Model {
         return $shop;
     }
 
-    public static function vipOneUpdate($phone,$num) {
+    public static function balanceUpdate($phone,$balance) {
         $shop = Shop::where("phone", $phone)->first();
         if ($shop) {
-            $shop->card_one_num = $num;
+            $shop->balance = $balance;
             $shop->update();
             return $shop;
         }
     }
-
-    public static function vipTwoUpdate($phone,$num) {
-        $shop = Shop::where("phone", $phone)->first();
-        if ($shop) {
-            $shop->card_two_num = $num;
-            $shop->update();
-            return $shop;
-        }
-    }
+    
     public static function shopSelect($phone,$pass) {
         $shop = Shop::where("phone", $phone)->first();
         if ($shop) {
