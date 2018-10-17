@@ -284,7 +284,7 @@ class PayController extends Controller
                     'openid' => $openid,
                     'out_trade_no'=> $this->createTradeNo(),
                     'spbill_create_ip' => $req->getClientIp(),
-                    'total_fee' => $money,
+                    'total_fee' => $money * 100,
                     'trade_type' => "JSAPI",
                     ];
 
@@ -326,7 +326,7 @@ class PayController extends Controller
                     'out_trade_no' => $params["out_trade_no"],
                     'body' => $params["body"],
                     'detail_id' => $req->get('detail_id'),
-                    'total_fee' => $params["total_fee"],
+                    'total_fee' => $params["total_fee"]  * 0.01,
                     'phone' => $req->get('phone'),
                     'shop_id' => $req->get('shop_id'),
                     'name' => $req->get('name'),
