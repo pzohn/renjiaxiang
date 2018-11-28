@@ -240,6 +240,12 @@ class PayController extends Controller
         return $shop;
     }
 
+    public function getShopById(Request $req) {
+        $id = $req->get('id');
+        $shop = Shop::getShopById($id);
+        return $shop;
+    }
+
     public function getShopNopass(Request $req) {
         $phone = $req->get('phone');
         $shop = Shop::getShop($phone);

@@ -46,3 +46,5 @@ Route::post('/getParter', 'PayController@getParter');
 Route::post('/getParterInfo', 'PayController@getParterInfo');
 
 Route::post('/updateFoodandCar', 'PayController@updateFoodandCar');
+
+Route::post('/getShopById', 'PayController@getShopById');
