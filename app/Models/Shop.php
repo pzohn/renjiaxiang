@@ -58,4 +58,14 @@ class Shop extends Model {
         }
 
     }
+
+    public static function updateFoodandCar($id,$food,$car) {
+        $shop = Shop::where("id", $id)->first();
+        if ($shop) {
+            $shop->food = $food;
+            $shop->car = $car;
+            $shop->update();
+            return $shop;
+        }
+    }
 }

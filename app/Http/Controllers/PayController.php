@@ -407,4 +407,12 @@ class PayController extends Controller
         return $parter;
     }
 
+    public function updateFoodandCar(Request $req) {
+        $id = $req->get('id');
+        $car = $req->get('car');
+        $food = $req->get('food');
+        $parter = Shop::updateFoodandCar($id,$food,$car);
+        return $parter;
+    }
+
 }
