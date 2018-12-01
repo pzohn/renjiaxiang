@@ -9,6 +9,7 @@ use App\Models\Card;
 use App\Models\Information;
 use App\Models\Shop;
 use App\Models\Parter;
+use App\Models\Group;
 
 class PayController extends Controller
 {
