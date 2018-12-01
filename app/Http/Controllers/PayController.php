@@ -581,7 +581,7 @@ class PayController extends Controller
 
     public function groupInsert() {
         $str = "1@1@1@1";
-        $arry = preg_split('@',$str);
+        $arry = preg_split("/@/",$str);
         $para =[
             'parent_num' => $arry[1],
             'food_num' => $arry[2],
