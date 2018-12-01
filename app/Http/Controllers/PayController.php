@@ -555,7 +555,7 @@ class PayController extends Controller
             if($trade1->pay_status == 1){
                 return  $trade1;
             }
-            /*
+            
             Trade::payUpdate($params["out_trade_no"]);
             $trade = Trade::paySelect($params["out_trade_no"]);
             $arry = preg_split("@",$trade->body);
@@ -569,7 +569,7 @@ class PayController extends Controller
             ];
             $group = Group::groupInsert($para);
             return $group;
-            */
+            
         }
     }
 
