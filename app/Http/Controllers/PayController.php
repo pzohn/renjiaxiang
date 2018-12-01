@@ -558,7 +558,7 @@ class PayController extends Controller
             
             Trade::payUpdate($params["out_trade_no"]);
             $trade = Trade::paySelect($params["out_trade_no"]);
-            $arry = preg_split("@",$trade->body);
+            $arry = preg_split("/@/",$trade->body);
             $para =[
                 'parent_num' => $arry[1],
                 'food_num' => $arry[2],
