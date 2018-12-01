@@ -586,7 +586,7 @@ class PayController extends Controller
             'food_num' => $arry[2],
             'car_num' => $arry[3],
             'phone' => 18303741618,
-            'name' => hubin,
+            'name' => ‘hubin’,
             'group_id' => 4
         ];
         $group = Group::groupInsert($para);
