@@ -27,9 +27,13 @@ Route::post('/onPay', 'PayController@onPay');
 
 Route::post('/onPayShop', 'PayController@onPayShop');
 
+Route::post('/onPayGroup', 'PayController@onPayGroup');
+
 Route::post('/onPayBack', 'PayController@onPayBack');
 
 Route::post('/onPayShopBack', 'PayController@onPayShopBack');
+
+Route::post('/onPayGroupBack', 'PayController@onPayGroupBack');
 
 Route::post('/getCard', 'PayController@getCard');
 
@@ -48,3 +52,7 @@ Route::post('/getParterInfo', 'PayController@getParterInfo');
 Route::post('/updateFoodandCar', 'PayController@updateFoodandCar');
 
 Route::post('/getShopById', 'PayController@getShopById');
+
+Route::post('/getGroup', 'PayController@getGroup');
+
+
