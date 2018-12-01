@@ -578,4 +578,18 @@ class PayController extends Controller
         $group = Group::getGroup($phone);
         return $group;
     }
+
+    public function groupInsert() {
+        $arry = [1,1,1,1];
+        $para =[
+            'parent_num' => $arry[1],
+            'food_num' => $arry[2],
+            'car_num' => $arry[3],
+            'phone' => “18303741618”,
+            'name' => “hubin”,
+            'group_id' => 4
+        ];
+        $group = Group::groupInsert($para);
+        return $group;
+    }
 }

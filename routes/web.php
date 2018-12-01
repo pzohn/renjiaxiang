@@ -55,4 +55,6 @@ Route::post('/getShopById', 'PayController@getShopById');
 
 Route::post('/getGroup', 'PayController@getGroup');
 
+Route::post('/groupInsert', 'PayController@groupInsert');
+
 
