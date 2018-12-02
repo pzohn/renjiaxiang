@@ -21,7 +21,7 @@ class Group extends Model {
     }
 
     public static function getGroup($phone) {
-        $group = Group::where("phone", $phone)->where("use_flag",'!=',0)->get();
+        $group = Group::where("phone", $phone)->where("use_flag",0)->first();
         if ($group) {
             return $group;
         }
