@@ -21,7 +21,7 @@ class Group extends Model {
     }
 
     public static function getGroup($phone) {
-        $group = Group::where("phone", $phone)->first();
+        $group = Group::where("phone", $phone)->get();
         if ($group) {
             return $group;
         }
