@@ -418,7 +418,8 @@ class PayController extends Controller
         $id = $req->get('id');
         $car = $req->get('car');
         $food = $req->get('food');
-        $parter = Shop::updateFoodandCar($id,$food,$car);
+        $date = $req->get('date');
+        $parter = Shop::updateFoodandCar($id,$food,$car,$date);
         return $parter;
     }
 

@@ -69,11 +69,12 @@ class Shop extends Model {
         }
     }
 
-    public static function updateFoodandCar($id,$food,$car) {
+    public static function updateFoodandCar($id,$food,$car,$date) {
         $shop = Shop::where("id", $id)->first();
         if ($shop) {
             $shop->food = $food;
             $shop->car = $car;
+            $shop->share_date = $date;
             $shop->update();
             return $shop;
         }
