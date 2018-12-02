@@ -21,12 +21,22 @@ class Group extends Model {
     }
 
     public static function getGroup($phone) {
-        $group = Group::where("phone", $phone)->get();
+        $group = Group::where("phone", $phone)->where("use_flag",'!=',0)->get();
         if ($group) {
             return $group;
         }
         else
         {
+            return 0;
+        }
+    }
+
+    public static function IsUnUse($phone) {
+        $group = Group::where("phone", $phone)->where("use_flag",0)->first();
+        if ($group) {
+            return 1;
+        }
+        else {
             return 0;
         }
     }

@@ -57,4 +57,6 @@ Route::post('/getGroup', 'PayController@getGroup');
 
 Route::post('/groupInsert', 'PayController@groupInsert');
 
+Route::post('/IsUnUse', 'PayController@IsUnUse');
+
 

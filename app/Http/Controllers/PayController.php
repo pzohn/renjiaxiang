@@ -580,6 +580,11 @@ class PayController extends Controller
         return $group;
     }
 
+    public function IsUnUse(Request $req) {
+        $phone = $req->get('phone');
+        return Group::IsUnUse($phone);
+    }
+
     public function groupInsert() {
         $str = "1@1@1@1";
         $arry = preg_split("/@/",$str);
