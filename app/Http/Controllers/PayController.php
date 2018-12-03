@@ -566,7 +566,8 @@ class PayController extends Controller
                 'car_num' => $arry[3],
                 'phone' => $trade->phone,
                 'name' => $trade->name,
-                'group_id' => $trade->group_id
+                'group_id' => $trade->group_id,
+                'group_class' => $arry[4]
             ];
             $group = Group::groupInsert($para);
             return $group;
@@ -583,20 +584,5 @@ class PayController extends Controller
     public function IsUnUse(Request $req) {
         $phone = $req->get('phone');
         return Group::IsUnUse($phone);
-    }
-
-    public function groupInsert() {
-        $str = "1@1@1@1";
-        $arry = preg_split("/@/",$str);
-        $para =[
-            'parent_num' => $arry[1],
-            'food_num' => $arry[2],
-            'car_num' => $arry[3],
-            'phone' => "18303741618",
-            'name' => "hubin",
-            'group_id' => 4
-        ];
-        $group = Group::groupInsert($para);
-        return $group;
     }
 }

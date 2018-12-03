@@ -16,6 +16,7 @@ class Group extends Model {
         $group->food_num = array_get($params,"food_num");
         $group->car_num = array_get($params,"car_num");
         $group->group_id = array_get($params,"group_id");
+        $group->group_class = array_get($params,"group_class");
         $group->save();
         return $group;
     }
