@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 class  Postcard extends Model {
 
     public static function GetPostcard($phone) {
-        $postcard = Postcard::where("phone", $phone)->first();
+        $postcard = Postcard::where("phone", $phone)->latest()->first();
         if ($postcard) {
             return $postcard;
         }
