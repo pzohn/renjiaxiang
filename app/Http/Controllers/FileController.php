@@ -13,14 +13,6 @@ class FileController extends Controller
 {
     public function upload(Request $req)
     {
-        $cardimgs = Cardimg::getCardimgs();
-        $img_urls = [];
-        foreach ($cardimgs as $k => $v) {
-            $img_urls[] = $v->img;
-        }
-        $img_url_key = array_rand($img_urls,1); //"https://www.hattonstar.com/card/".$img_urls[array_rand($img_urls,1)];
-        $img_url = "https://www.hattonstar.com/card/" . $img_urls[$img_url_key];
-        return $img_url;
          $file = $req->file('file');
          if($file->isValid()) {
             $originalName = $file->getClientOriginalName(); // 文件原名
@@ -36,15 +28,17 @@ class FileController extends Controller
                 $cardimgs = Cardimg::getCardimgs();
                 $img_urls = [];
                 foreach ($cardimgs as $k => $v) {
-                    $img_urls[] = [
-                    $v->img
-                    ];
+                    $img_urls[] = $v->img;
                 }
+                $img_url_key = array_rand($img_urls,1);
+                $img_url = "https://www.hattonstar.com/card/" . $img_urls[$img_url_key];
+
                 $params = [
-                    "url" => $url,
-                    "parent_id" => $req->get('parent_id')
+                    "img_url" => $img_url,
+                    "audio_url" => $audio_url,
+                    "phone" => $req->get('phone')
                 ];
-                Uploadpic::InsertPic($params);
+                Postcard::InsertPostcard($params);
             }
         }
        
