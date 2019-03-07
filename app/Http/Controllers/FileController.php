@@ -20,7 +20,7 @@ class FileController extends Controller
             $v->img
             ];
         }
-        $img_url = "https://www.hattonstar.com/card/".$img_urls[array_rand($img_urls,1)];
+        $img_url = $img_urls[array_rand($img_urls,1)]; //"https://www.hattonstar.com/card/".
         return $img_url;
          $file = $req->file('file');
          if($file->isValid()) {
