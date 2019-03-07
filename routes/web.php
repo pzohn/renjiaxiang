@@ -57,4 +57,4 @@ Route::post('/getGroup', 'PayController@getGroup');
 
 Route::post('/IsUnUse', 'PayController@IsUnUse');
 
-
+Route::post('/upload', 'FileController@upload');
