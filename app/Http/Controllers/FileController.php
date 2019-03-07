@@ -20,7 +20,8 @@ class FileController extends Controller
             $v->img
             ];
         }
-        return $img_urls;
+        $img_url = array_rand($img_urls,1);
+        return $img_url;
          $file = $req->file('file');
          if($file->isValid()) {
             $originalName = $file->getClientOriginalName(); // 文件原名
