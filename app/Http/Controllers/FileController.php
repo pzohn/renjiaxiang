@@ -20,7 +20,7 @@ class FileController extends Controller
             $v->img
             ];
         }
-        $img_url = $img_urls[array_rand($img_urls,1)];
+        $img_url = "https://www.hattonstar.com/card/".$img_urls[array_rand($img_urls,1)];
         return $img_url;
          $file = $req->file('file');
          if($file->isValid()) {
@@ -33,7 +33,7 @@ class FileController extends Controller
             $bool = Storage::disk('public')->put($filename, file_get_contents($realPath));
             //var_dump($bool);
             if ($bool){
-                $audio_url = "https://www.hatton.com/storage/".$filename;
+                $audio_url = "https://www.hattonstar.com/storage/".$filename;
                 $cardimgs = Cardimg::getCardimgs();
                 $img_urls = [];
                 foreach ($cardimgs as $k => $v) {
