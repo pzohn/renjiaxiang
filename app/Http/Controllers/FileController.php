@@ -48,4 +48,9 @@ class FileController extends Controller
         $postcard = Postcard::GetPostcard($req->get('phone'));
         return $postcard;
     }
+
+    public function getPostcardById(Request $req) {
+        $postcard = Postcard::GetPostcardById($req->get('id'));
+        return $postcard;
+    }
 }

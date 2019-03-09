@@ -12,6 +12,13 @@ class  Postcard extends Model {
         }
     }
 
+    public static function GetPostcardById($id) {
+        $postcard = Postcard::where("id", $id)->first();
+        if ($postcard) {
+            return $postcard;
+        }
+    }
+
     public static function InsertPostcard($params) {
         $postcard = new self;
         $postcard->phone = array_get($params,"phone");
