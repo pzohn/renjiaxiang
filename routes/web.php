@@ -62,3 +62,5 @@ Route::post('/upload', 'FileController@upload');
 Route::post('/getPostcard', 'FileController@getPostcard');
 
 Route::post('/getPostcardById', 'FileController@getPostcardById');
+
+Route::post('/loginByPhone', 'UserController@loginByPhone');
