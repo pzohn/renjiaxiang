@@ -32,7 +32,7 @@ class UserController extends Controller
         $smsSign = 'hubin';
         try {
             $sender = new SmsSingleSender($appid, $appkey);
-            $params = ["6666"];
+            $params = [$this->createRand(4)];
             $result = $sender->sendWithParam("86", $phone, $templateId, $params, $smsSign, "", "");
             $res = json_decode($result, true);
             var_dump($res);
@@ -40,5 +40,16 @@ class UserController extends Controller
         } catch (\Exception $e) {
             var_dump($e);
         }	
+    }
+
+    protected function createRand($length) {
+        $str='0123456789';
+        $len=strlen($str)-1;
+        $randstr='';
+        for($i=0;$i<$length;$i++){
+        $num=mt_rand(0,$len);
+        $randstr .= $str[$num];
+        }
+        return $randstr;
     }
 }
