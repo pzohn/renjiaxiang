@@ -29,14 +29,16 @@ class UserController extends Controller
         $appkey = 'c5f98a9fd6a8828dea964516fc98e574';
         $phone = $req->get('phone');
         $templateId = 295943;
-        $smsSign = 'hubin';
+        $smsSign = '哈顿星球';
+        $code = $this->createRand(4);
         try {
             $sender = new SmsSingleSender($appid, $appkey);
-            $params = [$this->createRand(4)];
-            $result = $sender->sendWithParam("86", $phone, $templateId, $params, $smsSign, "", "");
+            $params = [$code];
             $res = json_decode($result, true);
+            if ($res->result == 0){
+                return $code;
+            }
             var_dump($res);
-            return $res;
         } catch (\Exception $e) {
             var_dump($e);
         }	
