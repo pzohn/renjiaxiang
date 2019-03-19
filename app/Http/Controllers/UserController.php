@@ -38,7 +38,7 @@ class UserController extends Controller
             if ($res->result == 0){
                 return $code;
             }
-            var_dump($res);
+       //     var_dump($res);
         } catch (\Exception $e) {
             var_dump($e);
         }	
