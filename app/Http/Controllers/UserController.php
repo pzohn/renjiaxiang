@@ -35,8 +35,12 @@ class UserController extends Controller
             $params = [$this->createRand(4)];
             $result = $sender->sendWithParam("86", $phone, $templateId, $params, $smsSign, "", "");
             $res = json_decode($result, true);
-            var_dump($res);
-            return $res;
+            if ($res->result){
+                var_dump($res);
+                return $res->result;
+            }
+            return "1111";
+ 
         } catch (\Exception $e) {
             var_dump($e);
         }	
