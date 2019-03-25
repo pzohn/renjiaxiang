@@ -18,8 +18,6 @@ class CampactivityController extends Controller
 	        "title_pic" => Image::GetImage($v->title_pic_id)->url
             ];
         }
-        return [
-            $campactivitiesTmp
-        ];
+        return  $campactivitiesTmp;
     }
 }
