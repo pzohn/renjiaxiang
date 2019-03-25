@@ -19,7 +19,7 @@ class CampactivityController extends Controller
             ];
         }
         return [
-            $gcampactivitiesTmpoodsTmp
+            $campactivitiesTmp
         ];
     }
 }
