@@ -129,7 +129,8 @@ class  Information extends Model {
             "FATHER"=> $information->FATHER,
             "MOTHER"=> $information->MOTHER,
             "CARDDESC"=> $carddesc,
-            "CARDNUM"=> $information->CARDNUM
+            "CARDNUM"=> $information->CARDNUM,
+            "AUTHORITY" => $information->AUTHORITY
         ];
         return $result;
     }
