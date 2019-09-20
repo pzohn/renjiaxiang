@@ -46,6 +46,7 @@ class CertController extends Controller
      public function certdelete(Request $req) {
         $id = $req->get('id');
         Cert::certdelete($id);
+        return 1;
      }
 
      public function certupdate(Request $req) {
