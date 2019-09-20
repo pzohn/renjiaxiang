@@ -7,7 +7,7 @@ use App\Models\Cert;
 use App\Models\Shopping;
 use App\Models\Wxinfo;
 
-class UserController extends Controller
+class CertController extends Controller
 {
     public function certInsert(Request $req) {
        $cert = Cert::certSelect( $req->get('id'));
