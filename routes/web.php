@@ -65,4 +65,10 @@ Route::post('/getPostcardById', 'FileController@getPostcardById');
 
 Route::post('/loginByPhone', 'UserController@loginByPhone');
 
-Route::post('/getCampactivities', 'CampactivityController@getCampactivities');
+Route::post('/certInsert', 'CertController@certInsert');
+
+Route::post('/certsSelect', 'CertController@certsSelect');
+
+Route::post('/certInsert', 'CertController@certdelete');
+
+Route::post('/certupdate', 'CertController@certupdate');
