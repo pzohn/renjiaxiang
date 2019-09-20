@@ -13,7 +13,7 @@ class  Shopping extends Model {
     }
 
     public static function shoppingSelect($id) {
-        $shopping = Cert::where("id", $id)->where("state", 1)->first();
+        $shopping = Shopping::where("id", $id)->where("state", 1)->first();
         if ($shopping) {
             return $shopping;
         }
