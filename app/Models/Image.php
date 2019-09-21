@@ -11,4 +11,11 @@ class  Image extends Model {
             return $image;
         }
     }
+
+    public static function GetImageUrl($id) {
+        $image = Image::where("id", $id)->first();
+        if ($image) {
+            return $image->file . "/" . $image->url;
+        }
+    }
 }

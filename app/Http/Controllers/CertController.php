@@ -35,7 +35,7 @@ class CertController extends Controller
             $certsTmp[] = [
             "shoppingid" => $shopping->id,
             "name" => $shopping->name,
-            "title_pic" => Image::GetImage($wx_id->title_id)->url,
+            "title_pic" => Image::GetImageUrl($wx_id->title_id),
             "price" => $shopping->price,
             "count" => $v->count,
             "id" => $v->id
