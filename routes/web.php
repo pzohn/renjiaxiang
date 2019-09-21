@@ -69,6 +69,6 @@ Route::post('/certInsert', 'CertController@certInsert');
 
 Route::post('/certsSelect', 'CertController@certsSelect');
 
-Route::post('/certInsert', 'CertController@certdelete');
+Route::post('/certdelete', 'CertController@certdelete');
 
 Route::post('/certupdate', 'CertController@certupdate');
