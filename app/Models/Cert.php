@@ -4,7 +4,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class  Cert extends Model {
-        
+    
+    public $timestamps = false;
+    
     public static function certInsert($params) {
 
         $cert = new self;
