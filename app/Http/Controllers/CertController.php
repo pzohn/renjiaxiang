@@ -20,7 +20,7 @@ class CertController extends Controller
        $params = [
         'username' => $req->get('username'),
         'shopping_id' => $req->get('id'),
-        'count' => "count"
+        'count' => $req->get('count')
         ];
         return Cert::certInsert($params);
     }
