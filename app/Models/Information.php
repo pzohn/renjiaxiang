@@ -172,7 +172,7 @@ class  Information extends Model {
                 return $result_data;
             } else {
                 $result_data = [
-                    'code' => 1,
+                    'code' => 0,
                     'msg' => '登入成功',
                     'data' => $information
                 ];
