@@ -21,6 +21,8 @@ Route::get('/hh', function () {
  
 Route::post('/user/save', 'UserController@setUser');
 
+Route::post('/mangerLogin', 'UserController@mangerLogin');
+
 Route::post('/onGetUpdateResult', 'UserController@getUpdateResult');
 
 Route::post('/onPay', 'PayController@onPay');

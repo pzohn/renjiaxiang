@@ -149,4 +149,35 @@ class  Information extends Model {
         };
         return 0;
     }
+
+    public static function mangerLogin($params) {
+        $information = Information::where("CODE", array_get($params,"PHONE"))->first();
+        if (!$information)
+        {
+            $result_data = [
+                'code' => 1,
+                'msg' => '用户未注册'
+            ];
+            return $result_data;
+        }
+        else
+        {
+            $information = Information::where("CODE", array_get($params,"PHONE"))->where("PASSWORD", array_get($params,"PASSWORD"))->first();
+            if(!$information)
+            {
+                $result_data = [
+                    'code' => 1,
+                    'msg' => '用户名或密码不正确'
+                ];
+                return $result_data;
+            } else {
+                $result_data = [
+                    'code' => 1,
+                    'msg' => '登入成功',
+                    'data' => $information
+                ];
+                return $result_data;
+            }
+        }
+    }
 }
