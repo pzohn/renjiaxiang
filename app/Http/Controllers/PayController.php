@@ -593,7 +593,7 @@ class PayController extends Controller
             $tradesTmp[] = [
             "id" => $v->id,
             "title" => $v->body,
-            "time" => $v->updated_at
+            "time" => '1510363800000'
             ];
         }
         if ($trades) {
@@ -601,7 +601,7 @@ class PayController extends Controller
                 'code' => 0,
                 'msg' => '',
                 'count' => count($trades),
-                'data' => '1510363800000'
+                'data' => $tradesTmp
             ];
             return $result_data;
         }
