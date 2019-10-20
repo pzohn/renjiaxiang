@@ -592,7 +592,10 @@ class PayController extends Controller
         foreach ($trades as $k => $v) {
             $tradesTmp[] = [
             "id" => $v->id,
-            "title" => $v->body,
+            "body" => $v->body,
+            "tradeid" => $v->out_trade_no,
+            "status" => $v->pay_status,
+            "phone" => $v->phone,
             "time" => '1510363800000'
             ];
         }
