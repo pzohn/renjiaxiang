@@ -600,7 +600,7 @@ class PayController extends Controller
             $result_data = [
                 'code' => 0,
                 'msg' => '',
-                'count' => $tradesTmp->count,
+                'count' => count($trades),
                 'data' => $tradesTmp
             ];
             return $result_data;
