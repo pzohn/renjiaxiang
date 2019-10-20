@@ -601,7 +601,7 @@ class PayController extends Controller
                 'code' => 0,
                 'msg' => '',
                 'count' => count($trades),
-                'data' => $tradesTmp
+                'data' => '1510363800000'
             ];
             return $result_data;
         }
