@@ -21,8 +21,6 @@ Route::get('/hh', function () {
  
 Route::post('/user/save', 'UserController@setUser');
 
-Route::post('/mangerLogin', 'UserController@mangerLogin');
-
 Route::post('/onGetUpdateResult', 'UserController@getUpdateResult');
 
 Route::post('/onPay', 'PayController@onPay');
@@ -74,3 +72,9 @@ Route::post('/certsSelect', 'CertController@certsSelect');
 Route::post('/certdelete', 'CertController@certdelete');
 
 Route::post('/certupdate', 'CertController@certupdate');
+
+
+
+Route::post('/mangerLogin', 'UserController@mangerLogin');
+
+Route::post('/geTradeMessage', 'PayController@geTradeMessage');

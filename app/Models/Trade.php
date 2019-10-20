@@ -81,4 +81,11 @@ class  Trade extends Model {
             return count($trade);
         }
     }
+
+    public static function getTradesMessage() {
+        $trades = Trade::get();
+        if ($trades) {
+            return count($trades);
+        }
+    }
 }

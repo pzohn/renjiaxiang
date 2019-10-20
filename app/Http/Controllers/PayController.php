@@ -585,4 +585,25 @@ class PayController extends Controller
         $phone = $req->get('phone');
         return Group::IsUnUse($phone);
     }
+
+    public function geTradeMessage() {
+        $trades = Trade::getTradesMessage();
+        $tradesTmp = [];
+        foreach ($trades as $k => $v) {
+            $tradesTmp[] = [
+            "id" => $v->id,
+            "title" => $v->body,
+            "time" => $v->updated_at
+            ];
+        }
+        if ($trades) {
+            $result_data = [
+                'code' => 0,
+                'msg' => '',
+                'count' => $tradesTmp->count,
+                'data' => $tradesTmp
+            ];
+            return $result_data;
+        }
+    }
 }
