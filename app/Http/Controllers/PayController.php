@@ -95,9 +95,13 @@ class PayController extends Controller
                     'shop_id' => $req->get('shop_id'),
                     'name' => $req->get('name'),
                  ];
+                 \Log::info("11111111111111");
                  Trade::payInsert($trade);
+                 \Log::info("222222222222");
                  $resultPay = GuzzleHttp:: postXml($urlPay, $data);
+                 \Log::info("33333333333333");
                  $decode = $this->decodeXml($resultPay);
+                 \Log::info("444444444444444");
                  if ($decode["result_code"] == "SUCCESS")
                  {
                     $sian_time = (string)time();
