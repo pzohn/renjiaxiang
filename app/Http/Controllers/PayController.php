@@ -612,7 +612,7 @@ class PayController extends Controller
         }
     }
 
-    public function getOrderAllMessage(Request $req) {
+    public function getOrderAllMessage() {
         $trades = Trade::getOrderAllMessage();
         if ($trades){
             $tradesTmp = [];
