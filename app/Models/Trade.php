@@ -88,4 +88,32 @@ class  Trade extends Model {
             return $trades;
         }
     }
+
+    public static function getOrderAllMessage() {
+        $trades = Trade::orderBy('updated_at', 'desc')->get();
+        if ($trades) {
+            return $trades;
+        }
+    }
+
+    public static function getOrderUnPayMessage() {
+        $trades = Trade::where("pay_status", 0)->orderBy('updated_at', 'desc')->get();
+        if ($trades) {
+            return $trades;
+        }
+    }
+
+    public static function getOrderUnUseMessage() {
+        $trades = Trade::where("pay_status", 1)->where("use_status", 0)->orderBy('updated_at', 'desc')->get();
+        if ($trades) {
+            return $trades;
+        }
+    }
+
+    public static function getOrderUseMessage() {
+        $trades = Trade::where("pay_status", 1)->where("use_status", 1)->orderBy('updated_at', 'desc')->get();
+        if ($trades) {
+            return $trades;
+        }
+    }
 }

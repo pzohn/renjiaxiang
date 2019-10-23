@@ -10,6 +10,8 @@ use App\Models\Information;
 use App\Models\Shop;
 use App\Models\Parter;
 use App\Models\Group;
+use App\Models\Childtrade;
+use App\Models\Shopping;
 
 class PayController extends Controller
 {
@@ -607,6 +609,179 @@ class PayController extends Controller
                 'data' => $tradesTmp
             ];
             return $result_data;
+        }
+    }
+
+    public function getOrderAllMessage(Request $req) {
+        $trades = Trade::getOrderAllMessage();
+        if ($trades){
+            $tradesTmp = [];
+            foreach ($trades as $k => $v) {
+                $count = 0;
+                $childtrades = Childtrade::paySelectById($v->id);
+                $childtradesTmp = [];
+                foreach ($childtrades as $k1 => $v1) {
+                    $shopping = Shopping::shoppingSelect($v1->shopping_id);
+                    if ($shopping){
+                        $count += 1;
+                        $childtradesTmp[] = [
+                            "name" => $activity->name,
+                            "charge" => $activity->charge,
+                            "num" => $v1->num
+                        ]; 
+                    }
+                }
+
+                if ($count){
+                    $tradesTmp[] = [
+                        "out_trade_no" => $v->out_trade_no,
+                        "date" => $v->updated_at->format('Y-m-d H:i:s'),
+                        "trade_id" => $v->id,
+                        "charge" => $v->total_fee,
+                        "count" => $count,
+                        "detail" => $childtradesTmp,
+                        "address" => SendAddress::GetAddress($v->id),
+                        "status" => $this->getStatus($v->pay_status,$v->use_status)                       
+                    ];
+                }
+            }
+            return  $tradesTmp;
+        }
+    }
+
+    public function getOrderUnPay(Request $req) {
+        $phone = $req->get('phone');
+        $trades = Trade::getOrderUnPay($phone);
+        if ($trades){
+            $tradesTmp = [];
+            foreach ($trades as $k => $v) {
+                $count = 0;
+                $childtrades = Childtrade::paySelectById($v->id);
+                $childtradesTmp = [];
+                foreach ($childtrades as $k1 => $v1) {
+                    $activity = Campactivity::GetCampactivityById($v1->shopping_id);
+                    $wxinfo = Wxinfo::GetWxinfoById($activity->wx_id);
+                    if ($activity && $wxinfo){
+                        $count += 1;
+                        $childtradesTmp[] = [
+                            "name" => $activity->name,
+                            "title_pic" => Image::GetImageUrl($wxinfo->title_id),
+                            "wx_id" => $wxinfo->id,
+                            "activity_id" => $activity->id,
+                            "charge" => $activity->charge,
+                            "num" => $v1->num
+                        ]; 
+                    }
+                }
+
+                if ($count){
+                    $tradesTmp[] = [
+                        "out_trade_no" => $v->out_trade_no,
+                        "date" => $v->updated_at->format('Y-m-d H:i:s'),
+                        "trade_id" => $v->id,
+                        "charge" => $v->total_fee,
+                        "count" => $count,
+                        "detail" => $childtradesTmp,
+                        "status" => '待付款'
+                        ];
+                }
+            }
+            return  $tradesTmp;
+        }
+    }
+
+    public function getOrderUnsend(Request $req) {
+        $phone = $req->get('phone');
+        $trades = Trade::getOrderUnUse($phone);
+        if ($trades){
+            $tradesTmp = [];
+            foreach ($trades as $k => $v) {
+                $count = 0;
+                $childtrades = Childtrade::paySelectById($v->id);
+                $childtradesTmp = [];
+                foreach ($childtrades as $k1 => $v1) {
+                    $activity = Campactivity::GetCampactivityById($v1->shopping_id);
+                    $wxinfo = Wxinfo::GetWxinfoById($activity->wx_id);
+                    if ($activity && $wxinfo){
+                        $count += 1;
+                        $childtradesTmp[] = [
+                            "name" => $activity->name,
+                            "title_pic" => Image::GetImageUrl($wxinfo->title_id),
+                            "wx_id" => $wxinfo->id,
+                            "activity_id" => $activity->id,
+                            "charge" => $activity->charge,
+                            "num" => $v1->num
+                            
+                        ]; 
+                    }
+                }
+
+                if ($count){
+                    $tradesTmp[] = [
+                        "out_trade_no" => $v->out_trade_no,
+                        "date" => $v->updated_at->format('Y-m-d H:i:s'),
+                        "trade_id" => $v->id,
+                        "charge" => $v->total_fee,
+                        "count" => $count,
+                        "detail" => $childtradesTmp,
+                        "status" => '待发货'
+                        ];
+                }
+            }
+            return  $tradesTmp;
+        }
+    }
+
+    public function getOrderSend(Request $req) {
+        $phone = $req->get('phone');
+        $trades = Trade::getOrderUse($phone);
+        if ($trades){
+            $tradesTmp = [];
+            foreach ($trades as $k => $v) {
+                $count = 0;
+                $childtrades = Childtrade::paySelectById($v->id);
+                $childtradesTmp = [];
+                foreach ($childtrades as $k1 => $v1) {
+                    $activity = Campactivity::GetCampactivityById($v1->shopping_id);
+                    $wxinfo = Wxinfo::GetWxinfoById($activity->wx_id);
+                    if ($activity && $wxinfo){
+                        $count += 1;
+                        $childtradesTmp[] = [
+                            "name" => $activity->name,
+                            "title_pic" => Image::GetImageUrl($wxinfo->title_id),
+                            "wx_id" => $wxinfo->id,
+                            "activity_id" => $activity->id,
+                            "charge" => $activity->charge,
+                            "num" => $v1->num
+                        ]; 
+                    }
+                }
+
+                if ($count){
+                    $tradesTmp[] = [
+                        "out_trade_no" => $v->out_trade_no,
+                        "date" => $v->updated_at->format('Y-m-d H:i:s'),
+                        "trade_id" => $v->id,
+                        "charge" => $v->total_fee,
+                        "count" => $count,
+                        "detail" => $childtradesTmp,
+                        "status" => '待收货'
+                        ];
+                }
+            }
+            return  $tradesTmp;
+        }
+    }
+
+    protected function getStatus($paystatus,$usestatus) {
+        if ($paystatus == 0){
+            return '待付款';
+        }else if ($paystatus == 1){
+            if ($usestatus == 0){
+                return '待发货';
+            }else if ($usestatus == 1){
+                return '待收货';
+            }
         }
     }
 }
