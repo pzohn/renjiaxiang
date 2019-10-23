@@ -42,7 +42,7 @@ class PayController extends Controller
                 $params = [
                     'appid' => $paramsLogin["appid"],
                     'body' => $req->get('body'),
-                    'mch_id' => "1558764141 ",
+                    'mch_id' => "1558764141",
                     'nonce_str' => $this->createRand(32),
                     'notify_url' => "https://www.hattonstar.com/onPayBack",
                     'openid' => $openid,
