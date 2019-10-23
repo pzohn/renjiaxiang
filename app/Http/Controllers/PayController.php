@@ -636,7 +636,7 @@ class PayController extends Controller
                 if ($count){
                     $tradesTmp[] = [
                         "out_trade_no" => $v->out_trade_no,
-                        "date" => $v->updated_at->format('Y-m-d H:i:s'),
+                        "date" => strtotime($v->updated_at->format('Y-m-d H:i:s')),
                         "trade_id" => $v->id,
                         "charge" => $v->total_fee,
                         "count" => $count,
