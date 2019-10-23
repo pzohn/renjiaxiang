@@ -625,8 +625,8 @@ class PayController extends Controller
                     if ($shopping){
                         $count += 1;
                         $childtradesTmp[] = [
-                            "name" => $activity->name,
-                            "charge" => $activity->charge,
+                            "name" => $shopping->name,
+                            "charge" => $shopping->price,
                             "num" => $v1->num
                         ]; 
                     }
