@@ -42,7 +42,7 @@ class PayController extends Controller
                 $params = [
                     'appid' => $paramsLogin["appid"],
                     'body' => $req->get('body'),
-                    'mch_id' => "1509185861",
+                    'mch_id' => "1558764141 ",
                     'nonce_str' => $this->createRand(32),
                     'notify_url' => "https://www.hattonstar.com/onPayBack",
                     'openid' => $openid,
@@ -266,8 +266,8 @@ class PayController extends Controller
 
         $urlLogin = "https://api.weixin.qq.com/sns/jscode2session";
         $paramsLogin = [
-        	'appid' => "wxa7eeeae70646a1c0",
-            'secret' => "0b9476e6f8c8eac6cc5b71026f9bb23a",
+        	'appid' => "wx8d32477fdd368d9a",
+            'secret' => "d46d773f17e3f483e0673ec5b22aaa10",
             'js_code' => $req->get('js_code'),
             'grant_type' => "authorization_code",
         ];
@@ -288,7 +288,7 @@ class PayController extends Controller
                 $params = [
                     'appid' => $paramsLogin["appid"],
                     'body' => $req->get('body'),
-                    'mch_id' => "1509185861",
+                    'mch_id' => "1558764141",
                     'nonce_str' => $this->createRand(32),
                     'notify_url' => "https://www.hattonstar.com/onPayShopBack",
                     'openid' => $openid,
@@ -431,8 +431,8 @@ class PayController extends Controller
 
         $urlLogin = "https://api.weixin.qq.com/sns/jscode2session";
         $paramsLogin = [
-        	'appid' => "wxa7eeeae70646a1c0",
-            'secret' => "0b9476e6f8c8eac6cc5b71026f9bb23a",
+        	'appid' => "wx8d32477fdd368d9a",
+            'secret' => "d46d773f17e3f483e0673ec5b22aaa10",
             'js_code' => $req->get('js_code'),
             'grant_type' => "authorization_code",
         ];
@@ -453,7 +453,7 @@ class PayController extends Controller
                 $params = [
                     'appid' => $paramsLogin["appid"],
                     'body' => $req->get('body'),
-                    'mch_id' => "1509185861",
+                    'mch_id' => "1558764141",
                     'nonce_str' => $this->createRand(32),
                     'notify_url' => "https://www.hattonstar.com/onPayGroupBack",
                     'openid' => $openid,
