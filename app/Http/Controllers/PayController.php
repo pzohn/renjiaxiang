@@ -635,18 +635,26 @@ class PayController extends Controller
 
                 if ($count){
                     $tradesTmp[] = [
-                        "out_trade_no" => $v->out_trade_no,
-                        "date" => strtotime($v->updated_at->format('Y-m-d H:i:s')),
-                        "trade_id" => $v->id,
+                        "time" => strtotime($v->updated_at->format('Y-m-d H:i:s')),
+                        "tradeid" => $v->id,
                         "charge" => $v->total_fee,
                         "count" => $count,
                         "detail" => $childtradesTmp,
                         "address" => SendAddress::GetAddress($v->id),
-                        "status" => $this->getStatus($v->pay_status,$v->use_status)                       
+                        "status" => $this->getStatus($v->pay_status,$v->use_status),
+                        "phone" =>  $v->phone,
+                        "body" => $v->body,
+                        "id" => $v->id                
                     ];
                 }
             }
-            return  $tradesTmp;
+            $result_data = [
+                'code' => 0,
+                'msg' => '',
+                'count' => count($tradesTmp),
+                'data' => $tradesTmp
+            ];
+            return $result_data;
         }
     }
 
