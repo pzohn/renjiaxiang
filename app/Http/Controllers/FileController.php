@@ -56,6 +56,7 @@ class FileController extends Controller
 
     public function uploadOne(Request $req)
     {
+        return $req;
          $file = $req->file('file');
          if($file->isValid()) {
             $originalName = $file->getClientOriginalName(); // 文件原名
