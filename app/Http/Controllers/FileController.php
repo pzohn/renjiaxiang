@@ -66,38 +66,20 @@ class FileController extends Controller
             $filename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
             $bool = Storage::disk('public')->put($filename, file_get_contents($realPath));
             if ($bool){
-                $url = "https://www.hattonstar.cn/storage/".$filename;
-                return $url;
+                $url = "https://www.hattonstar.com/storage/".$filename;
+                return [
+                    "code" => 0,
+                    "msg" => "",
+                    "data" => [
+                        "src" => $url
+                    ]
+                ];
             }
         }
-       return 0;
-    }
-
-    public function uploadMore(Request $req)
-    {
-        \Log::info("1111111111111111111",[]);
-        $imgs = [];
-        if ($req->hasFile('file')){
-            \Log::info("2222222222222",[]);
-            $file = $req->file('file');
-            foreach ($file as $key => $value){
-                \Log::info("3333333333333",[]);
-                $originalName = $value->getClientOriginalName(); // 文件原名
-                $ext = $value->getClientOriginalExtension();     // 扩展名
-                $realPath = $value->getRealPath();   //临时文件的绝对路径
-                $type = $value->getClientMimeType();
-    
-                $filename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
-                $bool = Storage::disk('public')->put($filename, file_get_contents($realPath));
-                if ($bool){
-                    $url = "https://www.gfcamps.cn/storage/".$filename;
-                    $imgs[] = [
-                        'url' => $url
-                    ];
-                }
-            }
-            return $imgs;
-        }
-       return 0;
+        return [
+            "code" => 1,
+            "msg" => "",
+            "data" => []
+        ];
     }
 }
