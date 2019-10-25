@@ -56,7 +56,6 @@ class FileController extends Controller
 
     public function uploadOne(Request $req)
     {
-        return $req;
          $file = $req->file('file');
          if($file->isValid()) {
             $originalName = $file->getClientOriginalName(); // 文件原名
@@ -79,14 +78,14 @@ class FileController extends Controller
         \Log::info("1111111111111111111",[]);
         $imgs = [];
         if ($req->hasFile('file')){
-            return $req;
             \Log::info("2222222222222",[]);
-            foreach ($req->file('file') as $file){
+            $file = $req->file('file');
+            foreach ($file as $key => $value){
                 \Log::info("3333333333333",[]);
-                $originalName = $file->getClientOriginalName(); // 文件原名
-                $ext = $file->getClientOriginalExtension();     // 扩展名
-                $realPath = $file->getRealPath();   //临时文件的绝对路径
-                $type = $file->getClientMimeType();
+                $originalName = $value->getClientOriginalName(); // 文件原名
+                $ext = $value->getClientOriginalExtension();     // 扩展名
+                $realPath = $value->getRealPath();   //临时文件的绝对路径
+                $type = $value->getClientMimeType();
     
                 $filename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
                 $bool = Storage::disk('public')->put($filename, file_get_contents($realPath));
