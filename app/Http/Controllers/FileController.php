@@ -77,10 +77,10 @@ class FileController extends Controller
     {
         \Log::info("1111111111111111111",[]);
         $imgs = [];
-        if (request()->hasFile('file')){
+        if ($req->hasFile('file')){
             return $req;
             \Log::info("2222222222222",[]);
-            foreach (request()->file('file') as $file){
+            foreach ($req->file('file') as $file){
                 \Log::info("3333333333333",[]);
                 $originalName = $file->getClientOriginalName(); // 文件原名
                 $ext = $file->getClientOriginalExtension();     // 扩展名
