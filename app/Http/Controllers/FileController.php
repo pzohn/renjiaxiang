@@ -53,4 +53,50 @@ class FileController extends Controller
         $postcard = Postcard::GetPostcardById($req->get('id'));
         return $postcard;
     }
+
+    public function uploadOne(Request $req)
+    {
+         $file = $req->file('file');
+         if($file->isValid()) {
+            $originalName = $file->getClientOriginalName(); // 文件原名
+            $ext = $file->getClientOriginalExtension();     // 扩展名
+            $realPath = $file->getRealPath();   //临时文件的绝对路径
+            $type = $file->getClientMimeType();
+
+            $filename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
+            $bool = Storage::disk('public')->put($filename, file_get_contents($realPath));
+            if ($bool){
+                $url = "https://www.hattonstar.cn/storage/".$filename;
+                return $url;
+            }
+        }
+       return 0;
+    }
+
+    public function uploadMore(Request $req)
+    {
+        \Log::info("1111111111111111111",[]);
+        $imgs = [];
+        if (request()->hasFile('file')){
+            \Log::info("2222222222222",[]);
+            foreach (request()->file('file') as $file){
+                \Log::info("3333333333333",[]);
+                $originalName = $file->getClientOriginalName(); // 文件原名
+                $ext = $file->getClientOriginalExtension();     // 扩展名
+                $realPath = $file->getRealPath();   //临时文件的绝对路径
+                $type = $file->getClientMimeType();
+    
+                $filename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
+                $bool = Storage::disk('public')->put($filename, file_get_contents($realPath));
+                if ($bool){
+                    $url = "https://www.gfcamps.cn/storage/".$filename;
+                    $imgs[] = [
+                        'url' => $url
+                    ];
+                }
+            }
+            return $imgs;
+        }
+       return 0;
+    }
 }
