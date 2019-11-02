@@ -71,7 +71,8 @@ class FileController extends Controller
                     "code" => 0,
                     "msg" => "",
                     "data" => [
-                        "src" => $url
+                        "src" => $url,
+                        "realPath" => $realPath
                     ]
                 ];
             }
