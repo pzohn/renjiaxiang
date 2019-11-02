@@ -18,4 +18,24 @@ class  Shopping extends Model {
             return $shopping;
         }
     }
+
+    public static function shoppingInsert($params) {
+        $shopping = new self;
+        $shopping->name = array_get($params,"name");
+        $shopping->flag = array_get($params,"flag");
+        $shopping->price = array_get($params,"price");
+        $shopping->type = array_get($params,"type");
+        $shopping->oper = array_get($params,"oper");
+        $shopping->save();
+        return $shopping;
+    }
+
+    public static function shoppingRepeat($params) {
+        $shopping = Shopping::where("name", array_get($params,"name"))->where("flag", array_get($params,"flag"))->where("price", array_get($params,"price"))->where("type", array_get($params,"type"))->where("oper", array_get($params,"oper"))->first();
+        if ($shopping) {
+            return $shopping->id;
+        }else{
+            return 0;
+        }
+    }
 }
