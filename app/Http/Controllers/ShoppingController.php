@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Shopping;
 
-class CampactivityController extends Controller
+class ShoppingController extends Controller
 {
     public function shoppingInsert(Request $req) {
         $params = [

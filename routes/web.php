@@ -90,3 +90,5 @@ Route::post('/getOrderAllMessage', 'PayController@getOrderAllMessage');
 Route::post('/uploadMore', 'FileController@uploadMore');
 
 Route::post('/uploadOne', 'FileController@uploadOne');
+
+Route::post('/shoppingInsert', 'ShoppingController@shoppingInsert');
