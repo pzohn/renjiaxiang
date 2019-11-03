@@ -127,7 +127,8 @@ class FileController extends Controller
                             "code" => 0,
                             "msg" => "文件重新上传成功",
                             "data" => [
-                                "image_id" => $image->id
+                                "image_id" => $image->id,
+                                'url' => $url
                             ]
                         ];
                     }
