@@ -7,6 +7,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Postcard;
 use App\Models\Cardimg;
+use App\Models\Image;
 
 
 class FileController extends Controller
@@ -57,29 +58,40 @@ class FileController extends Controller
     public function uploadOne(Request $req)
     {
          $file = $req->file('file');
+         $filepath = $req->get('path');
          if($file->isValid()) {
             $originalName = $file->getClientOriginalName(); // 文件原名
             $ext = $file->getClientOriginalExtension();     // 扩展名
             $realPath = $file->getRealPath();   //临时文件的绝对路径
             $type = $file->getClientMimeType();
 
-            $filename = 'hubin/' . date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
+            $savename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;;
+            $filename = $filepath . '/' . $savename;
+            
             $bool = Storage::disk('public')->put($filename, file_get_contents($realPath));
             if ($bool){
-                $url = "https://www.hattonstar.com/storage/".$filename;
-                return [
-                    "code" => 0,
-                    "msg" => "",
-                    "data" => [
-                        "src" => $url,
-                        "realPath" => $realPath
-                    ]
+
+                $params = [
+                    'parent_id' => $req->get('parent_id'),
+                    'url' => $savename,
+                    'file' => $filepath,
+                    'type' => $req->get('type')
                 ];
+                $image = Image::urlInsert($params);
+                if ($image) {
+                    return [
+                        "code" => 0,
+                        "msg" => "文件上传成功",
+                        "data" => [
+                            "image_id" => $image->id
+                        ]
+                    ];
+                }
             }
         }
         return [
             "code" => 1,
-            "msg" => "",
+            "msg" => "文件上传失败",
             "data" => []
         ];
     }
