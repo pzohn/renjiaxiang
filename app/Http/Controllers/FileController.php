@@ -111,7 +111,7 @@ class FileController extends Controller
             
             $bool = Storage::disk('public')->put($filename, file_get_contents($realPath));
             if ($bool){
-                $url = Image::GetImageUrl($req->file('id'));
+                $url = Image::GetImageUrl($req->get('id'));
                 if ($url) {
                     $path_url = $url;
                     if (Storage::disk('public')->exists($path_url)) {
