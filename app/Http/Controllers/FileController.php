@@ -111,11 +111,9 @@ class FileController extends Controller
             
             $bool = Storage::disk('public')->put($filename, file_get_contents($realPath));
             if ($bool){
-                $image = Image::GetImage($req->get('id'));
+                $url = Image::GetImageUrl($req->get('id'));
                 if ($image) {
-                    if (Storage::disk('public/title')->exists($image->url)) {
-                        Storage::delete($image->url);
-                    }
+                    Storage::delete($url);
                     $params = [
                         'id' => $req->get('id'),
                         'url' => $savename
@@ -127,7 +125,7 @@ class FileController extends Controller
                             "msg" => "文件重新上传成功",
                             "data" => [
                                 "image_id" => $image->id,
-                                'url' => $image
+                                'url' => $url
                             ]
                         ];
                     }
@@ -136,7 +134,7 @@ class FileController extends Controller
                     "code" => 1,
                     "msg" => "文件上传失败",
                     "data" => [
-                        'url' => $image
+                        'url' => $url
                     ]
                 ];
             }
