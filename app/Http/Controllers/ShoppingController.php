@@ -22,7 +22,7 @@ class ShoppingController extends Controller
                 $result_data = [
                     'code' => 0,
                     'msg' => '保存成功，请继续上传商品信息',
-                    'date' => [
+                    'data' => [
                         'id' => $shopping->id
                     ]
                 ];
@@ -32,7 +32,7 @@ class ShoppingController extends Controller
             $result_data = [
                 'code' => 0,
                 'msg' => '已保存，请继续上传商品信息',
-                'date' => [
+                'data' => [
                     'id' => $shoppingId
                 ]
             ];
