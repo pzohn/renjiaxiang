@@ -114,7 +114,7 @@ class FileController extends Controller
                 $url = Image::GetImageUrl($req->get('id'));
                 if ($url) {
                     $url = 'storage/' . $url;
-                    Storage::delete($url);
+                    Storage::disk('public')->delete($url);
                     $params = [
                         'id' => $req->get('id'),
                         'url' => $savename
