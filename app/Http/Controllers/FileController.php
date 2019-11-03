@@ -63,7 +63,7 @@ class FileController extends Controller
             $realPath = $file->getRealPath();   //临时文件的绝对路径
             $type = $file->getClientMimeType();
 
-            $filename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
+            $filename = 'hubin/' . date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
             $bool = Storage::disk('public')->put($filename, file_get_contents($realPath));
             if ($bool){
                 $url = "https://www.hattonstar.com/storage/".$filename;
