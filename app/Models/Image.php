@@ -30,4 +30,13 @@ class  Image extends Model {
         $image->save();
         return $image;
     }
+
+    public static function urlUpdate($params) {
+        $image = Image::where("id", array_get($params,"id"))->first();
+        if ($image) {
+            $image->url = array_get($params,"url");
+            $image->update();
+            return $image;
+        }
+    }
 }

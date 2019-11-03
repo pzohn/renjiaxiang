@@ -87,8 +87,8 @@ Route::post('/geTradeMessage', 'PayController@geTradeMessage');
 
 Route::post('/getOrderAllMessage', 'PayController@getOrderAllMessage');
 
-Route::post('/uploadMore', 'FileController@uploadMore');
-
 Route::post('/uploadOne', 'FileController@uploadOne');
+
+Route::post('/uploadOneRepeat', 'FileController@uploadOneRepeat');
 
 Route::post('/shoppingInsert', 'ShoppingController@shoppingInsert');

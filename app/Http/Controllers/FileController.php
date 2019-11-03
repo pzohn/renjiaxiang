@@ -95,4 +95,49 @@ class FileController extends Controller
             "data" => []
         ];
     }
+
+    public function uploadOneRepeat(Request $req)
+    {
+         $file = $req->file('file');
+         $filepath = $req->get('path');
+         if($file->isValid()) {
+            $originalName = $file->getClientOriginalName(); // 文件原名
+            $ext = $file->getClientOriginalExtension();     // 扩展名
+            $realPath = $file->getRealPath();   //临时文件的绝对路径
+            $type = $file->getClientMimeType();
+
+            $savename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;;
+            $filename = $filepath . '/' . $savename;
+            
+            $bool = Storage::disk('public')->put($filename, file_get_contents($realPath));
+            if ($bool){
+                $url = Image::GetImageUrl($req->file('id'));
+                if ($url) {
+                    $path_url = $filepath . '/' .$url;
+                    if (Storage::disk('public')->exists($path_url)) {
+                        Storage::delete($path_url);
+                    }
+                    $params = [
+                        'id' => $req->get('id'),
+                        'url' => $savename
+                    ];
+                    $image = Image::urlUpdate($params);
+                    if ($image) {
+                        return [
+                            "code" => 0,
+                            "msg" => "文件重新上传成功",
+                            "data" => [
+                                "image_id" => $image->id
+                            ]
+                        ];
+                    }
+                }
+            }
+        }
+        return [
+            "code" => 1,
+            "msg" => "文件上传失败",
+            "data" => []
+        ];
+    }
 }
