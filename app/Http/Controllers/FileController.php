@@ -67,6 +67,21 @@ class FileController extends Controller
 
             $savename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;;
             $filename = $filepath . '/' . $savename;
+
+            $params = [
+                'parent_id' => $req->get('parent_id'),
+                'url' => $savename,
+                'file' => $filepath,
+                'type' => $req->get('type')
+            ];
+
+            return [
+                "code" => 0,
+                "msg" => "文件上传成功",
+                "data" => [
+                    "params" => $params
+                ]
+            ];
             
             $bool = Storage::disk('public')->put($filename, file_get_contents($realPath));
             if ($bool){
