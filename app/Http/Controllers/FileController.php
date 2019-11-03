@@ -112,7 +112,7 @@ class FileController extends Controller
             $bool = Storage::disk('public')->put($filename, file_get_contents($realPath));
             if ($bool){
                 $url = Image::GetImageUrl($req->get('id'));
-                if ($image) {
+                if ($url) {
                     Storage::delete($url);
                     $params = [
                         'id' => $req->get('id'),
