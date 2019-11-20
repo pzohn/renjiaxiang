@@ -43,6 +43,7 @@ class ShoppingController extends Controller
 
     public function shoppingGetByType(Request $req) {
         $type = $req->get('type_id');
+        $file = 'title';
         $shoppings = Shopping::shoppingGetByType($type);
         if (count($shoppings)){
             $shoppingsTmp = [];
@@ -50,7 +51,7 @@ class ShoppingController extends Controller
                 $shoppingsTmp[] = [
                 "id" => $v->id,
                 "name" => $v->name,
-                "url" => Image::GetImageUrlByParentId($v->id,$type,$v->type)
+                "url" => Image::GetImageUrlByParentId($v->id,$file,$v->type)
                 ];
             }
             $result_data = [
