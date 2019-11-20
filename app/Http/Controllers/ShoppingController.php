@@ -39,4 +39,34 @@ class ShoppingController extends Controller
             return $result_data;
         }
     }
+
+    public function shoppingGetByType(Request $req) {
+        $type = $req->get('type_id');
+        $shoppings = Shopping::shoppingGet($type);
+        if ($shoppings) {
+            $shoppingsTmp = [];
+            foreach ($shoppings as $k => $v) {
+                $shoppingsTmp[] = [
+                "id" => $v->id,
+                "name" => $v->name,
+                "url" => Image::GetImageUrlByParentId($v->id,$type,$v->type)
+                ];
+            }
+            $result_data = [
+                'code' => 0,
+                'msg' => '获得商品信息成功',
+                'data' => [
+                    'shoppings' => $shoppings
+                ]
+            ];
+            return $result_data;
+        }else{
+            $result_data = [
+                'code' => 1,
+                'msg' => '获得商品信息失败',
+                'data' => []
+            ];
+            return $result_data;
+        }
+    }
 }

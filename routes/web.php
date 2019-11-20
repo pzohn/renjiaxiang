@@ -92,3 +92,5 @@ Route::post('/uploadOne', 'FileController@uploadOne');
 Route::post('/uploadOneRepeat', 'FileController@uploadOneRepeat');
 
 Route::post('/shoppingInsert', 'ShoppingController@shoppingInsert');
+
+Route::post('/shoppingGetByType', 'ShoppingController@shoppingGetByType');
