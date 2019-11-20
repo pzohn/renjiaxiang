@@ -42,7 +42,7 @@ class ShoppingController extends Controller
 
     public function shoppingGetByType(Request $req) {
         $type = $req->get('type_id');
-        $shoppings = Shopping::shoppingGet($type);
+        $shoppings = Shopping::shoppingGetByType($type);
         if ($shoppings) {
             $shoppingsTmp = [];
             foreach ($shoppings as $k => $v) {

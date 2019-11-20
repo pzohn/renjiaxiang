@@ -39,8 +39,8 @@ class  Shopping extends Model {
         }
     }
 
-    public static function shoppingGet($type) {
-        $shopping = Shop::where("type", $type)->get();
+    public static function shoppingGetByType($type) {
+        $shopping = Shopping::where("type", $type)->get();
         if ($shopping) {
             return $shopping;
         }
