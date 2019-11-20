@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Shopping;
+use App\Models\Image;
 
 class ShoppingController extends Controller
 {
@@ -43,7 +44,7 @@ class ShoppingController extends Controller
     public function shoppingGetByType(Request $req) {
         $type = $req->get('type_id');
         $shoppings = Shopping::shoppingGetByType($type);
-        if ($shoppings) {
+        if (count($shoppings)){
             $shoppingsTmp = [];
             foreach ($shoppings as $k => $v) {
                 $shoppingsTmp[] = [
@@ -56,7 +57,7 @@ class ShoppingController extends Controller
                 'code' => 0,
                 'msg' => '获得商品信息成功',
                 'data' => [
-                    'shoppings' => $shoppings
+                    'shoppings' => $shoppingsTmp
                 ]
             ];
             return $result_data;
