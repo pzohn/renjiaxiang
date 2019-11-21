@@ -108,4 +108,18 @@ class ShoppingController extends Controller
             return $result_data;
         }
     }
+
+    public function makeTrades(Request $req) {
+        $id = $req->get('id');
+        $title = 'title';
+        $shopping = Shopping::shoppingGetById($id);
+        $address = Address::GetAddress($req->get('login_id'));
+        return [
+            "name" => $shopping->name,
+            "charge" => $shopping->price,
+            "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
+            "address" => $address
+        ];
+    }
+
 }
