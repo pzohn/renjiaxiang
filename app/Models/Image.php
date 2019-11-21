@@ -26,7 +26,7 @@ class  Image extends Model {
         $imagesTmp = [];
         foreach ($images as $k => $v) {
             $imagesTmp[] = [
-                $image->file . "/" . $image->url
+                $v->file . "/" . $v->url
             ];
         }
         return  $imagesTmp;
