@@ -8,6 +8,13 @@ class  Address extends Model {
     public $timestamps = false;
 
     public static function GetAddress($id) {
+        $address = Address::where("login_id", $id)->first();
+        if ($address) {
+            return $address;
+        }
+    }
+
+    public static function GetAddressById($id) {
         $address = Address::where("id", $id)->first();
         if ($address) {
             return $address;
