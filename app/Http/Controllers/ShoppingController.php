@@ -79,6 +79,7 @@ class ShoppingController extends Controller
         $lunbo = 'lunbo';
         $detail = 'detail';
         $video = 'video';
+        $title = 'title';
         $shopping = Shopping::shoppingGetById($id);
         if ($shopping){
             $result_data = [
@@ -87,11 +88,12 @@ class ShoppingController extends Controller
                 'data' => [
                     'shopping' => [
                         "id" => $shopping->id,
-                        "title" => $shopping->name,
+                        "name" => $shopping->name,
                         "price" => $shopping->price,
                         "lunbo" => Image::GetImageUrlByParentId($shopping->id,$lunbo,$shopping->type),
                         "detail" => Image::GetImageUrlByParentId($shopping->id,$detail,$shopping->type),
-                        "video" => Image::GetImageUrlByParentId($shopping->id,$video,$shopping->type)
+                        "video" => Image::GetImageUrlByParentId($shopping->id,$video,$shopping->type),
+                        "title" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type)
                     ]
                 ]
             ];
