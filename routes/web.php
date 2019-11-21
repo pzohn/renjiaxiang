@@ -98,3 +98,13 @@ Route::post('/shoppingGetByType', 'ShoppingController@shoppingGetByType');
 Route::post('/shoppingGetById', 'ShoppingController@shoppingGetById');
 
 Route::post('/makeTrades', 'ShoppingController@makeTrades');
+
+Route::post('/getAddress', 'UserController@getAddress');
+
+Route::post('/getAddressById', 'UserController@getAddressById');
+
+Route::post('/insertAddress', 'UserController@insertAddress');
+
+Route::post('/updateAddress', 'UserController@updateAddress');
+
+Route::post('/delAddress', 'UserController@delAddress');
