@@ -52,7 +52,8 @@ class ShoppingController extends Controller
             foreach ($shoppings as $k => $v) {
                 $shoppingsTmp[] = [
                 "id" => $v->id,
-                "name" => $v->name,
+                "title" => $v->name,
+                "price" => $v->price,
                 "url" => Image::GetImageUrlByParentId($v->id,$file,$v->type)
                 ];
             }
