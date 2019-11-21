@@ -44,4 +44,13 @@ class  Shopping extends Model {
         return $shopping;
     }
 
+    public static function shoppingGetById($id) {
+        $shopping = Shopping::where("id", $id)->first();
+        if ($shopping) {
+            return $shopping;
+        }else{
+            return 0;
+        }
+    }
+
 }

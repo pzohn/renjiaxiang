@@ -24,7 +24,8 @@ class ShoppingController extends Controller
                     'code' => 0,
                     'msg' => '保存成功，请继续上传商品信息',
                     'data' => [
-                        'id' => $shopping->id
+                        'id' => $shopping->id,
+                        'type' =>  $shopping->type
                     ]
                 ];
                 return $result_data;
@@ -34,7 +35,8 @@ class ShoppingController extends Controller
                 'code' => 0,
                 'msg' => '已保存，请继续上传商品信息',
                 'data' => [
-                    'id' => $shoppingId
+                    'id' => $shoppingId,
+                    'type' => Shopping::shoppingGetById($shoppingId)->type
                 ]
             ];
             return $result_data;
@@ -63,6 +65,38 @@ class ShoppingController extends Controller
             ];
             return $result_data;
         }else{
+            $result_data = [
+                'code' => 1,
+                'msg' => '获得商品信息失败',
+                'data' => []
+            ];
+            return $result_data;
+        }
+    }
+
+    public function shoppingGetById(Request $req) {
+        $id = $req->get('id');
+        $lunbo = 'lunbo';
+        $detail = 'detail';
+        $video = 'video';
+        $shopping = Shopping::shoppingGetById($id);
+        if ($shopping){
+            $result_data = [
+                'code' => 0,
+                'msg' => '获得商品信息成功',
+                'data' => [
+                    'shopping' => [
+                        "id" => $shopping->id,
+                        "name" => $shopping->name,
+                        "lunbo" => Image::GetImageUrlByParentId($shopping->id,$lunbo,$shopping->type),
+                        "detail" => Image::GetImageUrlByParentId($shopping->id,$detail,$shopping->type),
+                        "video" => Image::GetImageUrlByParentId($shopping->id,$video,$shopping->type)
+                    ]
+                ]
+            ];
+            return $result_data;
+        }
+        else{
             $result_data = [
                 'code' => 1,
                 'msg' => '获得商品信息失败',
