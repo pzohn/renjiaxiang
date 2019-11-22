@@ -1007,4 +1007,18 @@ class PayController extends Controller
             ];
         }
     }
+
+    protected function insertAddress($id,$trade_id) {
+        $address = Address::GetAddressById($id);
+        $params =[
+            'name' => $address->name,
+            'phone' => $address->phone,
+            'province' => $address->province,
+            'city' => $address->city,
+            'area' => $address->area,
+            'detail' => $address->detail, 
+            'trade_id' => $trade_id
+        ];
+        SendAddress::addressInsert($params);
+    }
 }
