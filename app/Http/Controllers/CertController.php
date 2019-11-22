@@ -31,14 +31,16 @@ class CertController extends Controller
         $certsTmp = [];
         foreach ($certs as $k => $v) {
             $shopping = Shopping::shoppingSelect($v->shopping_id);
-            $certsTmp[] = [
-            "shoppingid" => $shopping->id,
-            "name" => $shopping->name,
-            "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
-            "price" => $shopping->price,
-            "count" => $v->count,
-            "id" => $v->id
-            ];
+            if ($shopping) {
+               $certsTmp[] = [
+                  "shoppingid" => $shopping->id,
+                  "name" => $shopping->name,
+                  "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
+                  "price" => $shopping->price,
+                  "count" => $v->count,
+                  "id" => $v->id
+                  ];
+            }
         }
         return  $certsTmp;
      }
