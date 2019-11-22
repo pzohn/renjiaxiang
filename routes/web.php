@@ -57,6 +57,12 @@ Route::post('/getGroup', 'PayController@getGroup');
 
 Route::post('/IsUnUse', 'PayController@IsUnUse');
 
+Route::post('/onPayShopping', 'PayController@onPayShopping');
+
+Route::post('/onPayForCert', 'PayController@onPayForCert');
+
+Route::post('/onRePay', 'PayController@onRePay');
+
 Route::post('/upload', 'FileController@upload');
 
 Route::post('/getPostcard', 'FileController@getPostcard');
