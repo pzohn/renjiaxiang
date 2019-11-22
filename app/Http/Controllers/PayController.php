@@ -869,7 +869,9 @@ class PayController extends Controller
                     'body' => $params["body"],
                     'detail_id' => $req->get('detail_id'),
                     'total_fee' => $params["total_fee"] * 0.01,
-                    'phone' => $req->get('phone')
+                    'phone' => $req->get('phone'),
+                    'shop_id' => $shopping->shop_id,
+                    'name' => $req->get('phone')
                  ];
                  $tradeNew = Trade::payInsert($trade);
                  $childtrade = [
