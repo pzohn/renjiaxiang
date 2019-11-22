@@ -1044,7 +1044,6 @@ class PayController extends Controller
             $session_key = $resultLogin['session_key'];
 
             if ($openid && $session_key) {
-                $shopping = Shopping::shoppingSelect($req->get('detail_id'));
                 $urlPay = "https://api.mch.weixin.qq.com/pay/unifiedorder";
                 $params = [
                     'appid' => $paramsLogin["appid"],
@@ -1099,7 +1098,7 @@ class PayController extends Controller
                     'detail_id' => 0,
                     'total_fee' => $params["total_fee"] * 0.01,
                     'phone' => $req->get('phone'),
-                    'shop_id' => $shopping->shop_id,
+                    'shop_id' => $this->getShopIdByCert($req->get('certInfo')),
                     'name' => $req->get('phone')
                  ];
                  $tradeNew = Trade::payInsert($trade);
@@ -1148,6 +1147,17 @@ class PayController extends Controller
                 'trade_id' => $trade_id
              ];
             Childtrade::payInsert($childtrade);
+        }
+    }
+
+    protected function getShopIdByCert($certInfo) {
+        $arryCert = preg_split("/@/",$certInfo);
+        foreach ($arryCert as $v) {
+            $item = $v;
+            $arryItem = preg_split("/,/",$item);
+            $id = $arryItem[0];
+            $shopping = Shopping::shoppingSelect($id);
+            return $shopping->shop_id;
         }
     }
 }
