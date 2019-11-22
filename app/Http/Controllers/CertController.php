@@ -36,6 +36,7 @@ class CertController extends Controller
             "shoppingid" => $shopping->id,
             "name" => $shopping->name,
             "title_pic" => Image::GetImageUrl($wx_id->title_id),
+            "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
             "price" => $shopping->price,
             "count" => $v->count,
             "id" => $v->id

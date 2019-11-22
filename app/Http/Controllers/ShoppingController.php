@@ -37,7 +37,7 @@ class ShoppingController extends Controller
                 'msg' => '已保存，请继续上传商品信息',
                 'data' => [
                     'id' => $shoppingId,
-                    'type' => Shopping::shoppingGetById($shoppingId)->type
+                    'type' => Shopping::shoppingSelect($shoppingId)->type
                 ]
             ];
             return $result_data;
@@ -81,7 +81,7 @@ class ShoppingController extends Controller
         $detail = 'detail';
         $video = 'video';
         $title = 'title';
-        $shopping = Shopping::shoppingGetById($id);
+        $shopping = Shopping::shoppingSelect($id);
         if ($shopping){
             $result_data = [
                 'code' => 0,
@@ -113,7 +113,7 @@ class ShoppingController extends Controller
     public function makeTrades(Request $req) {
         $id = $req->get('id');
         $title = 'title';
-        $shopping = Shopping::shoppingGetById($id);
+        $shopping = Shopping::shoppingSelect($id);
         $address = Address::GetAddress($req->get('login_id'));
         return [
             "name" => $shopping->name,

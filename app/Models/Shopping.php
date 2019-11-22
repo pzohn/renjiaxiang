@@ -16,6 +16,8 @@ class  Shopping extends Model {
         $shopping = Shopping::where("id", $id)->where("state", 1)->first();
         if ($shopping) {
             return $shopping;
+        }else{
+            return 0;
         }
     }
 
@@ -43,14 +45,4 @@ class  Shopping extends Model {
         $shopping = Shopping::where("type", $type)->get();
         return $shopping;
     }
-
-    public static function shoppingGetById($id) {
-        $shopping = Shopping::where("id", $id)->first();
-        if ($shopping) {
-            return $shopping;
-        }else{
-            return 0;
-        }
-    }
-
 }
