@@ -13,7 +13,6 @@ use App\Models\Group;
 use App\Models\Childtrade;
 use App\Models\Shopping;
 use App\Models\SendAddress;
-use App\Models\Shopping;
 
 class PayController extends Controller
 {
