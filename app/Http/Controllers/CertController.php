@@ -28,14 +28,13 @@ class CertController extends Controller
     public function certsSelect(Request $req) {
         $username = $req->get('username');
         $certs = Cert::certsSelect($username);
+        $title = 'title';
         $certsTmp = [];
         foreach ($certs as $k => $v) {
             $shopping = Shopping::shoppingSelect($v->shopping_id);
-            $wx_id = Wxinfo::GetWxinfoById($shopping->wx_id);
             $certsTmp[] = [
             "shoppingid" => $shopping->id,
             "name" => $shopping->name,
-            "title_pic" => Image::GetImageUrl($wx_id->title_id),
             "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
             "price" => $shopping->price,
             "count" => $v->count,
