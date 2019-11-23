@@ -99,6 +99,8 @@ Route::post('/mangerLogin', 'UserController@mangerLogin');
 
 Route::post('/geTrades', 'PayController@geTrades');
 
+Route::post('/hideOrder', 'PayController@hideOrder');
+
 Route::post('/uploadOne', 'FileController@uploadOne');
 
 Route::post('/uploadOneRepeat', 'FileController@uploadOneRepeat');
