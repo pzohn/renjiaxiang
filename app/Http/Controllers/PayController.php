@@ -668,6 +668,7 @@ class PayController extends Controller
                         "detail" => $childtradesTmp,
                         "address" => SendAddress::GetAddress($v->id),
                         "status" => $this->getStatus($v->pay_status,$v->send_status,$v->finish_status),
+                        "color" => $this->getColor($v->pay_status,$v->send_status,$v->finish_status),
                         "phone" =>  $v->phone,
                         "body" => $v->body,
                         "id" => $v->id                
@@ -717,6 +718,7 @@ class PayController extends Controller
                         "detail" => $childtradesTmp,
                         "address" => SendAddress::GetAddress($v->id),
                         "status" => '待付款',
+                        "color" => 'red',
                         "phone" =>  $v->phone,
                         "body" => $v->body,
                         "id" => $v->id                
@@ -807,6 +809,7 @@ class PayController extends Controller
                         "detail" => $childtradesTmp,
                         "address" => SendAddress::GetAddress($v->id),
                         "status" => '待发货',
+                        "color" => 'orange',
                         "phone" =>  $v->phone,
                         "body" => $v->body,
                         "id" => $v->id                
@@ -898,6 +901,7 @@ class PayController extends Controller
                         "detail" => $childtradesTmp,
                         "address" => SendAddress::GetAddress($v->id),
                         "status" => '待收货',
+                        "color" => 'blue',
                         "phone" =>  $v->phone,
                         "body" => $v->body,
                         "id" => $v->id                
@@ -947,6 +951,7 @@ class PayController extends Controller
                         "detail" => $childtradesTmp,
                         "address" => SendAddress::GetAddress($v->id),
                         "status" => '已完成',
+                        "color" => 'green',
                         "phone" =>  $v->phone,
                         "body" => $v->body,
                         "id" => $v->id                
@@ -1015,6 +1020,22 @@ class PayController extends Controller
                     return '待收货';
                 }else{
                     return '已完成';
+                }
+            }
+        }
+    }
+
+    protected function getColor($paystatus,$sendstatus,$finishstatus) {
+        if ($paystatus == 0){
+            return 'red';
+        }else if ($paystatus == 1){
+            if ($sendstatus == 0){
+                return 'orange';
+            }else if ($sendstatus == 1){
+                if ($finishstatus == 0){
+                    return 'blue';
+                }else{
+                    return 'green';
                 }
             }
         }
