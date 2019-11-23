@@ -614,7 +614,7 @@ class PayController extends Controller
         }
     }
 
-    public function getOrderAllForPerson() {
+    public function getOrderAllForPerson(Request $req) {
         $phone = $req->get('phone');
         $trades = Trade::getOrderAllForPerson($phone);
         if ($trades){
