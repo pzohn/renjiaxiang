@@ -684,6 +684,55 @@ class PayController extends Controller
         }
     }
 
+    public function getOrderUnPayForPerson(Request $req) {
+        $phone = $req->get('phone');
+        $trades = Trade::getOrderUnPayForPerson($phone);
+        $title = "title";
+        if ($trades){
+            $tradesTmp = [];
+            foreach ($trades as $k => $v) {
+                $count = 0;
+                $childtrades = Childtrade::paySelectById($v->id);
+                $childtradesTmp = [];
+                foreach ($childtrades as $k1 => $v1) {
+                    $shopping = Shopping::shoppingSelect($v1->shopping_id);
+                    if ($shopping){
+                        $count += 1;
+                        $childtradesTmp[] = [
+                            "name" => $shopping->name,
+                            "charge" => $shopping->price,
+                            "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
+                            "shopping_id" => $shopping->id,
+                            "num" => $v1->num
+                        ]; 
+                    }
+                }
+
+                if ($count){
+                    $tradesTmp[] = [
+                        "time" => $v->updated_at->format('Y-m-d H:i:s'),
+                        "tradeid" => $v->out_trade_no,
+                        "charge" => $v->total_fee,
+                        "count" => $count,
+                        "detail" => $childtradesTmp,
+                        "address" => SendAddress::GetAddress($v->id),
+                        "status" => '待付款',
+                        "phone" =>  $v->phone,
+                        "body" => $v->body,
+                        "id" => $v->id                
+                    ];
+                }
+            }
+            $result_data = [
+                'code' => 0,
+                'msg' => '',
+                'count' => count($tradesTmp),
+                'data' => $tradesTmp
+            ];
+            return $result_data;
+        }
+    }
+
     public function getOrderUnPay(Request $req) {
         $phone = $req->get('phone');
         $trades = Trade::getOrderUnPay($phone);
@@ -722,6 +771,55 @@ class PayController extends Controller
                 }
             }
             return  $tradesTmp;
+        }
+    }
+
+    public function getOrderUnsendForPerson(Request $req) {
+        $phone = $req->get('phone');
+        $trades = Trade::getOrderUnsendForPerson($phone);
+        $title = "title";
+        if ($trades){
+            $tradesTmp = [];
+            foreach ($trades as $k => $v) {
+                $count = 0;
+                $childtrades = Childtrade::paySelectById($v->id);
+                $childtradesTmp = [];
+                foreach ($childtrades as $k1 => $v1) {
+                    $shopping = Shopping::shoppingSelect($v1->shopping_id);
+                    if ($shopping){
+                        $count += 1;
+                        $childtradesTmp[] = [
+                            "name" => $shopping->name,
+                            "charge" => $shopping->price,
+                            "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
+                            "shopping_id" => $shopping->id,
+                            "num" => $v1->num
+                        ]; 
+                    }
+                }
+
+                if ($count){
+                    $tradesTmp[] = [
+                        "time" => $v->updated_at->format('Y-m-d H:i:s'),
+                        "tradeid" => $v->out_trade_no,
+                        "charge" => $v->total_fee,
+                        "count" => $count,
+                        "detail" => $childtradesTmp,
+                        "address" => SendAddress::GetAddress($v->id),
+                        "status" => '待发货',
+                        "phone" =>  $v->phone,
+                        "body" => $v->body,
+                        "id" => $v->id                
+                    ];
+                }
+            }
+            $result_data = [
+                'code' => 0,
+                'msg' => '',
+                'count' => count($tradesTmp),
+                'data' => $tradesTmp
+            ];
+            return $result_data;
         }
     }
 
@@ -766,6 +864,55 @@ class PayController extends Controller
             return  $tradesTmp;
         }
     }
+
+    public function getOrderSendForPerson(Request $req) {
+        $phone = $req->get('phone');
+        $trades = Trade::getOrderUnsendForPerson($phone);
+        $title = "title";
+        if ($trades){
+            $tradesTmp = [];
+            foreach ($trades as $k => $v) {
+                $count = 0;
+                $childtrades = Childtrade::paySelectById($v->id);
+                $childtradesTmp = [];
+                foreach ($childtrades as $k1 => $v1) {
+                    $shopping = Shopping::shoppingSelect($v1->shopping_id);
+                    if ($shopping){
+                        $count += 1;
+                        $childtradesTmp[] = [
+                            "name" => $shopping->name,
+                            "charge" => $shopping->price,
+                            "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
+                            "shopping_id" => $shopping->id,
+                            "num" => $v1->num
+                        ]; 
+                    }
+                }
+
+                if ($count){
+                    $tradesTmp[] = [
+                        "time" => $v->updated_at->format('Y-m-d H:i:s'),
+                        "tradeid" => $v->out_trade_no,
+                        "charge" => $v->total_fee,
+                        "count" => $count,
+                        "detail" => $childtradesTmp,
+                        "address" => SendAddress::GetAddress($v->id),
+                        "status" => '待收货',
+                        "phone" =>  $v->phone,
+                        "body" => $v->body,
+                        "id" => $v->id                
+                    ];
+                }
+            }
+            $result_data = [
+                'code' => 0,
+                'msg' => '',
+                'count' => count($tradesTmp),
+                'data' => $tradesTmp
+            ];
+            return $result_data;
+        }
+    }   
 
     public function getOrderSend(Request $req) {
         $phone = $req->get('phone');

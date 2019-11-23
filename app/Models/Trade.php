@@ -110,6 +110,13 @@ class  Trade extends Model {
         }
     }
 
+    public static function getOrderUnPayForPerson($phone) {
+        $trades = Trade::where("phone", $phone)->where("pay_status", 0)->orderBy('updated_at', 'desc')->get();
+        if ($trades) {
+            return $trades;
+        }
+    }
+
     public static function getOrderUnUse() {
         $trades = Trade::where("pay_status", 1)->where("use_status", 0)->orderBy('updated_at', 'desc')->get();
         if ($trades) {
@@ -117,8 +124,22 @@ class  Trade extends Model {
         }
     }
 
+    public static function getOrderUnUseForPerson($phone) {
+        $trades = Trade::where("phone", $phone)->where("pay_status", 1)->where("use_status", 0)->orderBy('updated_at', 'desc')->get();
+        if ($trades) {
+            return $trades;
+        }
+    }
+
     public static function getOrderUse() {
         $trades = Trade::where("pay_status", 1)->where("use_status", 1)->orderBy('updated_at', 'desc')->get();
+        if ($trades) {
+            return $trades;
+        }
+    }
+
+    public static function getOrderUseForPerson($phone) {
+        $trades = Trade::where("phone", $phone)->where("pay_status", 1)->where("use_status", 1)->orderBy('updated_at', 'desc')->get();
         if ($trades) {
             return $trades;
         }
