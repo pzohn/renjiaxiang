@@ -62,6 +62,13 @@ class  Trade extends Model {
         }
     }
 
+    public static function paySelectById($id) {
+        $trade = Trade::where("id", $id)->first();
+        if ($trade) {
+            return $trade;
+        }
+    }
+
     public static function getShopDay($id) {
         $trade = Trade::where("shop_id", $id)
             ->whereBetween("updated_at", [date("Y-m-d 00:00:00"), date("Y-m-d 23:59:59")])
