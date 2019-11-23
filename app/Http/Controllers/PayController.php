@@ -641,6 +641,18 @@ class PayController extends Controller
                         "charge" => $v->total_fee,
                         "num" => 1
                     ]; 
+                    $tradesTmp[] = [
+                        "time" => $v->updated_at->format('Y-m-d H:i:s'),
+                        "tradeid" => $v->out_trade_no,
+                        "charge" => $v->total_fee,
+                        "count" => $count,
+                        "detail" => $childtradesTmp,
+                        "address" => SendAddress::GetAddress($v->id),
+                        "status" => $this->getStatus($v->pay_status,$v->use_status),
+                        "phone" =>  $v->phone,
+                        "body" => $v->body,
+                        "id" => $v->id                
+                    ];
                 }
 
                 if ($count){
