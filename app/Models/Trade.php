@@ -117,6 +117,27 @@ class  Trade extends Model {
         }
     }
 
+    public static function getOrderUnsendForPerson($phone) {
+        $trades = Trade::where("phone", $phone)->where("pay_status", 1)->where("send_status", 0)->orderBy('updated_at', 'desc')->get();
+        if ($trades) {
+            return $trades;
+        }
+    }
+
+    public static function getOrderUnreceiveForPerson($phone) {
+        $trades = Trade::where("phone", $phone)->where("pay_status", 1)->where("send_status", 1)->where("finish_status", 0)->orderBy('updated_at', 'desc')->get();
+        if ($trades) {
+            return $trades;
+        }
+    }
+
+    public static function getOrderFinishForPerson($phone) {
+        $trades = Trade::where("phone", $phone)->where("pay_status", 1)->where("send_status", 1)->where("finish_status", 1)->orderBy('updated_at', 'desc')->get();
+        if ($trades) {
+            return $trades;
+        }
+    }
+
     public static function getOrderUnUse() {
         $trades = Trade::where("pay_status", 1)->where("use_status", 0)->orderBy('updated_at', 'desc')->get();
         if ($trades) {

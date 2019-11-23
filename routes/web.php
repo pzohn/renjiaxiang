@@ -85,7 +85,9 @@ Route::post('/getOrderUnPayForPerson', 'PayController@getOrderUnPayForPerson');
 
 Route::post('/getOrderUnsendForPerson', 'PayController@getOrderUnsendForPerson');
 
-Route::post('/getOrderSendForPerson', 'PayController@getOrderSendForPerson');
+Route::post('/getOrderUnreceiveForPerson', 'PayController@getOrderUnreceiveForPerson');
+
+Route::post('/getOrderFinishForPerson', 'PayController@getOrderFinishForPerson');
 
 Route::post('/getOrderUnPay', 'PayController@getOrderUnPay');
 
