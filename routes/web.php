@@ -79,7 +79,7 @@ Route::post('/certdelete', 'CertController@certdelete');
 
 Route::post('/certupdate', 'CertController@certupdate');
 
-Route::post('/getOrderAll', 'PayController@getOrderAll');
+Route::post('/getOrderAllForPerson', 'PayController@getOrderAllForPerson');
 
 Route::post('/getOrderUnPay', 'PayController@getOrderUnPay');
 

@@ -614,8 +614,9 @@ class PayController extends Controller
         }
     }
 
-    public function getOrderAll() {
-        $trades = Trade::getOrderAll();
+    public function getOrderAllForPerson() {
+        $phone = $req->get('phone');
+        $trades = Trade::getOrderAllForPerson($phone);
         if ($trades){
             $tradesTmp = [];
             foreach ($trades as $k => $v) {
@@ -632,6 +633,14 @@ class PayController extends Controller
                             "num" => $v1->num
                         ]; 
                     }
+                }
+
+                if ($count == 0){
+                    $childtradesTmp[] = [
+                        "name" => $v->body,
+                        "charge" => $v->total_fee,
+                        "num" => 1
+                    ]; 
                 }
 
                 if ($count){

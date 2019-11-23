@@ -96,6 +96,13 @@ class  Trade extends Model {
         }
     }
 
+    public static function getOrderAllForPerson($phone) {
+        $trades = Trade::where("phone", $phone)->orderBy('updated_at', 'desc')->get();
+        if ($trades) {
+            return $trades;
+        }
+    }
+
     public static function getOrderUnPay() {
         $trades = Trade::where("pay_status", 0)->orderBy('updated_at', 'desc')->get();
         if ($trades) {
