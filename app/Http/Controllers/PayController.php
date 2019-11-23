@@ -648,7 +648,7 @@ class PayController extends Controller
                         "count" => $count,
                         "detail" => $childtradesTmp,
                         "address" => SendAddress::GetAddress($v->id),
-                        "status" => $this->getStatus($v->pay_status,$v->use_status),
+                        "status" => $this->getStatus($v->pay_status,1),
                         "phone" =>  $v->phone,
                         "body" => $v->body,
                         "id" => $v->id                
