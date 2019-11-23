@@ -1406,4 +1406,12 @@ class PayController extends Controller
             return $shopping->shop_id;
         }
     }
+
+    public function hideOrder(Request $req) {
+        $id = $req->get('id');
+        $trade = Trade::hideOrder($id);
+        if ($trade) {
+            return  $trade;
+        }
+    }
 }

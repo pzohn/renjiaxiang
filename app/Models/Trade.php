@@ -104,7 +104,7 @@ class  Trade extends Model {
     }
 
     public static function getOrderAllForPerson($phone) {
-        $trades = Trade::where("phone", $phone)->orderBy('updated_at', 'desc')->get();
+        $trades = Trade::where("phone", $phone)->where("show_status", 1)->orderBy('updated_at', 'desc')->get();
         if ($trades) {
             return $trades;
         }
@@ -118,28 +118,28 @@ class  Trade extends Model {
     }
 
     public static function getOrderUnPayForPerson($phone) {
-        $trades = Trade::where("phone", $phone)->where("pay_status", 0)->orderBy('updated_at', 'desc')->get();
+        $trades = Trade::where("phone", $phone)->where("show_status", 1)->where("pay_status", 0)->orderBy('updated_at', 'desc')->get();
         if ($trades) {
             return $trades;
         }
     }
 
     public static function getOrderUnsendForPerson($phone) {
-        $trades = Trade::where("phone", $phone)->where("pay_status", 1)->where("send_status", 0)->orderBy('updated_at', 'desc')->get();
+        $trades = Trade::where("phone", $phone)->where("show_status", 1)->where("pay_status", 1)->where("send_status", 0)->orderBy('updated_at', 'desc')->get();
         if ($trades) {
             return $trades;
         }
     }
 
     public static function getOrderUnreceiveForPerson($phone) {
-        $trades = Trade::where("phone", $phone)->where("pay_status", 1)->where("send_status", 1)->where("finish_status", 0)->orderBy('updated_at', 'desc')->get();
+        $trades = Trade::where("phone", $phone)->where("show_status", 1)->where("pay_status", 1)->where("send_status", 1)->where("finish_status", 0)->orderBy('updated_at', 'desc')->get();
         if ($trades) {
             return $trades;
         }
     }
 
     public static function getOrderFinishForPerson($phone) {
-        $trades = Trade::where("phone", $phone)->where("pay_status", 1)->where("send_status", 1)->where("finish_status", 1)->orderBy('updated_at', 'desc')->get();
+        $trades = Trade::where("phone", $phone)->where("show_status", 1)->where("pay_status", 1)->where("send_status", 1)->where("finish_status", 1)->orderBy('updated_at', 'desc')->get();
         if ($trades) {
             return $trades;
         }
@@ -153,7 +153,7 @@ class  Trade extends Model {
     }
 
     public static function getOrderUnUseForPerson($phone) {
-        $trades = Trade::where("phone", $phone)->where("pay_status", 1)->where("use_status", 0)->orderBy('updated_at', 'desc')->get();
+        $trades = Trade::where("phone", $phone)->where("show_status", 1)->where("pay_status", 1)->where("use_status", 0)->orderBy('updated_at', 'desc')->get();
         if ($trades) {
             return $trades;
         }
@@ -167,9 +167,18 @@ class  Trade extends Model {
     }
 
     public static function getOrderUseForPerson($phone) {
-        $trades = Trade::where("phone", $phone)->where("pay_status", 1)->where("use_status", 1)->orderBy('updated_at', 'desc')->get();
+        $trades = Trade::where("phone", $phone)->where("show_status", 1)->where("pay_status", 1)->where("use_status", 1)->orderBy('updated_at', 'desc')->get();
         if ($trades) {
             return $trades;
+        }
+    }
+
+    public static function hideOrder($id) {
+        $trade = Trade::where("id", $id)->first();
+        if ($trade) {
+            $trade->show_status = 0;
+            $trade->update();
+            return $trade;
         }
     }
 }
