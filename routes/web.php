@@ -89,9 +89,7 @@ Route::post('/getOrderSend', 'PayController@getOrderSend');
 
 Route::post('/mangerLogin', 'UserController@mangerLogin');
 
-Route::post('/geTradeMessage', 'PayController@geTradeMessage');
-
-Route::post('/getOrderAllMessage', 'PayController@getOrderAllMessage');
+Route::post('/geTrades', 'PayController@geTrades');
 
 Route::post('/uploadOne', 'FileController@uploadOne');
 

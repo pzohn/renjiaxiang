@@ -590,8 +590,8 @@ class PayController extends Controller
         return Group::IsUnUse($phone);
     }
 
-    public function geTradeMessage() {
-        $trades = Trade::getTradesMessage();
+    public function geTrades() {
+        $trades = Trade::getTrades();
         $tradesTmp = [];
         foreach ($trades as $k => $v) {
             $tradesTmp[] = [
@@ -614,8 +614,8 @@ class PayController extends Controller
         }
     }
 
-    public function getOrderAllMessage() {
-        $trades = Trade::getOrderAllMessage();
+    public function getOrderAll() {
+        $trades = Trade::getOrderAll();
         if ($trades){
             $tradesTmp = [];
             foreach ($trades as $k => $v) {
