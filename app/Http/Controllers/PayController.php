@@ -617,6 +617,7 @@ class PayController extends Controller
     public function getOrderAllForPerson(Request $req) {
         $phone = $req->get('phone');
         $trades = Trade::getOrderAllForPerson($phone);
+        $title = "title";
         if ($trades){
             $tradesTmp = [];
             foreach ($trades as $k => $v) {
@@ -630,6 +631,8 @@ class PayController extends Controller
                         $childtradesTmp[] = [
                             "name" => $shopping->name,
                             "charge" => $shopping->price,
+                            "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
+                            "shopping_id" => $shopping->id,
                             "num" => $v1->num
                         ]; 
                     }
