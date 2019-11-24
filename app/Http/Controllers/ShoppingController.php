@@ -128,7 +128,7 @@ class ShoppingController extends Controller
         $pos = strpos($ids, '@');
         $title = 'title';
         if ($pos == false){
-            $shopping = Shopping::shoppingSelect($id);
+            $shopping = Shopping::shoppingSelect($ids);
             if ($shopping){
                 $shoppings[] = [
                     "id" => $ids,
