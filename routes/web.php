@@ -111,6 +111,8 @@ Route::post('/shoppingGetByType', 'ShoppingController@shoppingGetByType');
 
 Route::post('/shoppingGetById', 'ShoppingController@shoppingGetById');
 
+Route::post('/shoppingGetByCollect', 'ShoppingController@shoppingGetByCollect');
+
 Route::post('/makeTrades', 'ShoppingController@makeTrades');
 
 Route::post('/getAddress', 'UserController@getAddress');

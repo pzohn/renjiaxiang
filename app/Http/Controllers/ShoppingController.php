@@ -123,4 +123,37 @@ class ShoppingController extends Controller
         ];
     }
 
+    public function shoppingGetByCollect(Request $req) {
+        $ids = $req->get('ids');
+        $pos = strpos($ids, '@');
+        $title = 'title';
+        if ($pos == false){
+            $shopping = Shopping::shoppingSelect($id);
+            if ($shopping){
+                $shoppings[] = [
+                    "id" => $ids,
+                    "name" => $shopping->name,
+                    "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
+                    "shopping_id" => $shopping->id
+                    ];
+                return $shoppings;
+            }
+        }else{
+            $arry = preg_split("/@/",$ids);
+            $shoppings = [];
+            foreach ($arry as $v) {
+                $shopping = Shopping::shoppingSelect($v);
+                if ($shopping){
+                    $shoppings[] = [
+                        "id" => $v,
+                        "name" => $shopping->name,
+                        "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
+                        "shopping_id" => $shopping->id
+                   ];
+                }
+            }
+            return $shoppings;
+        }
+    }
+
 }
