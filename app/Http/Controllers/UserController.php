@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-//use App\Models\User;
 use App\Models\Information;
 use Qcloud\Sms\SmsSingleSender;
 use App\Models\Address;
+use App\Models\Member;
+use App\Models\Wxuser;
 
 class UserController extends Controller
 {
@@ -113,5 +114,110 @@ class UserController extends Controller
     public function delAddress(Request $req) {
         Address::addressDel($req->get('id'));
         return 1;
+    }
+
+    public function collect(Request $req) {
+        $collect_flag = $req->get('collect_flag');
+        $phone = $req->get('phone');
+        $detail_id = $req->get('detail_id');
+        $iscollect = $this->iscollect($req);
+        if ($iscollect == $collect_flag)
+            return $iscollect;
+        $collect_ids = Member::memberSelect($phone)->collect_ids;
+        $collect_idsTmp = "";
+        if ($collect_flag){
+            if ($collect_ids == ""){
+                $collect_idsTmp = strval($detail_id);
+            }else{
+                $collect_idsTmp = $collect_ids . "@" . strval($detail_id);
+            }
+        }else{
+            if (strpos($collect_ids, '@') !== false){
+                $arry = preg_split("/@/",$collect_ids);
+                $arryTmp = [];
+                foreach ($arry as $k => $v) {
+                    $id = intval($v);
+                    if ($id != $detail_id){
+                        $arryTmp[] = $v;
+                    }
+                    $collect_idsTmp = implode("@",$arryTmp);
+                }
+            }else{
+                $collect_idsTmp = "";
+            }
+        }
+        Member::CollectUpdate($phone,$collect_idsTmp);
+        return $this->iscollect($req);
+    }
+
+    public function iscollect(Request $req) {
+        $phone = $req->get('phone');
+        $detail_id = $req->get('detail_id');
+        $member = Member::memberSelect($phone);
+        if (!$member)
+            return 0;
+        $collect_ids = $member->collect_ids;
+        if ($collect_ids == "")
+            return 0;
+        if (strpos($collect_ids, '@') !== false){
+            $arry = preg_split("/@/",$collect_ids);
+            $flag = false;
+            foreach ($arry as $k => $v) {
+                $id = intval($v);
+                if ($id == $detail_id){
+                    $flag = true;
+                }
+            }
+            if ($flag){
+                return 1;
+            }else{
+                return 0;
+            }
+        }else{
+            $id = intval($collect_ids);
+            if ($id == $detail_id){
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+    }
+
+    public function getCollect(Request $req) {
+        $phone = $req->get('phone');
+        $member = Member::memberSelect($phone);
+        if (!$member)
+            return 0;
+        $collect_ids = $member->collect_ids;
+        if ($collect_ids == "")
+            return 0;
+        return $collect_ids;
+    }
+
+    public function getWxUser(Request $req) {
+        $urlLogin = "https://api.weixin.qq.com/sns/jscode2session";
+        $paramsLogin = [
+        	'appid' => "wx8d32477fdd368d9a",
+            'secret' => "d46d773f17e3f483e0673ec5b22aaa10",
+            'js_code' => $req->get('js_code'),
+            'grant_type' => "authorization_code",
+        ];
+        $resultLogin = GuzzleHttp::guzzleGet($urlLogin, $paramsLogin);
+        return $resultLogin;
+    }
+
+    public function makeWxUser(Request $req) {
+        $params = [
+            'openid' => $req->get('openid'),
+            'nikename' => $req->get('nikename'),
+            'url' => $req->get('url')
+        ];
+        $wxuser = Wxuser::getInfo($req->get('openid'));
+        if ($wxuser){
+            $wxuser = Wxuser::updateInfo($params);
+        }else{
+            $wxuser = Wxuser::insertInfo($params);
+        }
+        return $wxuser;
     }
 }

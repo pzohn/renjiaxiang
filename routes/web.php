@@ -122,3 +122,13 @@ Route::post('/insertAddress', 'UserController@insertAddress');
 Route::post('/updateAddress', 'UserController@updateAddress');
 
 Route::post('/delAddress', 'UserController@delAddress');
+
+Route::post('/collect', 'UserController@collect');
+
+Route::post('/iscollect', 'UserController@iscollect');
+
+Route::post('/getCollect', 'UserController@getCollect');
+
+Route::post('/getWxUser', 'UserController@getWxUser');
+
+Route::post('/makeWxUser', 'UserController@makeWxUser');
