@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Shopping;
 use App\Models\Image;
 use App\Models\Address;
+use App\Models\Indexset;
 
 class ShoppingController extends Controller
 {
@@ -156,4 +157,49 @@ class ShoppingController extends Controller
         }
     }
 
+    public function getIndexset() {
+        $file = 'title';
+        $indexLunbos = Indexset::shoppingGetByType(1);
+        $indexGoods = Indexset::shoppingGetByType(2);
+        $indexWeeks = Indexset::shoppingGetByType(3);
+        $indexLunbosTmp = [];
+        $indexGoodsTmp = [];
+        $indexWeeksTmp = [];
+        if (count($indexLunbos)){
+            foreach ($indexLunbos as $k => $v) {
+                $shopping = Shopping::shoppingSelect($v->object_id);
+                $indexLunbosTmp[] = [
+                "id" => $v->object_id,
+                "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
+                ];
+            }
+        }
+        if (count($indexGoods)){
+            foreach ($indexGoods as $k => $v) {
+                $shopping = Shopping::shoppingSelect($v->object_id);
+                $indexGoodsTmp[] = [
+                "id" => $v->object_id,
+                "name" => $shopping->name,
+                "price" => $shopping->price,
+                "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
+                ];
+            }
+        }
+        if (count($indexWeeks)){
+            foreach ($indexWeeks as $k => $v) {
+                $shopping = Shopping::shoppingSelect($v->object_id);
+                $indexWeeksTmp[] = [
+                "id" => $v->object_id,
+                "name" => $shopping->name,
+                "price" => $shopping->price,
+                "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
+                ];
+            }
+        }
+        return [
+            "lunbo" => $indexLunbosTmp,
+            "good" => $indexGoodsTmp,
+            "week" => $indexWeeksTmp
+        ];
+    }
 }
