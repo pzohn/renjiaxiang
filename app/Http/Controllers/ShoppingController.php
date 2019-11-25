@@ -159,9 +159,9 @@ class ShoppingController extends Controller
 
     public function getIndexset() {
         $file = 'title';
-        $indexLunbos = Indexset::shoppingGetByType(1);
-        $indexGoods = Indexset::shoppingGetByType(2);
-        $indexWeeks = Indexset::shoppingGetByType(3);
+        $indexLunbos = Indexset::GetIndexByType(1);
+        $indexGoods = Indexset::GetIndexByType(2);
+        $indexWeeks = Indexset::GetIndexByType(3);
         $indexLunbosTmp = [];
         $indexGoodsTmp = [];
         $indexWeeksTmp = [];
