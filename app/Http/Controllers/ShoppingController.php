@@ -158,22 +158,28 @@ class ShoppingController extends Controller
     }
 
     public function getIndexset() {
-        $file = 'title';
+        $title = 'title';
         $indexLunbos = Indexset::GetIndexByType(1);
         $indexGoods = Indexset::GetIndexByType(2);
         $indexWeeks = Indexset::GetIndexByType(3);
         $indexLunbosTmp = [];
         $indexGoodsTmp = [];
         $indexWeeksTmp = [];
+        $index = 0;
         if (count($indexLunbos)){
             foreach ($indexLunbos as $k => $v) {
                 $shopping = Shopping::shoppingSelect($v->object_id);
+                $index ++;
                 $indexLunbosTmp[] = [
                 "id" => $v->object_id,
                 "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
                 ];
+                if ($index == 6){
+                    break;
+                }
             }
         }
+        $index = 0;
         if (count($indexGoods)){
             foreach ($indexGoods as $k => $v) {
                 $shopping = Shopping::shoppingSelect($v->object_id);
@@ -183,8 +189,12 @@ class ShoppingController extends Controller
                 "price" => $shopping->price,
                 "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
                 ];
+                if ($index == 6){
+                    break;
+                }
             }
         }
+        $index = 0;
         if (count($indexWeeks)){
             foreach ($indexWeeks as $k => $v) {
                 $shopping = Shopping::shoppingSelect($v->object_id);
@@ -194,6 +204,9 @@ class ShoppingController extends Controller
                 "price" => $shopping->price,
                 "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
                 ];
+                if ($index == 6){
+                    break;
+                }
             }
         }
         return [
