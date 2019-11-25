@@ -117,6 +117,8 @@ Route::post('/makeTrades', 'ShoppingController@makeTrades');
 
 Route::post('/getIndexset', 'ShoppingController@getIndexset');
 
+Route::post('/getInfoByName', 'ShoppingController@getInfoByName');
+
 Route::post('/getAddress', 'UserController@getAddress');
 
 Route::post('/getAddressById', 'UserController@getAddressById');

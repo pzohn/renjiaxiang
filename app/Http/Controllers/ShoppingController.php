@@ -215,4 +215,21 @@ class ShoppingController extends Controller
             "week" => $indexWeeksTmp
         ];
     }
+
+    public function getInfoByName(Request $req) {
+        $name = $req->get('name');
+        $title = 'title';
+        $shoppings =  Shopping::shoppingsSelectByName($name);
+        $shoppingsTmp = [];
+        foreach ($shoppings as $k => $v) {
+            $shopping = Shopping::shoppingSelect($v->id);
+            $shoppingsTmp[] = [
+            "id" => $shopping->id,
+            "name" => $shopping->name,
+            "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
+            "shopping_id" => $shopping->id
+            ];
+        }
+        return  $shoppingsTmp;
+    }
 }

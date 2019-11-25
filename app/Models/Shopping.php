@@ -12,6 +12,13 @@ class  Shopping extends Model {
         }
     }
 
+    public static function shoppingsSelectByName($name) {
+        $shoppings = Shopping::where('name','like', '%'.$name.'%')->where("state", 1)->get();
+        if ($shoppings) {
+            return $shoppings;
+        }
+    }
+
     public static function shoppingSelect($id) {
         $shopping = Shopping::where("id", $id)->where("state", 1)->first();
         if ($shopping) {
