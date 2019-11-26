@@ -616,8 +616,8 @@ class PayController extends Controller
     }
 
     public function getOrderAllForPerson(Request $req) {
-        $phone = $req->get('phone');
-        $trades = Trade::getOrderAllForPerson($phone);
+        $wx_id = $req->get('wx_id');
+        $trades = Trade::getOrderAllForPerson($wx_id);
         $title = "title";
         if ($trades){
             $tradesTmp = [];
@@ -686,8 +686,8 @@ class PayController extends Controller
     }
 
     public function getOrderUnPayForPerson(Request $req) {
-        $phone = $req->get('phone');
-        $trades = Trade::getOrderUnPayForPerson($phone);
+        $wx_id = $req->get('wx_id');
+        $trades = Trade::getOrderUnPayForPerson($wx_id);
         $title = "title";
         if ($trades){
             $tradesTmp = [];
@@ -777,8 +777,8 @@ class PayController extends Controller
     }
 
     public function getOrderUnsendForPerson(Request $req) {
-        $phone = $req->get('phone');
-        $trades = Trade::getOrderUnsendForPerson($phone);
+        $wx_id = $req->get('wx_id');
+        $trades = Trade::getOrderUnsendForPerson($wx_id);
         $title = "title";
         if ($trades){
             $tradesTmp = [];
@@ -869,8 +869,8 @@ class PayController extends Controller
     }
 
     public function getOrderUnreceiveForPerson(Request $req) {
-        $phone = $req->get('phone');
-        $trades = Trade::getOrderUnreceiveForPerson($phone);
+        $wx_id = $req->get('wx_id');
+        $trades = Trade::getOrderUnreceiveForPerson($wx_id);
         $title = "title";
         if ($trades){
             $tradesTmp = [];
@@ -919,8 +919,8 @@ class PayController extends Controller
     }   
 
     public function getOrderFinishForPerson(Request $req) {
-        $phone = $req->get('phone');
-        $trades = Trade::getOrderFinishForPerson($phone);
+        $wx_id = $req->get('wx_id');
+        $trades = Trade::getOrderFinishForPerson($wx_id);
         $title = "title";
         if ($trades){
             $tradesTmp = [];
