@@ -17,7 +17,7 @@ class CertController extends Controller
             return $cert;
        }
        $params = [
-        'username' => $req->get('username'),
+        'wx_id' => $req->get('wx_id'),
         'shopping_id' => $req->get('id'),
         'count' => $req->get('count')
         ];
@@ -25,8 +25,8 @@ class CertController extends Controller
     }
 
     public function certsSelect(Request $req) {
-        $username = $req->get('username');
-        $certs = Cert::certsSelect($username);
+        $wx_id = $req->get('wx_id');
+        $certs = Cert::certsSelect($wx_id);
         $title = 'title';
         $certsTmp = [];
         foreach ($certs as $k => $v) {

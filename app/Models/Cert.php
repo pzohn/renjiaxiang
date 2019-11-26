@@ -10,7 +10,7 @@ class  Cert extends Model {
     public static function certInsert($params) {
 
         $cert = new self;
-        $cert->username = array_get($params,"username");
+        $cert->wx_id = array_get($params,"wx_id");
         $cert->shopping_id = array_get($params,"shopping_id");
         $cert->count = array_get($params,"count");
         $cert->save();
@@ -18,7 +18,7 @@ class  Cert extends Model {
     }
 
     public static function certsSelect($username) {
-        $certs = Cert::where("username", $username)->get();
+        $certs = Cert::where("wx_id", $wx_id)->get();
         if ($certs) {
             return $certs;
         }
