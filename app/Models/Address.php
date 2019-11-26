@@ -14,6 +14,15 @@ class  Address extends Model {
         }
     }
 
+    public static function GetAddressByLoginId($login_id) {
+        $address = Address::where("login_id", $login_id)->first();
+        if ($address) {
+            return $address;
+        }else {
+            return 0;
+        }
+    }
+
     public static function GetAddressById($id) {
         $address = Address::where("id", $id)->first();
         if ($address) {

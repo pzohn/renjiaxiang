@@ -79,6 +79,11 @@ class UserController extends Controller
         }
     }
 
+    public function getAddressByLoginId(Request $req) {
+        $address = Address::GetAddressByLoginId($req->get('login_id'));
+        return $address;
+    }
+
     public function insertAddress(Request $req) {
         $params = [
             "name" => $req->get('name'),

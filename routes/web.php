@@ -125,6 +125,8 @@ Route::post('/getAddressById', 'UserController@getAddressById');
 
 Route::post('/insertAddress', 'UserController@insertAddress');
 
+Route::post('/getAddressByLoginId', 'UserController@getAddressByLoginId');
+
 Route::post('/updateAddress', 'UserController@updateAddress');
 
 Route::post('/delAddress', 'UserController@delAddress');
