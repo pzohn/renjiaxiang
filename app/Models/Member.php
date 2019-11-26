@@ -22,6 +22,13 @@ class  Member extends Model {
         }
     }
 
+    public static function memberSelectById($id) {
+        $member = Member::where("wx_id", $id)->first();
+        if ($member) {
+            return $member;
+        }
+    }
+
     public static function memberInsertPhone($phone) {
         $member = new self;
         $member->phone = $phone;
@@ -31,6 +38,15 @@ class  Member extends Model {
 
     public static function CollectUpdate($phone,$collect_ids) {
         $member = Member::where("phone", $phone)->first();
+        if ($member) {
+            $member->collect_ids = $collect_ids;
+            $member->update();
+            return $member;
+        }
+    }
+
+    public static function CollectUpdateById($id,$collect_ids) {
+        $member = Member::where("wx_id", $id)->first();
         if ($member) {
             $member->collect_ids = $collect_ids;
             $member->update();

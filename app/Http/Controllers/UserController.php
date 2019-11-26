@@ -119,12 +119,12 @@ class UserController extends Controller
 
     public function collect(Request $req) {
         $collect_flag = $req->get('collect_flag');
-        $phone = $req->get('phone');
+        $wx_id = $req->get('wx_id');
         $detail_id = $req->get('detail_id');
         $iscollect = $this->iscollect($req);
         if ($iscollect == $collect_flag)
             return $iscollect;
-        $collect_ids = Member::memberSelect($phone)->collect_ids;
+        $collect_ids = Member::memberSelectById($wx_id)->collect_ids;
         $collect_idsTmp = "";
         if ($collect_flag){
             if ($collect_ids == ""){
@@ -147,14 +147,14 @@ class UserController extends Controller
                 $collect_idsTmp = "";
             }
         }
-        Member::CollectUpdate($phone,$collect_idsTmp);
+        Member::CollectUpdateById($wx_id,$collect_idsTmp);
         return $this->iscollect($req);
     }
 
     public function iscollect(Request $req) {
-        $phone = $req->get('phone');
+        $wx_id = $req->get('wx_id');
         $detail_id = $req->get('detail_id');
-        $member = Member::memberSelect($phone);
+        $member = Member::memberSelectById($wx_id);
         if (!$member)
             return 0;
         $collect_ids = $member->collect_ids;
@@ -185,8 +185,8 @@ class UserController extends Controller
     }
 
     public function getCollect(Request $req) {
-        $phone = $req->get('phone');
-        $member = Member::memberSelect($phone);
+        $wx_id = $req->get('wx_id');
+        $member = Member::memberSelectById($phone);
         if (!$member)
             return 0;
         $collect_ids = $member->collect_ids;
