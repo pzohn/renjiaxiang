@@ -1120,7 +1120,7 @@ class PayController extends Controller
                     'shop_id' => $shopping->shop_id,
                     'name' => $req->get('name')
                  ];
-                 $tradeNew = Trade::payInsert($trade);
+                 $tradeNew = Trade::payInsertForId($trade);
                  $childtrade = [
                     'shopping_id' => $req->get('detail_id'),
                     'num' => $req->get('num'),
@@ -1347,7 +1347,7 @@ class PayController extends Controller
                     'shop_id' => $this->getShopIdByCert($req->get('certInfo')),
                     'name' => $req->get('name')
                  ];
-                 $tradeNew = Trade::payInsert($trade);
+                 $tradeNew = Trade::payInsertForId($trade);
                  $this->certsInsert($req->get('certInfo'), $tradeNew->id);
                  $this->insertAddress($req->get('address_id'),$tradeNew->id);
                  $resultPay = GuzzleHttp:: postXml($urlPay, $data);

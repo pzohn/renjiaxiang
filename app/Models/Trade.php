@@ -19,6 +19,20 @@ class  Trade extends Model {
         return $trade;
     }
 
+    public static function payInsertForId($params) {
+
+        $trade = new self;
+        $trade->out_trade_no = array_get($params,"out_trade_no");
+        $trade->body = array_get($params,"body");
+        $trade->detail_id = array_get($params,"detail_id");
+        $trade->total_fee = array_get($params,"total_fee");
+        $trade->wx_id = array_get($params,"wx_id");
+        $trade->shop_id = array_get($params,"shop_id");
+        $trade->name = array_get($params,"name");
+        $trade->save();
+        return $trade;
+    }
+
     public static function payInsertGroup($params) {
 
         $trade = new self;
