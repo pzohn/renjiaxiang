@@ -17,7 +17,7 @@ class  Cert extends Model {
         return $cert;
     }
 
-    public static function certsSelect($username) {
+    public static function certsSelect($wx_id) {
         $certs = Cert::where("wx_id", $wx_id)->get();
         if ($certs) {
             return $certs;
