@@ -8,6 +8,7 @@ use Qcloud\Sms\SmsSingleSender;
 use App\Models\Address;
 use App\Models\Member;
 use App\Models\Wxuser;
+use App\Libs\GuzzleHttp;
 
 class UserController extends Controller
 {
