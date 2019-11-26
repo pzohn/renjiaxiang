@@ -205,10 +205,10 @@ class UserController extends Controller
         ];
         $resultLogin = GuzzleHttp::guzzleGet($urlLogin, $paramsLogin);
         return $resultLogin;
-        $openId = $resultLogin->openid;
+        $openId = $resultLogin["openid"];
         $wxuser = Wxuser::getInfo($openId);
         if (!$wxuser){
-            $wxuser = Wxuser::getInfo($req->get('openid'));
+            $wxuser = Wxuser::insertInfo($openId);
         }
         return $wxuser;
     }
