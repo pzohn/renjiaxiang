@@ -209,7 +209,10 @@ class UserController extends Controller
         if (!$wxuser){
             $wxuser = Wxuser::insertInfo($openId);
         }
-        return $wxuser;
+        $member = Member::memberSelectById($wxuser->id);
+        if (!$member) {
+            Member::memberInsertId($wxuser->id);
+        }
     }
 
     public function updateWxBaseInfo(Request $req) {

@@ -29,6 +29,13 @@ class  Member extends Model {
         }
     }
 
+    public static function memberInsertId($id) {
+        $member = new self;
+        $member->wx_id = $id;
+        $member->save();
+        return $member;
+    }
+
     public static function memberInsertPhone($phone) {
         $member = new self;
         $member->phone = $phone;
