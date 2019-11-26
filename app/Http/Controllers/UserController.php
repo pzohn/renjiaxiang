@@ -204,20 +204,10 @@ class UserController extends Controller
             'grant_type' => "authorization_code",
         ];
         $resultLogin = GuzzleHttp::guzzleGet($urlLogin, $paramsLogin);
-        return $resultLogin;
-    }
-
-    public function makeWxUser(Request $req) {
-        $params = [
-            'openid' => $req->get('openid'),
-            'nikename' => $req->get('nikename'),
-            'url' => $req->get('url')
-        ];
-        $wxuser = Wxuser::getInfo($req->get('openid'));
-        if ($wxuser){
-            $wxuser = Wxuser::updateInfo($params);
-        }else{
-            $wxuser = Wxuser::insertInfo($params);
+        $openId = $resultLogin->openid;
+        $wxuser = Wxuser::getInfo($openId);
+        if (!$wxuser){
+            $wxuser = Wxuser::getInfo($req->get('openid'));
         }
         return $wxuser;
     }

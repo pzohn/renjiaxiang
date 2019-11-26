@@ -136,5 +136,3 @@ Route::post('/iscollect', 'UserController@iscollect');
 Route::post('/getCollect', 'UserController@getCollect');
 
 Route::post('/getWxUser', 'UserController@getWxUser');
-
-Route::post('/makeWxUser', 'UserController@makeWxUser');

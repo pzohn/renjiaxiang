@@ -25,11 +25,9 @@ class  Wxuser extends Model {
         }
     }
 
-    public static function insertInfo($params) {
+    public static function insertInfo($openid) {
         $wxuser = new self;
-        $wxuser->openid = array_get($params,"openid");
-        $wxuser->nikename = array_get($params,"nikename");
-        $wxuser->url = array_get($params,"url");
+        $wxuser->openid = $openid;
         $wxuser->save();
         return $wxuser;
     }
