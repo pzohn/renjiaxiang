@@ -186,7 +186,7 @@ class UserController extends Controller
 
     public function getCollect(Request $req) {
         $wx_id = $req->get('wx_id');
-        $member = Member::memberSelectById($phone);
+        $member = Member::memberSelectById($wx_id);
         if (!$member)
             return 0;
         $collect_ids = $member->collect_ids;
