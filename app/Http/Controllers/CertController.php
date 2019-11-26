@@ -13,7 +13,7 @@ class CertController extends Controller
        $cert = Cert::certSelect( $req->get('id'));
        if ($cert){
             $count = $cert->count + $req->get('count');
-            Cert::certupdate($id,$count);
+            Cert::certupdate($cert->id,$count);
             return $cert;
        }
        $params = [
