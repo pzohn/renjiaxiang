@@ -211,4 +211,14 @@ class UserController extends Controller
         }
         return $wxuser;
     }
+
+    public function updateWxBaseInfo(Request $req) {
+        $params = [
+            'id' => $req->get('id'),
+            'nikename' => $req->get('nikename'),
+            'url' => $req->get('url')
+        ];
+        $wxuser = Wxuser::updateBaseInfo($params);
+        return $wxuser;
+    }
 }

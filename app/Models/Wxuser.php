@@ -15,8 +15,8 @@ class  Wxuser extends Model {
         return 0;
     }
 
-    public static function updateInfo($params) {
-        $wxuser = Wxuser::where("openid", array_get($params,"openid"))->first();
+    public static function updateBaseInfo($params) {
+        $wxuser = Wxuser::where("id", array_get($params,"id"))->first();
         if ($wxuser) {
             $wxuser->nikename = array_get($params,"nikename");
             $wxuser->url = array_get($params,"url");
