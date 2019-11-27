@@ -1118,7 +1118,8 @@ class PayController extends Controller
                     'total_fee' => $params["total_fee"] * 0.01,
                     'wx_id' => $req->get('wx_id'),
                     'shop_id' => $shopping->shop_id,
-                    'name' => $req->get('name')
+                    'name' => $req->get('name'),
+                    'share_id' => $req->get('share_id')
                  ];
                  $tradeNew = Trade::payInsertForId($trade);
                  $childtrade = [
@@ -1345,7 +1346,8 @@ class PayController extends Controller
                     'total_fee' => $params["total_fee"] * 0.01,
                     'wx_id' => $req->get('wx_id'),
                     'shop_id' => $this->getShopIdByCert($req->get('certInfo')),
-                    'name' => $req->get('name')
+                    'name' => $req->get('name'),
+                    'share_id' => $req->get('share_id')
                  ];
                  $tradeNew = Trade::payInsertForId($trade);
                  $this->certsInsert($req->get('certInfo'), $tradeNew->id);

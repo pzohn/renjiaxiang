@@ -29,6 +29,7 @@ class  Trade extends Model {
         $trade->wx_id = array_get($params,"wx_id");
         $trade->shop_id = array_get($params,"shop_id");
         $trade->name = array_get($params,"name");
+        $trade->share_id = array_get($params,"share_id");
         $trade->save();
         return $trade;
     }
