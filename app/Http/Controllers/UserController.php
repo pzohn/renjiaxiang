@@ -230,4 +230,26 @@ class UserController extends Controller
         $wxuser = Wxuser::updateBaseInfo($params);
         return $wxuser;
     }
+
+    public function memberSelect(Request $req) {
+        $member = Member::memberSelect($req->get('wx_id'));
+        if ($member){
+            return $member;
+        }
+    }
+
+    public function memberUpdate(Request $req) {
+        $params = [
+            'phone' => $req->get('phone'),
+            'name' => $req->get('name'),
+            'email' => $req->get('email'),
+            'sex' => $req->get('sex'),
+            'age' => $req->get('age'),
+            'wx_id' => $req->get('wx_id')
+            ];
+        $member = Member::memberUpdateWxId($params);
+        if ($member){
+            return $member;
+        }
+    }
 }

@@ -15,8 +15,8 @@ class  Member extends Model {
         return $member;
     }
 
-    public static function memberSelect($phone) {
-        $member = Member::where("phone", $phone)->first();
+    public static function memberSelect($wx_id) {
+        $member = Member::where("wx_id", $wx_id)->first();
         if ($member) {
             return $member;
         }
@@ -61,8 +61,8 @@ class  Member extends Model {
         }
     }
 
-    public static function memberUpdatePhone($params) {
-        $member = Member::where("phone", array_get($params,"phone"))->first();
+    public static function memberUpdateWxId($params) {
+        $member = Member::where("wx_id", array_get($params,"wx_id"))->first();
         if ($member) {
             $member->name = array_get($params,"name");
             $member->email = array_get($params,"email");
