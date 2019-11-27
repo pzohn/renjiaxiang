@@ -68,6 +68,7 @@ class  Member extends Model {
             $member->email = array_get($params,"email");
             $member->sex = array_get($params,"sex");
             $member->age = array_get($params,"age");
+            $member->phone = array_get($params,"phone");
             $member->update();
             return $member;
         }
