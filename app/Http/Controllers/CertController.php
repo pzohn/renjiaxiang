@@ -60,7 +60,7 @@ class CertController extends Controller
      public function getCertsNum(Request $req) {
       $wx_id = $req->get('wx_id');
       $certs = Cert::certsSelect($wx_id);
-      $count = count($cert);
+      $count = count($certs);
       return $count;
    }
 }
