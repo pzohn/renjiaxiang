@@ -24,8 +24,8 @@ class  Cert extends Model {
         }
     }
 
-    public static function certSelect($shopping_id) {
-        $cert = Cert::where("shopping_id", $shopping_id)->first();
+    public static function certSelect($shopping_id,$wx_id) {
+        $cert = Cert::where("shopping_id", $shopping_id)->where("wx_id", $wx_id)->first();
         if ($cert) {
             return $cert;
         }

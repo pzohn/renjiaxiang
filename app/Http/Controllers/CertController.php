@@ -10,7 +10,7 @@ use App\Models\Image;
 class CertController extends Controller
 {
     public function certInsert(Request $req) {
-       $cert = Cert::certSelect( $req->get('id'));
+       $cert = Cert::certSelect( $req->get('id'),$req->get('wx_id'));
        if ($cert){
             $count = $cert->count + $req->get('count');
             Cert::certupdate($cert->id,$count);
