@@ -244,7 +244,7 @@ class ShoppingController extends Controller
                 "id" => $v->id,
                 "name" => $v->name,
                 "url" => Image::GetImageUrlByParentId($v->id,$file,$v->type),
-                "type" => Shoppingtype::GetTypeById($v->type),
+                "type" => Shoppingtype::GetTypeById($v->type)->name,
                 "price" => $v->price,
                 "royalty" => $v->royalty,
                 "time" => $v->updated_at->format('Y-m-d H:i:s')
@@ -253,9 +253,7 @@ class ShoppingController extends Controller
             $result_data = [
                 'code' => 0,
                 'msg' => '获得商品信息成功',
-                'data' => [
-                    'shoppings' => $shoppingsTmp
-                ]
+                'data' =>  $shoppingsTmp
             ];
             return $result_data;
         }else{
