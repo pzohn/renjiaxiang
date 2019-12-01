@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class  Shopping extends Model {
         
-    public static function shoppingsSelect($username) {
+    public static function shoppingsSelect() {
         $shoppings = Shopping::where("state", 1)->get();
         if ($shoppings) {
             return $shoppings;

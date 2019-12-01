@@ -7,6 +7,7 @@ use App\Models\Shopping;
 use App\Models\Image;
 use App\Models\Address;
 use App\Models\Indexset;
+use App\Models\Shoppingtype;
 
 class ShoppingController extends Controller
 {
@@ -231,5 +232,39 @@ class ShoppingController extends Controller
             ];
         }
         return  $shoppingsTmp;
+    }
+
+    public function shoppingGet() {
+        $file = 'title';
+        $shoppings = Shopping::shoppingsSelect();
+        if (count($shoppings)){
+            $shoppingsTmp = [];
+            foreach ($shoppings as $k => $v) {
+                $shoppingsTmp[] = [
+                "id" => $v->id,
+                "name" => $v->name,
+                "url" => Image::GetImageUrlByParentId($v->id,$file,$v->type),
+                "type" => Shoppingtype::GetTypeById($v->type),
+                "price" => $v->price,
+                "royalty" => $v->royalty,
+                "time" => $v->updated_at->format('Y-m-d H:i:s')
+                ];
+            }
+            $result_data = [
+                'code' => 0,
+                'msg' => '获得商品信息成功',
+                'data' => [
+                    'shoppings' => $shoppingsTmp
+                ]
+            ];
+            return $result_data;
+        }else{
+            $result_data = [
+                'code' => 1,
+                'msg' => '获得商品信息失败',
+                'data' => []
+            ];
+            return $result_data;
+        }
     }
 }
