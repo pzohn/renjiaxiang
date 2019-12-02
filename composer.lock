@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0f35189210e7084f2cd9ad8ebed91a4a",
+    "content-hash": "c4df0cd1ed6ef280d2fbaafddbb17fa3",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1414,6 +1414,42 @@
             "time": "2018-06-10T17:57:20+00:00"
         },
         {
+            "name": "qcloudsms/qcloudsms_php",
+            "version": "v0.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/qcloudsms/qcloudsms_php.git",
+                "reference": "48822045772d343b93c3d505d8a187cd51153c5a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/qcloudsms/qcloudsms_php/zipball/48822045772d343b93c3d505d8a187cd51153c5a",
+                "reference": "48822045772d343b93c3d505d8a187cd51153c5a",
+                "shasum": ""
+            },
+            "require-dev": {
+                "sami/sami": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Qcloud\\Sms\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "qcloud sms php sdk",
+            "keywords": [
+                "php",
+                "qcloud",
+                "sdk",
+                "sms"
+            ],
+            "time": "2018-09-19T07:19:17+00:00"
+        },
+        {
             "name": "ramsey/uuid",
             "version": "3.8.0",
             "source": {
@@ -1845,16 +1881,16 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v4.1.2",
+            "version": "v4.2.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "8da9ea68ab2d80dfabd41e0d14b9606bb47a10c0"
+                "reference": "2ae778ff4a1f8baba7724db1ca977ada3b796749"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/8da9ea68ab2d80dfabd41e0d14b9606bb47a10c0",
-                "reference": "8da9ea68ab2d80dfabd41e0d14b9606bb47a10c0",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/2ae778ff4a1f8baba7724db1ca977ada3b796749",
+                "reference": "2ae778ff4a1f8baba7724db1ca977ada3b796749",
                 "shasum": ""
             },
             "require": {
@@ -1868,7 +1904,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.1-dev"
+                    "dev-master": "4.2-dev"
                 }
             },
             "autoload": {
@@ -1895,7 +1931,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2018-07-16T14:05:40+00:00"
+            "time": "2019-11-11T12:54:47+00:00"
         },
         {
             "name": "symfony/http-kernel",
@@ -2041,16 +2077,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.8.0",
+            "version": "v1.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "3296adf6a6454a050679cde90f95350ad604b171"
+                "reference": "7b4aab9743c30be783b73de055d24a39cf4b954f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/3296adf6a6454a050679cde90f95350ad604b171",
-                "reference": "3296adf6a6454a050679cde90f95350ad604b171",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/7b4aab9743c30be783b73de055d24a39cf4b954f",
+                "reference": "7b4aab9743c30be783b73de055d24a39cf4b954f",
                 "shasum": ""
             },
             "require": {
@@ -2062,7 +2098,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.8-dev"
+                    "dev-master": "1.13-dev"
                 }
             },
             "autoload": {
@@ -2096,7 +2132,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-04-26T10:06:28+00:00"
+            "time": "2019-11-27T14:18:11+00:00"
         },
         {
             "name": "symfony/polyfill-php72",
