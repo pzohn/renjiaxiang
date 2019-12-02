@@ -32,6 +32,13 @@ class  Image extends Model {
         return  $imagesTmp;
     }
 
+    public static function GetTitleUrlByParentId($id,$type) {
+        $image = Image::where("parent_id", $id)->where("file", "title")->where("type", $type)->first();
+        if ($image){
+            return  $image->file . "/" . $image->url;
+        }
+    }
+
     public static function urlInsert($params) {
         $image = new self;
         $image->parent_id = array_get($params,"parent_id");

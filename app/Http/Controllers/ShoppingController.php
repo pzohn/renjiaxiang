@@ -235,17 +235,14 @@ class ShoppingController extends Controller
     }
 
     public function shoppingGet() {
-        $file = 'title';
         $shoppings = Shopping::shoppingsSelect();
         if (count($shoppings)){
             $shoppingsTmp = [];
             foreach ($shoppings as $k => $v) {
-                $arry = Image::GetImageUrlByParentId($v->id,$file,$v->type);
-                $url = string($arry);
                 $shoppingsTmp[] = [
                 "id" => $v->id,
                 "name" => $v->name,
-                "url" => $url,
+                "url" => 'https://www.hattonstar.com/storage/'. Image::GetTitleUrlByParentId($v->id,$v->type),
                 "type" => Shoppingtype::GetTypeById($v->type)->name,
                 "price" => $v->price,
                 "royalty" => $v->royalty,
