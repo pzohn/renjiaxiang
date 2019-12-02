@@ -240,7 +240,8 @@ class ShoppingController extends Controller
         if (count($shoppings)){
             $shoppingsTmp = [];
             foreach ($shoppings as $k => $v) {
-                $url = Image::GetImageUrlByParentId($v->id,$file,$v->type);
+                $arry = Image::GetImageUrlByParentId($v->id,$file,$v->type);
+                $url = $arry[0];
                 $shoppingsTmp[] = [
                 "id" => $v->id,
                 "name" => $v->name,
