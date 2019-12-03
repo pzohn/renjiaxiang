@@ -130,6 +130,9 @@ class ShoppingController extends Controller
     public function shoppingOff(Request $req) {
         $id = $req->get('id');
         $shopping = Shopping::shoppingOff($id);
+        $this->delFlag(1,$shopping->shop_id,$shopping->id);
+        $this->delFlag(2,$shopping->shop_id,$shopping->id);
+        $this->delFlag(3,$shopping->shop_id,$shopping->id);
         return $shopping;
     }
 
@@ -138,11 +141,17 @@ class ShoppingController extends Controller
         $pos = strpos($ids, '@');
         if ($pos == false){
             $shopping = Shopping::shoppingOff($ids);
+            $this->delFlag(1,$shopping->shop_id,$shopping->id);
+            $this->delFlag(2,$shopping->shop_id,$shopping->id);
+            $this->delFlag(3,$shopping->shop_id,$shopping->id);
             return 0;
         }else{
             $arry = preg_split("/@/",$ids);
             foreach ($arry as $v) {
                 $shopping = Shopping::shoppingOff($v);
+                $this->delFlag(1,$shopping->shop_id,$shopping->id);
+                $this->delFlag(2,$shopping->shop_id,$shopping->id);
+                $this->delFlag(3,$shopping->shop_id,$shopping->id);
             }
             return 0;
         }
@@ -158,6 +167,23 @@ class ShoppingController extends Controller
             "integral" => $req->get('integral')
         ];
         $shopping = Shopping::shoppingUpdatePart($params);
+        if ($this->switchToflag($req->get('post_switch'))){
+            $this->insertFlag(1,$shopping->shop_id,$shopping->id);
+        }else {
+            $this->delFlag(1,$shopping->shop_id,$shopping->id);
+        }
+
+        if ($this->switchToflag($req->get('one_switch'))){
+            $this->insertFlag(2,$shopping->shop_id,$shopping->id);
+        }else {
+            $this->delFlag(2,$shopping->shop_id,$shopping->id);
+        }
+
+        if ($this->switchToflag($req->get('good_switch'))){
+            $this->insertFlag(3,$shopping->shop_id,$shopping->id);
+        }else {
+            $this->delFlag(3,$shopping->shop_id,$shopping->id);
+        }
         return  $shopping;
     }
 
@@ -194,11 +220,11 @@ class ShoppingController extends Controller
         }
     }
 
-    public function getIndexset() {
+    public function getIndexset(Request $req) {
         $title = 'title';
-        $indexLunbos = Indexset::GetIndexByType(1);
-        $indexGoods = Indexset::GetIndexByType(2);
-        $indexWeeks = Indexset::GetIndexByType(3);
+        $indexLunbos = Indexset::GetIndexByType(1,$req->get('shop_id'));
+        $indexGoods = Indexset::GetIndexByType(2,$req->get('shop_id'));
+        $indexWeeks = Indexset::GetIndexByType(3,$req->get('shop_id'));
         $indexLunbosTmp = [];
         $indexGoodsTmp = [];
         $indexWeeksTmp = [];
@@ -283,7 +309,8 @@ class ShoppingController extends Controller
                 "price" => $v->price,
                 "royalty" => $v->royalty,
                 "integral" => $v->integral,
-                "time" => $v->updated_at->format('Y-m-d H:i:s')
+                "time" => $v->updated_at->format('Y-m-d H:i:s'),
+                "flag" => $this->flagToswitch($v->shop_id,$v->id)
                 ];
             }
             $result_data = [
@@ -310,11 +337,41 @@ class ShoppingController extends Controller
         }
     }
 
-    protected function flagToswitch($flag) {
-        if ($flag == true){
-            return 'on';
+    protected function flagToswitch($shop_id,$object_id) {
+        $indexset1 = Indexset::GetIndexId(1,$shop_id,$object_id);
+        $indexset2 = Indexset::GetIndexId(2,$shop_id,$object_id);
+        $indexset3 = Indexset::GetIndexId(3,$shop_id,$object_id);
+        if (($indexset1 == 0) && ($indexset2 == 0) && ($indexset3 == 0)){
+            return 0;
+        }else if (($indexset1) && ($indexset2 == 0) && ($indexset3 == 0)){
+            return 1;
+        }else if (($indexset1 == 0) && ($indexset2) && ($indexset3 == 0)){
+            return 2;
+        }else if (($indexset1 == 0) && ($indexset2 == 0) && ($indexset3)){
+            return 3;
+        }else if (($indexset1) && ($indexset2) && ($indexset3 == 0)){
+            return 4;
+        }else if (($indexset1) && ($indexset2 == 0) && ($indexset3)){
+            return 5;
+        }else if (($indexset1 == 0) && ($indexset2) && ($indexset3)){
+            return 6;
         }else {
-            return 'off';
+            return 7;
+        }    
+    }
+
+    protected function delFlag($type,$shop_id,$object_id) {
+        $indexset = Indexset::GetIndexId($type,$shop_id,$object_id);
+        if ($indexset) {
+            Indexset::DelIndex($indexset->id);
+        }
+    }
+
+    protected function insertFlag($type,$shop_id,$object_id) {
+        $indexset = Indexset::GetIndexId($type,$shop_id,$object_id);
+        if ($indexset == 0) {
+            Indexset::InsertIndex($type,$shop_id,$object_id);
+            return $indexset;
         }
     }
 }
