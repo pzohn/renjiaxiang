@@ -16,6 +16,8 @@ class  Indexset extends Model {
         $indexset = Indexset::where("type", $type)->where("shop_id", $shop_id)->where("object_id", $object_id)->first();
         if ($indexset) {
             return $indexset;
+        }else {
+            return 0;
         }
     }
 
