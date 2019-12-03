@@ -361,15 +361,15 @@ class ShoppingController extends Controller
     }
 
     protected function delFlag($type,$shop_id,$object_id) {
-        $indexset = Indexset::GetIndexId($type,$shop_id,$object_id);
-        if ($indexset) {
-            Indexset::DelIndex($indexset->id);
+        $indexsetId = Indexset::GetIndexId($type,$shop_id,$object_id);
+        if ($indexsetId) {
+            Indexset::DelIndex($indexsetId);
         }
     }
 
     protected function insertFlag($type,$shop_id,$object_id) {
-        $indexset = Indexset::GetIndexId($type,$shop_id,$object_id);
-        if ($indexset == 0) {
+        $indexsetId = Indexset::GetIndexId($type,$shop_id,$object_id);
+        if ($indexsetId == 0) {
             Indexset::InsertIndex($type,$shop_id,$object_id);
             return $indexset;
         }

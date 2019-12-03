@@ -15,7 +15,7 @@ class  Indexset extends Model {
     public static function GetIndexId($type,$shop_id,$object_id) {
         $indexset = Indexset::where("type", $type)->where("shop_id", $shop_id)->where("object_id", $object_id)->first();
         if ($indexset) {
-            return $indexset;
+            return $indexset->id;
         }else {
             return 0;
         }
