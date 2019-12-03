@@ -132,7 +132,7 @@ class ShoppingController extends Controller
             "price" => $req->get('price'),
             "royalty" => $req->get('royalty')
         ];
-        $shopping = Shopping::shoppingUpdatePart($id);
+        $shopping = Shopping::shoppingUpdatePart($params);
         return  $shopping;
     }
 
