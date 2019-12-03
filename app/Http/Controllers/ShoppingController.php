@@ -253,8 +253,7 @@ class ShoppingController extends Controller
                 $shoppingsTmp[] = [
                 "id" => $v->id,
                 "name" => $v->name,
-                "avatar
-                " => 'https://www.hattonstar.com/storage/'. Image::GetTitleUrlByParentId($v->id,$v->type),
+                "avatar" => 'https://www.hattonstar.com/storage/'. Image::GetTitleUrlByParentId($v->id,$v->type),
                 "type" => Shoppingtype::GetTypeById($v->type)->name,
                 "price" => $v->price,
                 "royalty" => $v->royalty,
