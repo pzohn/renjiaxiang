@@ -131,6 +131,22 @@ class ShoppingController extends Controller
         return $shopping;
     }
 
+    public function shoppingsOff(Request $req) {
+        $ids = $req->get('ids');
+        $pos = strpos($ids, '@');
+        if ($pos == false){
+            $shopping = Shopping::shoppingOff($ids);
+            return 0;
+        }else{
+            $arry = preg_split("/@/",$ids);
+            foreach ($arry as $v) {
+                $shopping = Shopping::shoppingOff($v);
+            }
+            return 0;
+        }
+        return 1;
+    }
+
     public function shoppingUpdatePart(Request $req) {
         $params = [
             "id" => $req->get('id'),
