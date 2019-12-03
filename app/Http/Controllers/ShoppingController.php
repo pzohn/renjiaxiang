@@ -17,7 +17,8 @@ class ShoppingController extends Controller
             'flag' => $req->get('flag'),
             'price' => $req->get('price'),
             'type' => $req->get('type'),
-            'oper' => $req->get('oper')
+            'oper' => $req->get('oper'),
+            'shop_id' => $req->get('shop_id')
             ];
         $shoppingId = Shopping::shoppingRepeat($params);
         if ($shoppingId == 0) {
@@ -253,7 +254,7 @@ class ShoppingController extends Controller
     public function getInfoByName(Request $req) {
         $name = $req->get('name');
         $title = 'title';
-        $shoppings =  Shopping::shoppingsSelectByName($name);
+        $shoppings =  Shopping::shoppingsSelectByName($name,$req->get('shop_id'));
         $shoppingsTmp = [];
         foreach ($shoppings as $k => $v) {
             $shopping = Shopping::shoppingSelect($v->id);
@@ -267,8 +268,8 @@ class ShoppingController extends Controller
         return  $shoppingsTmp;
     }
 
-    public function shoppingGet() {
-        $shoppings = Shopping::shoppingsSelect();
+    public function shoppingGet(Request $req) {
+        $shoppings = Shopping::shoppingsSelect($req->get('shop_id'));
         if (count($shoppings)){
             $shoppingsTmp = [];
             foreach ($shoppings as $k => $v) {

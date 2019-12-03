@@ -5,8 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class  Shopping extends Model {
         
-    public static function shoppingsSelect() {
-        $shoppings = Shopping::where("state", 1)->get();
+    public static function shoppingsSelect($shop_id) {
+        $shoppings = Shopping::where("state", 1)->where("shop_id", $shop_id)->get();
         if ($shoppings) {
             return $shoppings;
         }
@@ -21,8 +21,8 @@ class  Shopping extends Model {
         }
     }
 
-    public static function shoppingsSelectByName($name) {
-        $shoppings = Shopping::where('name','like', '%'.$name.'%')->where("state", 1)->get();
+    public static function shoppingsSelectByName($name,$shop_id) {
+        $shoppings = Shopping::where('name','like', '%'.$name.'%')->where("state", 1)->where("shop_id", $shop_id)->get();
         if ($shoppings) {
             return $shoppings;
         }
@@ -44,6 +44,7 @@ class  Shopping extends Model {
         $shopping->price = array_get($params,"price");
         $shopping->type = array_get($params,"type");
         $shopping->oper = array_get($params,"oper");
+        $shopping->shop_id = array_get($params,"shop_id");
         $shopping->save();
         return $shopping;
     }
@@ -60,7 +61,7 @@ class  Shopping extends Model {
     }
 
     public static function shoppingRepeat($params) {
-        $shopping = Shopping::where("name", array_get($params,"name"))->where("flag", array_get($params,"flag"))->where("price", array_get($params,"price"))->where("type", array_get($params,"type"))->where("oper", array_get($params,"oper"))->first();
+        $shopping = Shopping::where("name", array_get($params,"name"))->where("flag", array_get($params,"flag"))->where("price", array_get($params,"price"))->where("type", array_get($params,"type"))->where("oper", array_get($params,"oper"))->where("shop_id", array_get($params,"shop_id"))->first();
         if ($shopping) {
             return $shopping->id;
         }else{
