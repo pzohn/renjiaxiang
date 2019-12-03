@@ -371,7 +371,6 @@ class ShoppingController extends Controller
         $indexsetId = Indexset::GetIndexId($type,$shop_id,$object_id);
         if ($indexsetId == 0) {
             Indexset::InsertIndex($type,$shop_id,$object_id);
-            return $indexset;
         }
     }
 }
