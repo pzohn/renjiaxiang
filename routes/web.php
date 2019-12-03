@@ -123,6 +123,8 @@ Route::post('/getInfoByName', 'ShoppingController@getInfoByName');
 
 Route::post('/shoppingGet', 'ShoppingController@shoppingGet');
 
+Route::post('/shoppingUpdatePart', 'ShoppingController@shoppingUpdatePart');
+
 Route::post('/getAddress', 'UserController@getAddress');
 
 Route::post('/getAddressById', 'UserController@getAddressById');

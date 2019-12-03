@@ -125,6 +125,17 @@ class ShoppingController extends Controller
         ];
     }
 
+    public function shoppingUpdatePart(Request $req) {
+        $params = [
+            "id" => $req->get('id'),
+            "name" => $req->get('name'),
+            "price" => $req->get('price'),
+            "royalty" => $req->get('royalty')
+        ];
+        $shopping = Shopping::shoppingUpdatePart($id);
+        return  $shopping;
+    }
+
     public function shoppingGetByCollect(Request $req) {
         $ids = $req->get('ids');
         $pos = strpos($ids, '@');
@@ -242,7 +253,8 @@ class ShoppingController extends Controller
                 $shoppingsTmp[] = [
                 "id" => $v->id,
                 "name" => $v->name,
-                "avatar" => 'https://www.hattonstar.com/storage/'. Image::GetTitleUrlByParentId($v->id,$v->type),
+                "avatar
+                " => 'https://www.hattonstar.com/storage/'. Image::GetTitleUrlByParentId($v->id,$v->type),
                 "type" => Shoppingtype::GetTypeById($v->type)->name,
                 "price" => $v->price,
                 "royalty" => $v->royalty,

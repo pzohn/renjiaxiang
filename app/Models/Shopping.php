@@ -39,6 +39,17 @@ class  Shopping extends Model {
         return $shopping;
     }
 
+    public static function shoppingUpdatePart($params) {
+        $shopping = Shopping::where("id", array_get($params,"id"))->first();
+        if ($shopping) {
+            $shopping->name = array_get($params,"name");
+            $shopping->price = array_get($params,"price");
+            $shopping->royalty = array_get($params,"royalty");
+            $shopping->update();
+            return $shopping;
+        }
+    }
+
     public static function shoppingRepeat($params) {
         $shopping = Shopping::where("name", array_get($params,"name"))->where("flag", array_get($params,"flag"))->where("price", array_get($params,"price"))->where("type", array_get($params,"type"))->where("oper", array_get($params,"oper"))->first();
         if ($shopping) {
