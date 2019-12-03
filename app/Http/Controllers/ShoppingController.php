@@ -308,4 +308,13 @@ class ShoppingController extends Controller
         }else {
             return false;
         }
+    }
+
+    protected function flagToswitch($flag) {
+        if ($flag == true){
+            return 'on';
+        }else {
+            return 'off';
+        }
+    }
 }
