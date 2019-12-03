@@ -14,10 +14,11 @@ class ShoppingController extends Controller
     public function shoppingInsert(Request $req) {
         $params = [
             'name' => $req->get('name'),
-            'flag' => $req->get('flag'),
             'price' => $req->get('price'),
             'type' => $req->get('type'),
             'oper' => $req->get('oper'),
+            'royalty' => $req->get('royalty'),
+            'integral' => $req->get('integral'),
             'shop_id' => $req->get('shop_id')
             ];
         $shoppingId = Shopping::shoppingRepeat($params);
@@ -153,7 +154,8 @@ class ShoppingController extends Controller
             "id" => $req->get('id'),
             "name" => $req->get('name'),
             "price" => $req->get('price'),
-            "royalty" => $req->get('royalty')
+            "royalty" => $req->get('royalty'),
+            "integral" => $req->get('integral')
         ];
         $shopping = Shopping::shoppingUpdatePart($params);
         return  $shopping;
@@ -280,6 +282,7 @@ class ShoppingController extends Controller
                 "type" => Shoppingtype::GetTypeById($v->type)->name,
                 "price" => $v->price,
                 "royalty" => $v->royalty,
+                "integral" => $v->integral,
                 "time" => $v->updated_at->format('Y-m-d H:i:s')
                 ];
             }
@@ -298,4 +301,11 @@ class ShoppingController extends Controller
             return $result_data;
         }
     }
+
+    protected function switchToflag($switch) {
+        if ($switch == 'on'){
+            return true;
+        }else {
+            return false;
+        }
 }
