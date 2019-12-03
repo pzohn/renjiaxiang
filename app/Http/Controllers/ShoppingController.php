@@ -173,13 +173,13 @@ class ShoppingController extends Controller
             $this->delFlag(1,$shopping->shop_id,$shopping->id);
         }
 
-        if ($this->switchToflag($req->get('one_switch'))){
+        if ($this->switchToflag($req->get('good_switch'))){
             $this->insertFlag(2,$shopping->shop_id,$shopping->id);
         }else {
             $this->delFlag(2,$shopping->shop_id,$shopping->id);
         }
 
-        if ($this->switchToflag($req->get('good_switch'))){
+        if ($this->switchToflag($req->get('one_switch'))){
             $this->insertFlag(3,$shopping->shop_id,$shopping->id);
         }else {
             $this->delFlag(3,$shopping->shop_id,$shopping->id);
