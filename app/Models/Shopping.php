@@ -12,6 +12,15 @@ class  Shopping extends Model {
         }
     }
 
+    public static function shoppingOff($id) {
+        $shopping = Shopping::where("id", $id)->first();
+        if ($shopping) {
+            $shopping->state = 0;
+            $shopping->update();
+            return $shopping;
+        }
+    }
+
     public static function shoppingsSelectByName($name) {
         $shoppings = Shopping::where('name','like', '%'.$name.'%')->where("state", 1)->get();
         if ($shoppings) {

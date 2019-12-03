@@ -125,6 +125,12 @@ class ShoppingController extends Controller
         ];
     }
 
+    public function shoppingOff(Request $req) {
+        $id = $req->get('id');
+        $shopping = Shopping::shoppingOff($id);
+        return $shopping;
+    }
+
     public function shoppingUpdatePart(Request $req) {
         $params = [
             "id" => $req->get('id'),

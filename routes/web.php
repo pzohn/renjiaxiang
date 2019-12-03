@@ -125,6 +125,8 @@ Route::post('/shoppingGet', 'ShoppingController@shoppingGet');
 
 Route::post('/shoppingUpdatePart', 'ShoppingController@shoppingUpdatePart');
 
+Route::post('/shoppingOff', 'ShoppingController@shoppingOff');
+
 Route::post('/getAddress', 'UserController@getAddress');
 
 Route::post('/getAddressById', 'UserController@getAddressById');
