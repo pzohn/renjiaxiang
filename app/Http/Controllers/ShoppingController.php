@@ -51,7 +51,7 @@ class ShoppingController extends Controller
     public function shoppingGetByType(Request $req) {
         $type = $req->get('type_id');
         $file = 'title';
-        $shoppings = Shopping::shoppingGetByType($type);
+        $shoppings = Shopping::shoppingGetByType($type,$req->get('shop_id'));
         if (count($shoppings)){
             $shoppingsTmp = [];
             foreach ($shoppings as $k => $v) {
