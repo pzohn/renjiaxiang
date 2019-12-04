@@ -210,9 +210,9 @@ class UserController extends Controller
         ];
         $resultLogin = GuzzleHttp::guzzleGet($urlLogin, $paramsLogin);
         $openId = $resultLogin["openid"];
-        $wxuser = Wxuser::getInfo($openId);
+        $wxuser = Wxuser::getInfo($openId,$req->get('shop_id'));
         if (!$wxuser){
-            $wxuser = Wxuser::insertInfo($openId);
+            $wxuser = Wxuser::insertInfo($openId,$req->get('shop_id'));
         }
         $member = Member::memberSelectById($wxuser->id);
         if (!$member) {

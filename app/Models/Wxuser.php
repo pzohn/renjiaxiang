@@ -7,8 +7,8 @@ class  Wxuser extends Model {
         
     public $timestamps = false;
 
-    public static function getInfo($openid) {
-        $wxuser = Wxuser::where("openid", $openid)->first();
+    public static function getInfo($openid,$shop_id) {
+        $wxuser = Wxuser::where("openid", $openid)->where("shop_id", $shop_id)->first();
         if ($wxuser) {
             return $wxuser;
         }
@@ -25,9 +25,10 @@ class  Wxuser extends Model {
         }
     }
 
-    public static function insertInfo($openid) {
+    public static function insertInfo($openid,$shop_id) {
         $wxuser = new self;
         $wxuser->openid = $openid;
+        $wxuser->shop_id = $shop_id;
         $wxuser->save();
         return $wxuser;
     }
