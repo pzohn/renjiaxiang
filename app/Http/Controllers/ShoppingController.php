@@ -85,6 +85,7 @@ class ShoppingController extends Controller
         $detail = 'detail';
         $video = 'video';
         $title = 'title';
+        $poster = 'poster';
         $shopping = Shopping::shoppingSelect($id);
         if ($shopping){
             $result_data = [
@@ -98,7 +99,8 @@ class ShoppingController extends Controller
                         "lunbo" => Image::GetImageUrlByParentId($shopping->id,$lunbo,$shopping->type),
                         "detail" => Image::GetImageUrlByParentId($shopping->id,$detail,$shopping->type),
                         "video" => Image::GetImageUrlByParentId($shopping->id,$video,$shopping->type),
-                        "title" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type)
+                        "title" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
+                        "poster" => Image::GetImageUrlByParentId($shopping->id,$poster,$shopping->type)
                     ]
                 ]
             ];
