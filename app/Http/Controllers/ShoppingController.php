@@ -240,7 +240,7 @@ class ShoppingController extends Controller
                 "id" => $v->object_id,
                 "title_pic" => Image::GetImageUrlByParentId($shopping->id,$lunbo,$shopping->type)[0],
                 ];
-                if ($index == 3){
+                if ($index == 6){
                     break;
                 }
             }
