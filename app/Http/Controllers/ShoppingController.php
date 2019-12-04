@@ -222,6 +222,7 @@ class ShoppingController extends Controller
 
     public function getIndexset(Request $req) {
         $title = 'title';
+        $lunbo = 'lunbo';
         $indexLunbos = Indexset::GetIndexByType(1,$req->get('shop_id'));
         $indexGoods = Indexset::GetIndexByType(2,$req->get('shop_id'));
         $indexWeeks = Indexset::GetIndexByType(3,$req->get('shop_id'));
@@ -235,7 +236,7 @@ class ShoppingController extends Controller
                 $index ++;
                 $indexLunbosTmp[] = [
                 "id" => $v->object_id,
-                "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
+                "title_pic" => Image::GetImageUrlByParentId($shopping->id,$lunbo,$shopping->type)[0],
                 ];
                 if ($index == 3){
                     break;
