@@ -210,8 +210,30 @@ class PayController extends Controller
             if($trade1->pay_status == 1){
                 return  $trade1;
             }
-            Trade::payUpdate($params["out_trade_no"]);
+            $flag = Trade::payUpdate($params["out_trade_no"]);
             $trade = Trade::paySelect($params["out_trade_no"]);
+            if ( $flag == 1){
+                $royalty = 0;
+                $integral = 0;
+                $childtrades = Childtrade::paySelectById($trade->id);
+                $childtradesTmp = [];
+                foreach ($childtrades as $k => $v) {
+                    $shopping = Shopping::shoppingSelect($v->shopping_id);
+                    if ($shopping){
+                        $royalty += $shopping->royalty;
+                        $integral += $shopping->integral;
+                    }
+                }
+                if (($trade->share_id != 0) && ($trade->share_id != $trade->wx_id)){
+                    if ($royalty != 0){
+                        $member = Member::memberUpdateRoyalty($trade->share_id,$royalty);
+                    }
+                }
+                if ($integral != 0){
+                    $member = Member::memberUpdateIntegral($trade->wx_id,$integral);
+                }
+                return 1;
+            }
             $card = Card::getCard($trade->detail_id);
             $infoPara =[
                 'PHONE' => $trade->phone,
@@ -1414,6 +1436,78 @@ class PayController extends Controller
         $trade = Trade::hideOrder($id);
         if ($trade) {
             return  $trade;
+        }
+    }
+
+    public function postRefund(Request $req) {
+        $trade = Trade::postRefund($req->get('id'),$req->get('refund_status'));
+        if ($trade) {
+            return  $trade;
+        }
+    }
+
+    public function getOrderRefundForPerson(Request $req) {
+        $trades = Trade::getOrderRefundForPerson($req->get('wx_id'));
+        $title = "title";
+        if ($trades){
+            $tradesTmp = [];
+            foreach ($trades as $k => $v) {
+                $count = 0;
+                $childtrades = Childtrade::paySelectById($v->id);
+                $childtradesTmp = [];
+                foreach ($childtrades as $k1 => $v1) {
+                    $shopping = Shopping::shoppingSelect($v1->shopping_id);
+                    if ($shopping){
+                        $count += 1;
+                        $childtradesTmp[] = [
+                            "name" => $shopping->name,
+                            "charge" => $shopping->price,
+                            "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
+                            "shopping_id" => $shopping->id,
+                            "num" => $v1->num
+                        ]; 
+                    }
+                }
+
+                if ($count){
+                    $tradesTmp[] = [
+                        "time" => $v->updated_at->format('Y-m-d H:i:s'),
+                        "tradeid" => $v->out_trade_no,
+                        "charge" => $v->total_fee,
+                        "count" => $count,
+                        "detail" => $childtradesTmp,
+                        "address" => SendAddress::GetAddress($v->id),
+                        "status" => $this->getRefundStatus($v->finish_refund_status),
+                        "color" => $this->getRefundColor($v->finish_refund_status),
+                        "phone" =>  $v->phone,
+                        "body" => $v->body,
+                        "id" => $v->id                
+                    ];
+                }
+            }
+            $result_data = [
+                'code' => 0,
+                'msg' => '',
+                'count' => count($tradesTmp),
+                'data' => $tradesTmp
+            ];
+            return $result_data;
+        }
+    }
+
+    protected function getRefundStatus($finish_status) {
+        if ($finish_status == 0){
+            return '待处理';
+        }else {
+            return '已完成';
+        }
+    }
+
+    protected function getRefundColor($finish_status) {
+        if ($finish_status == 0){
+            return 'red';
+        }else {
+            return 'green';
         }
     }
 }

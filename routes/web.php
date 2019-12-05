@@ -103,6 +103,8 @@ Route::post('/geTrades', 'PayController@geTrades');
 
 Route::post('/hideOrder', 'PayController@hideOrder');
 
+Route::post('/postRefund', 'PayController@postRefund');
+
 Route::post('/uploadOne', 'FileController@uploadOne');
 
 Route::post('/uploadOneRepeat', 'FileController@uploadOneRepeat');

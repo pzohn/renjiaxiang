@@ -54,10 +54,19 @@ class  Trade extends Model {
         if ($trade) {
             if($trade->pay_status == 1)
             {
-                return $trade;
+                return 0;
             }
             $trade->pay_status = 1;
             $trade->edit_flag = 1;
+            $trade->update();
+            return 1;
+        }
+    }
+
+    public static function postRefund($id,$refund_status) {
+        $trade = Trade::where("id", $id)->first();
+        if ($trade) {
+            $trade->post_refund_status = $refund_status;
             $trade->update();
             return $trade;
         }
@@ -118,6 +127,13 @@ class  Trade extends Model {
         }
     }
 
+    public static function getOrderUnPayForPerson($wx_id) {
+        $trades = Trade::where("wx_id", $wx_id)->where("show_status", 1)->where("pay_status", 0)->orderBy('updated_at', 'desc')->get();
+        if ($trades) {
+            return $trades;
+        }
+    }
+
     public static function getOrderAllForPerson($wx_id) {
         $trades = Trade::where("wx_id", $wx_id)->where("show_status", 1)->orderBy('updated_at', 'desc')->get();
         if ($trades) {
@@ -132,8 +148,8 @@ class  Trade extends Model {
         }
     }
 
-    public static function getOrderUnPayForPerson($wx_id) {
-        $trades = Trade::where("wx_id", $wx_id)->where("show_status", 1)->where("pay_status", 0)->orderBy('updated_at', 'desc')->get();
+    public static function getOrderRefundForPerson($wx_id) {
+        $trades = Trade::where("wx_id", $wx_id)->where("show_status", 1)->where("pay_status", 1)->where("post_refund_status", 1)->orderBy('updated_at', 'desc')->get();
         if ($trades) {
             return $trades;
         }
