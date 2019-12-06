@@ -1497,27 +1497,39 @@ class PayController extends Controller
     }
 
     public function getShareForPerson(Request $req) {
+        $member = Member::memberSelect($req->get('wx_id'));
         $trades = Trade::getShareForPerson($req->get('wx_id'));
-        if ($trades){
-            $tradesTmp = [];
-            foreach ($trades as $k => $v) {
-                $tradesTmp[] = [
-                    "time" => $v->updated_at->format('Y-m-d H:i:s'),
-                    "tradeid" => $v->out_trade_no,
-                    "charge" => $v->total_fee,
-                    "body" => $v->body,
-                    "nikename" => Wxuser::getNameById($v->wx_id),
-                    "royalty" => $v->royalty
-                ];
-            }
-            $result_data = [
-                'code' => 0,
-                'msg' => '',
-                'count' => count($tradesTmp),
-                'data' => $tradesTmp
+        $tradesTmp = [];
+        foreach ($trades as $k => $v) {
+            $tradesTmp[] = [
+                "time" => $v->updated_at->format('Y-m-d H:i:s'),
+                "tradeid" => $v->out_trade_no,
+                "charge" => $v->total_fee,
+                "body" => $v->body,
+                "nikename" => Wxuser::getNameById($v->wx_id),
+                "royalty" => $v->royalty
             ];
-            return $result_data;
         }
+        $tradesUse = Trade::getShareUseForPerson($req->get('wx_id'));
+        $tradesUseTmp = [];
+        foreach ($tradesUse as $k1 => $v1) {
+            $tradesUseTmp[] = [
+                "time" => $v1->updated_at->format('Y-m-d H:i:s'),
+                "tradeid" => $v1->out_trade_no,
+                "charge" => $v1->total_fee,
+                "body" => $v1->body,
+                "use_royalty" => $v1->use_royalty
+            ];
+        }
+        $result_data = [
+            'code' => 0,
+            'msg' => '',
+            'count' => count($tradesTmp),
+            'royalty' => $member->royalty,
+            'data' => $tradesTmp,
+            'dataTrade' => $tradesUseTmp
+        ];
+        return $result_data;
     }
 
     protected function getRefundStatus($finish_status) {

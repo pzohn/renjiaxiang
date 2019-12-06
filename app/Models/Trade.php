@@ -127,6 +127,13 @@ class  Trade extends Model {
         }
     }
 
+    public static function getShareUseForPerson($wx_id) {
+        $trades = Trade::where("use_royalty",'!=',0)->where("wx_id", $wx_id)->where("finish_refund_status", 0)->where("pay_status", 1)->orderBy('updated_at', 'desc')->get();
+        if ($trades) {
+            return $trades;
+        }
+    }
+
     public static function getShareForPerson($wx_id) {
         $trades = Trade::where("share_id", $wx_id)->where("wx_id", '!=', $wx_id)->where("finish_refund_status", 0)->where("pay_status", 1)->orderBy('updated_at', 'desc')->get();
         if ($trades) {
