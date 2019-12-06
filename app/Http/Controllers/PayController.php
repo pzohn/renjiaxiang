@@ -16,6 +16,7 @@ use App\Models\SendAddress;
 use App\Models\Address;
 use App\Models\Image;
 use App\Models\Wxuser;
+use App\Models\Member;
 
 class PayController extends Controller
 {
