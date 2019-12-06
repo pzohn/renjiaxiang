@@ -215,25 +215,7 @@ class PayController extends Controller
             $flag = Trade::payUpdate($params["out_trade_no"]);
             $trade = Trade::paySelect($params["out_trade_no"]);
             if ( $flag == 1){
-                $royalty = 0;
-                $integral = 0;
-                $childtrades = Childtrade::paySelectById($trade->id);
-                $childtradesTmp = [];
-                foreach ($childtrades as $k => $v) {
-                    $shopping = Shopping::shoppingSelect($v->shopping_id);
-                    if ($shopping){
-                        $royalty += $shopping->royalty;
-                        $integral += $shopping->integral;
-                    }
-                }
-                if (($trade->share_id != 0) && ($trade->share_id != $trade->wx_id)){
-                    if ($royalty != 0){
-                        $member = Member::memberUpdateRoyalty($trade->share_id,$royalty);
-                    }
-                }
-                if ($integral != 0){
-                    $member = Member::memberUpdateIntegral($trade->wx_id,$integral);
-                }
+                $this->doForme($trade);
                 return 1;
             }
             $card = Card::getCard($trade->detail_id);
@@ -1546,6 +1528,74 @@ class PayController extends Controller
             return 'red';
         }else {
             return 'green';
+        }
+    }
+
+    public function onPayShoppingFree(Request $req) {
+        $shopping = Shopping::shoppingSelect($req->get('detail_id'));
+        $params = [
+            'out_trade_no' => $this->createTradeNo(),
+            'body' => $shopping->name,
+            'detail_id' => $shopping->id,
+            'wx_id' => $req->get('wx_id'),
+            'shop_id' => $shopping->shop_id,
+            'name' => $req->get('name'),
+            'share_id' => $req->get('share_id'),
+            'use_royalty' => $req->get('use_royalty')
+            ];
+        $trade =Trade::payInsertFree($params);
+        $childtrade = [
+            'shopping_id' => $shopping->id,
+            'num' => $req->get('num'),
+            'trade_id' => $trade->id
+         ];
+        Childtrade::payInsert($childtrade);
+        $this->insertAddress($req->get('address_id'),$tradeNew->id);
+        $this->doForme($trade);
+        return $trade;
+    }
+
+    public function onPayrCertFree(Request $req) {
+        $shopping = Shopping::shoppingSelect($req->get('detail_id'));
+        $params = [
+            'out_trade_no' => $this->createTradeNo(),
+            'body' => $req->get('body'),
+            'detail_id' => 0,
+            'wx_id' => $req->get('wx_id'),
+            'shop_id' =>$this->getShopIdByCert($req->get('certInfo')),
+            'name' => $req->get('name'),
+            'share_id' => $req->get('share_id'),
+            'use_royalty' => $req->get('use_royalty')
+            ];
+        $trade =Trade::payInsertFree($params);
+        $this->certsInsert($req->get('certInfo'), $trade->id);
+        $this->insertAddress($req->get('address_id'),$trade->id);
+        $this->doForme($trade);
+        return $trade;
+    }
+
+    protected function doForme($trade) {
+        $royalty = 0;
+        $integral = 0;
+        $childtrades = Childtrade::paySelectById($trade->id);
+        $childtradesTmp = [];
+        foreach ($childtrades as $k => $v) {
+            $shopping = Shopping::shoppingSelect($v->shopping_id);
+            if ($shopping){
+                $royalty += $shopping->royalty;
+                $integral += $shopping->integral;
+            }
+        }
+        if (($trade->share_id != 0) && ($trade->share_id != $trade->wx_id)){
+            if ($royalty != 0){
+                $member = Member::memberUpdateRoyalty($trade->share_id,$royalty);
+            }
+        }
+        if ($integral != 0){
+            $member = Member::memberUpdateIntegral($trade->wx_id,$integral);
+        }
+        if ($trade->use_royalty != 0){
+            $member = Member::memberUpdateRoyaltySell($trade->wx_id,$trade->use_royalty);
         }
     }
 }

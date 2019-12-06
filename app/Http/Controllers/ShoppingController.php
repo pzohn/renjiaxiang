@@ -8,7 +8,6 @@ use App\Models\Image;
 use App\Models\Address;
 use App\Models\Indexset;
 use App\Models\Shoppingtype;
-use App\Models\Member;
 
 class ShoppingController extends Controller
 {
@@ -122,13 +121,11 @@ class ShoppingController extends Controller
         $title = 'title';
         $shopping = Shopping::shoppingSelect($id);
         $address = Address::GetAddress($req->get('login_id'));
-        $member = Member::memberSelect($req->get('login_id'));
         return [
             "name" => $shopping->name,
             "charge" => $shopping->price,
             "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
-            "address" => $address,
-            "royalty" => $member->royalty
+            "address" => $address
         ];
     }
 

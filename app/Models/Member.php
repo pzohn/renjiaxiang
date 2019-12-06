@@ -83,6 +83,15 @@ class  Member extends Model {
         }
     }
 
+    public static function memberUpdateRoyaltySell($wx_id,$royalty) {
+        $member = Member::where("wx_id", $wx_id)->first();
+        if ($member) {
+            $member->royalty -= $royalty;
+            $member->update();
+            return $member;
+        }
+    }
+
     public static function memberUpdateIntegral($wx_id,$integral) {
         $member = Member::where("wx_id", $wx_id)->first();
         if ($member) {

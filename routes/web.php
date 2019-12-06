@@ -109,6 +109,10 @@ Route::post('/postRefund', 'PayController@postRefund');
 
 Route::post('/getShareForPerson', 'PayController@getShareForPerson');
 
+Route::post('/onPayShoppingFree', 'PayController@onPayShoppingFree');
+
+Route::post('/onPayrCertFree', 'PayController@onPayrCertFree');
+
 Route::post('/uploadOne', 'FileController@uploadOne');
 
 Route::post('/uploadOneRepeat', 'FileController@uploadOneRepeat');
