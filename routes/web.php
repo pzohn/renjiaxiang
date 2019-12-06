@@ -105,6 +105,8 @@ Route::post('/hideOrder', 'PayController@hideOrder');
 
 Route::post('/postRefund', 'PayController@postRefund');
 
+Route::post('/getShareForPerson', 'PayController@getShareForPerson');
+
 Route::post('/uploadOne', 'FileController@uploadOne');
 
 Route::post('/uploadOneRepeat', 'FileController@uploadOneRepeat');

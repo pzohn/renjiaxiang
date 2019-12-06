@@ -15,6 +15,7 @@ use App\Models\Shopping;
 use App\Models\SendAddress;
 use App\Models\Address;
 use App\Models\Image;
+use App\Models\Wxinfo;
 
 class PayController extends Controller
 {
@@ -1484,6 +1485,29 @@ class PayController extends Controller
                         "id" => $v->id                
                     ];
                 }
+            }
+            $result_data = [
+                'code' => 0,
+                'msg' => '',
+                'count' => count($tradesTmp),
+                'data' => $tradesTmp
+            ];
+            return $result_data;
+        }
+    }
+
+    public function getShareForPerson(Request $req) {
+        $trades = Trade::getShareForPerson($req->get('wx_id'));
+        if ($trades){
+            $tradesTmp = [];
+            foreach ($trades as $k => $v) {
+                $tradesTmp[] = [
+                    "time" => $v->updated_at->format('Y-m-d H:i:s'),
+                    "tradeid" => $v->out_trade_no,
+                    "charge" => $v->total_fee,
+                    "body" => $v->body,
+                    "nikename" => Wxinfo::GetWxinfoById($v->wx_id)->nikename      
+                ];
             }
             $result_data = [
                 'code' => 0,
