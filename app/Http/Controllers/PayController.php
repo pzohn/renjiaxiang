@@ -1537,7 +1537,7 @@ class PayController extends Controller
         if ($finish_status == 0){
             return '待处理';
         }else {
-            return '已完成';
+            return '已处理';
         }
     }
 
