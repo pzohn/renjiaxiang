@@ -1079,7 +1079,7 @@ class PayController extends Controller
                     'openid' => $openid,
                     'out_trade_no'=> $this->createTradeNo(),
                     'spbill_create_ip' => $req->getClientIp(),
-                    'total_fee' => $shopping->price * 100 * $req->get('num'),
+                    'total_fee' => $req->get('total_fee') * 100 ,
                     'trade_type' => "JSAPI",
                     ];
 
@@ -1125,7 +1125,8 @@ class PayController extends Controller
                     'wx_id' => $req->get('wx_id'),
                     'shop_id' => $shopping->shop_id,
                     'name' => $req->get('name'),
-                    'share_id' => $req->get('share_id')
+                    'share_id' => $req->get('share_id'),
+                    'use_royalty' => $req->get('use_royalty')
                  ];
                  $tradeNew = Trade::payInsertForId($trade);
                  $childtrade = [
@@ -1353,7 +1354,8 @@ class PayController extends Controller
                     'wx_id' => $req->get('wx_id'),
                     'shop_id' => $this->getShopIdByCert($req->get('certInfo')),
                     'name' => $req->get('name'),
-                    'share_id' => $req->get('share_id')
+                    'share_id' => $req->get('share_id'),
+                    'use_royalty' => $req->get('use_royalty')
                  ];
                  $tradeNew = Trade::payInsertForId($trade);
                  $this->certsInsert($req->get('certInfo'), $tradeNew->id);
