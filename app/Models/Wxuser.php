@@ -15,6 +15,14 @@ class  Wxuser extends Model {
         return 0;
     }
 
+    public static function getNameById($id) {
+        $wxuser = Wxuser::where("id", $id)->first();
+        if ($wxuser) {
+            return $wxuser->nikename;
+        }
+        return "";
+    }
+
     public static function updateBaseInfo($params) {
         $wxuser = Wxuser::where("id", array_get($params,"id"))->first();
         if ($wxuser) {

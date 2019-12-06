@@ -15,7 +15,7 @@ use App\Models\Shopping;
 use App\Models\SendAddress;
 use App\Models\Address;
 use App\Models\Image;
-use App\Models\Wxinfo;
+use App\Models\Wxuser;
 
 class PayController extends Controller
 {
@@ -1506,7 +1506,7 @@ class PayController extends Controller
                     "tradeid" => $v->out_trade_no,
                     "charge" => $v->total_fee,
                     "body" => $v->body,
-                    "nikename" => $v->wx_id     
+                    "nikename" => getNameById::getNameById($v->wx_id)      
                 ];
             }
             $result_data = [
