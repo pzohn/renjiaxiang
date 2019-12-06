@@ -677,7 +677,8 @@ class PayController extends Controller
                         "color" => $this->getColor($v->pay_status,$v->send_status,$v->finish_status),
                         "phone" =>  $v->phone,
                         "body" => $v->body,
-                        "id" => $v->id                
+                        "id" => $v->id,
+                        "use_royalty" => $v->use_royalty
                     ];
                 }
             }
@@ -727,7 +728,8 @@ class PayController extends Controller
                         "color" => 'red',
                         "phone" =>  $v->phone,
                         "body" => $v->body,
-                        "id" => $v->id                
+                        "id" => $v->id,
+                        "use_royalty" => $v->use_royalty                
                     ];
                 }
             }
@@ -818,7 +820,8 @@ class PayController extends Controller
                         "color" => 'orange',
                         "phone" =>  $v->phone,
                         "body" => $v->body,
-                        "id" => $v->id                
+                        "id" => $v->id,
+                        "use_royalty" => $v->use_royalty                
                     ];
                 }
             }
@@ -910,7 +913,8 @@ class PayController extends Controller
                         "color" => 'blue',
                         "phone" =>  $v->phone,
                         "body" => $v->body,
-                        "id" => $v->id                
+                        "id" => $v->id,
+                        "use_royalty" => $v->use_royalty                
                     ];
                 }
             }
@@ -960,7 +964,8 @@ class PayController extends Controller
                         "color" => 'green',
                         "phone" =>  $v->phone,
                         "body" => $v->body,
-                        "id" => $v->id                
+                        "id" => $v->id,
+                        "use_royalty" => $v->use_royalty                
                     ];
                 }
             }
@@ -1467,7 +1472,8 @@ class PayController extends Controller
                         "color" => $this->getRefundColor($v->finish_refund_status),
                         "phone" =>  $v->phone,
                         "body" => $v->body,
-                        "id" => $v->id                
+                        "id" => $v->id,
+                        "use_royalty" => $v->use_royalty                
                     ];
                 }
             }
