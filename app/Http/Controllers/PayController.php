@@ -1506,7 +1506,7 @@ class PayController extends Controller
                     "tradeid" => $v->out_trade_no,
                     "charge" => $v->total_fee,
                     "body" => $v->body,
-                    "nikename" => Wxinfo::GetWxinfoById($v->wx_id)->nikename      
+                    "nikename" => Wxinfo::GetWxinfoById($v->wx_id)      
                 ];
             }
             $result_data = [
