@@ -1550,7 +1550,7 @@ class PayController extends Controller
             'trade_id' => $trade->id
          ];
         Childtrade::payInsert($childtrade);
-        $this->insertAddress($req->get('address_id'),$tradeNew->id);
+        $this->insertAddress($req->get('address_id'),$trade->id);
         $this->doForme($trade);
         return $trade;
     }
