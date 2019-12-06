@@ -76,7 +76,9 @@ class  Trade extends Model {
                 return 0;
             }
             $trade->pay_status = 1;
-            $trade->edit_flag = 1;
+            if ($trade->wx_id == 0){
+                $trade->edit_flag = 1;
+            }
             $trade->update();
             return 1;
         }
