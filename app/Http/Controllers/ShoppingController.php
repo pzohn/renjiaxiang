@@ -367,7 +367,7 @@ class ShoppingController extends Controller
     }
 
     protected function flagToswitch1($shop_id,$object_id) {
-        $indexset4 = Indexset::GetIndexId(1,$shop_id,$object_id);
+        $indexset4 = Indexset::GetIndexId(4,$shop_id,$object_id);
         if ($indexset4) {
             return 1;
         }else {
