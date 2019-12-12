@@ -315,7 +315,8 @@ class ShoppingController extends Controller
                 "royalty" => $v->royalty,
                 "integral" => $v->integral,
                 "time" => $v->updated_at->format('Y-m-d H:i:s'),
-                "flag" => $this->flagToswitch($v->shop_id,$v->id)
+                "flag" => $this->flagToswitch($v->shop_id,$v->id),
+                "flag1" => $this->flagToswitch1($v->shop_id,$v->id)
                 ];
             }
             $result_data = [
@@ -362,6 +363,15 @@ class ShoppingController extends Controller
             return 6;
         }else {
             return 7;
+        }    
+    }
+
+    protected function flagToswitch1($shop_id,$object_id) {
+        $indexset4 = Indexset::GetIndexId(1,$shop_id,$object_id);
+        if ($indexset4) {
+            return 1;
+        }else {
+            return 0;
         }    
     }
 
