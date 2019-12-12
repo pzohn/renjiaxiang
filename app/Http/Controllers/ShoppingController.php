@@ -188,6 +188,12 @@ class ShoppingController extends Controller
         }else {
             $this->delFlag(3,$shopping->shop_id,$shopping->id);
         }
+
+        if ($this->switchToflag($req->get('share_switch'))){
+            $this->insertFlag(4,$shopping->shop_id,$shopping->id);
+        }else {
+            $this->delFlag(4,$shopping->shop_id,$shopping->id);
+        }
         return  $shopping;
     }
 
