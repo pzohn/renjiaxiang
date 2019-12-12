@@ -170,7 +170,7 @@ class ShoppingController extends Controller
             "type" => $req->get('type')
         ];
         $shopping = Shopping::shoppingUpdatePart($params);
-        Image::UpdateTypeByParentId($shopping->id);
+        Image::UpdateTypeByParentId($shopping->id,$req->get('type'));
         if ($this->switchToflag($req->get('post_switch'))){
             $this->insertFlag(1,$shopping->shop_id,$shopping->id);
         }else {
