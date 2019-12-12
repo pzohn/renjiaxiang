@@ -57,6 +57,7 @@ class  Shopping extends Model {
             $shopping->price = array_get($params,"price");
             $shopping->royalty = array_get($params,"royalty");
             $shopping->integral = array_get($params,"integral");
+            $shopping->type = array_get($params,"type");
             $shopping->update();
             return $shopping;
         }
