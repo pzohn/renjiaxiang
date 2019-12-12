@@ -166,9 +166,11 @@ class ShoppingController extends Controller
             "name" => $req->get('name'),
             "price" => $req->get('price'),
             "royalty" => $req->get('royalty'),
-            "integral" => $req->get('integral')
+            "integral" => $req->get('integral'),
+            "type" => $req->get('type')
         ];
         $shopping = Shopping::shoppingUpdatePart($params);
+        Image::UpdateTypeByParentId($shopping->id);
         if ($this->switchToflag($req->get('post_switch'))){
             $this->insertFlag(1,$shopping->shop_id,$shopping->id);
         }else {

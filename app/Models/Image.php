@@ -19,6 +19,7 @@ class  Image extends Model {
         if ($image) {
             return $image->file . "/" . $image->url;
         }
+        return 0;
     }
 
     public static function GetImageUrlByParentId($id,$file,$type) {
@@ -30,6 +31,17 @@ class  Image extends Model {
             ];
         }
         return  $imagesTmp;
+    }
+
+    public static function UpdateTypeByParentId($id,$type) {
+        $images = Image::where("parent_id", $id)->get();
+        foreach ($images as $k => $v) {
+            $image = Image::GetImage($v->id);
+            if ($image) {
+                $image->type = $type;
+                $image->update();
+            }
+        }
     }
 
     public static function GetTitleUrlByParentId($id,$type) {
