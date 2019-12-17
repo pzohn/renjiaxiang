@@ -8,6 +8,7 @@ use Qcloud\Sms\SmsSingleSender;
 use App\Models\Address;
 use App\Models\Member;
 use App\Models\Wxuser;
+use App\Models\Zhang;
 use App\Libs\GuzzleHttp;
 
 class UserController extends Controller
@@ -201,24 +202,30 @@ class UserController extends Controller
     }
 
     public function getWxUser(Request $req) {
-        $urlLogin = "https://api.weixin.qq.com/sns/jscode2session";
-        $paramsLogin = [
-        	'appid' => "wx8d32477fdd368d9a",
-            'secret' => "d46d773f17e3f483e0673ec5b22aaa10",
-            'js_code' => $req->get('js_code'),
-            'grant_type' => "authorization_code",
-        ];
-        $resultLogin = GuzzleHttp::guzzleGet($urlLogin, $paramsLogin);
-        $openId = $resultLogin["openid"];
-        $wxuser = Wxuser::getInfo($openId,$req->get('shop_id'));
-        if (!$wxuser){
-            $wxuser = Wxuser::insertInfo($openId,$req->get('shop_id'));
+        $zhang = Zhang::getZhang($req->get('shop_id'));
+        if ($zhang){
+            $urlLogin = "https://api.weixin.qq.com/sns/jscode2session";
+            $paramsLogin = [
+                'appid' => $zhang->a,
+                'secret' => $zhang->b,
+                'js_code' => $req->get('js_code'),
+                'grant_type' => "authorization_code",
+            ];
+            $resultLogin = GuzzleHttp::guzzleGet($urlLogin, $paramsLogin);
+            $openId = $resultLogin["openid"];
+            $wxuser = Wxuser::getInfo($openId,$req->get('shop_id'));
+            if (!$wxuser){
+                $wxuser = Wxuser::insertInfo($openId,$req->get('shop_id'));
+            }
+            $member = Member::memberSelectById($wxuser->id);
+            if (!$member) {
+                Member::memberInsertId($wxuser->id);
+            }
+            return $wxuser;
+        } else {
+            return 0;
         }
-        $member = Member::memberSelectById($wxuser->id);
-        if (!$member) {
-            Member::memberInsertId($wxuser->id);
-        }
-        return $wxuser;
+
     }
 
     public function updateWxBaseInfo(Request $req) {
