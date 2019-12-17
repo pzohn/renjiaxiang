@@ -8,6 +8,7 @@ use App\Models\Image;
 use App\Models\Address;
 use App\Models\Indexset;
 use App\Models\Shoppingtype;
+use App\Models\FixedAddress;
 
 class ShoppingController extends Controller
 {
@@ -393,5 +394,19 @@ class ShoppingController extends Controller
         if ($indexsetId == 0) {
             Indexset::InsertIndex($type,$shop_id,$object_id);
         }
+    }
+
+    public function getFixedAddresses(Request $req) {
+        $fixedAddresses =  FixedAddress::GetAddresses($req->get('shop_id'));
+        $leasing = [];
+        foreach ($fixedAddresses as $k => $v) {
+            $leasing[] = [
+                "leasing" => FixedAddress::GetAddress($v)
+            ];
+        }
+        return [
+            "count" => count($leasing),
+            "leasings" => $leasing
+        ];
     }
 }

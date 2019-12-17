@@ -139,6 +139,8 @@ Route::post('/shoppingOff', 'ShoppingController@shoppingOff');
 
 Route::post('/shoppingsOff', 'ShoppingController@shoppingsOff');
 
+Route::post('/getFixedAddresses', 'ShoppingController@getFixedAddresses');
+
 Route::post('/getAddress', 'UserController@getAddress');
 
 Route::post('/getAddressById', 'UserController@getAddressById');
