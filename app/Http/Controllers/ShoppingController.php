@@ -401,7 +401,7 @@ class ShoppingController extends Controller
         $leasing = [];
         foreach ($fixedAddresses as $k => $v) {
             $leasing[] = [
-                "leasing" => FixedAddress::GetAddress($v)
+                "leasing" => FixedAddress::GetAddress($v->id)
             ];
         }
         return [
