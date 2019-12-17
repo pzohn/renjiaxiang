@@ -17,6 +17,7 @@ use App\Models\Address;
 use App\Models\Image;
 use App\Models\Wxuser;
 use App\Models\Member;
+use App\Models\Zhang;
 
 class PayController extends Controller
 {
@@ -146,14 +147,15 @@ class PayController extends Controller
         return $randstr;
     }
 
-    protected function createSign($stringA) {
+    protected function createSign($stringA,$sec) {
         \Log::info("------- stringA --------", [$stringA]);
-        $stringSignTemp = $stringA . "&key=renzheng840728chengboren15081900";
+        $tmp = "&key=" . $sec;
+        $stringSignTemp = $stringA .  $tmp;
         $sign = strtoupper(md5($stringSignTemp));
         return $sign;
     }
 
-    protected function createReSign($req,$sian_time) {
+    protected function createReSign($req,$sian_time,$sec) {
 
         $params = [
             'appId' => $req['appid'],
@@ -171,7 +173,7 @@ class PayController extends Controller
         }
 
         $StringTmp = ltrim($stringA, "&");
-        $resign = $this->createSign($StringTmp);
+        $resign = $this->createSign($StringTmp,$sec);
         return $resign;
     }
 
@@ -202,30 +204,35 @@ class PayController extends Controller
         foreach ($params as $k => $v) {
             $str .= "&".$k ."=" . $v;
         }
-        $str .= "&key=renzheng840728chengboren15081900";
-        $str = ltrim($str, "&");
-        $sign_strTmp = strtoupper(md5($str));
-        $updateTrade;
-        if($sign_strTmp == $sign_str)
-        {
-            $trade1 = Trade::paySelect($params["out_trade_no"]);
-            if($trade1->pay_status == 1){
-                return  $trade1;
+        $tradeTmp = Trade::paySelect($params["out_trade_no"]);
+        $zhang = Zhang::getZhang($tradeTmp->shop_id);
+        if ($zhang) {
+            $tmp = "&key=" . $zhang->d;
+            $str .= $tmp;
+            $str = ltrim($str, "&");
+            $sign_strTmp = strtoupper(md5($str));
+            $updateTrade;
+            if($sign_strTmp == $sign_str)
+            {
+                $trade1 = Trade::paySelect($params["out_trade_no"]);
+                if($trade1->pay_status == 1){
+                    return  $trade1;
+                }
+                $flag = Trade::payUpdate($params["out_trade_no"]);
+                $trade = Trade::paySelect($params["out_trade_no"]);
+                if ( $flag == 1){
+                    $this->doForme($trade);
+                    return 1;
+                }
+                $card = Card::getCard($trade->detail_id);
+                $infoPara =[
+                    'PHONE' => $trade->phone,
+                    'CARDID' => $trade->detail_id,
+                    'CARDNUM' => $card->USENUM
+                ];
+                $info = Information::updateCard($infoPara);
+                return $info;
             }
-            $flag = Trade::payUpdate($params["out_trade_no"]);
-            $trade = Trade::paySelect($params["out_trade_no"]);
-            if ( $flag == 1){
-                $this->doForme($trade);
-                return 1;
-            }
-            $card = Card::getCard($trade->detail_id);
-            $infoPara =[
-                'PHONE' => $trade->phone,
-                'CARDID' => $trade->detail_id,
-                'CARDNUM' => $card->USENUM
-            ];
-            $info = Information::updateCard($infoPara);
-            return $info;
         }
     }
 
@@ -1053,11 +1060,11 @@ class PayController extends Controller
     }
 
     public function onPayShopping(Request $req) {
-
+        $zhang = Zhang::getZhang($req->get('shop_id'));
         $urlLogin = "https://api.weixin.qq.com/sns/jscode2session";
         $paramsLogin = [
-        	'appid' => "wx8d32477fdd368d9a",
-            'secret' => "d46d773f17e3f483e0673ec5b22aaa10",
+        	'appid' => $zhang->a,
+            'secret' => $zhang->b,
             'js_code' => $req->get('js_code'),
             'grant_type' => "authorization_code",
         ];
@@ -1078,7 +1085,7 @@ class PayController extends Controller
                 $params = [
                     'appid' => $paramsLogin["appid"],
                     'body' => $shopping->name,
-                    'mch_id' => "1558764141",
+                    'mch_id' => $zhang->c,
                     'nonce_str' => $this->createRand(32),
                     'notify_url' => "https://www.hattonstar.com/onPayBack",
                     'openid' => $openid,
@@ -1105,7 +1112,7 @@ class PayController extends Controller
                     $spbill_create_ip = $req->getClientIp();
                     $notify_url = $params["notify_url"];
                     $trade_type = $params["trade_type"];
-                    $sign = $this->createSign($stringA);
+                    $sign = $this->createSign($stringA,$zhang->d);
 
 
                     $data = "<xml>
@@ -1128,7 +1135,7 @@ class PayController extends Controller
                     'detail_id' => $req->get('detail_id'),
                     'total_fee' => $params["total_fee"] * 0.01,
                     'wx_id' => $req->get('wx_id'),
-                    'shop_id' => $shopping->shop_id,
+                    'shop_id' => $req->get('shop_id'),
                     'name' => $req->get('name'),
                     'share_id' => $req->get('share_id'),
                     'use_royalty' => $req->get('use_royalty')
@@ -1146,7 +1153,7 @@ class PayController extends Controller
                  if ($decode["result_code"] == "SUCCESS")
                  {
                     $sian_time = (string)time();
-                    $resign = $this->createReSign($decode,$sian_time);
+                    $resign = $this->createReSign($decode,$sian_time,$zhang->d);
                     return $this->wxBack($decode,$resign,$sian_time);
                  }
                  else if($decode["result_code"] == "FAIL")
