@@ -1267,6 +1267,7 @@ class PayController extends Controller
                  Childtrade::payInsert($childtrade);
                  $this->insertAddressFix($req->get('address_id'),$tradeNew->id);
                  $resultPay = GuzzleHttp:: postXml($urlPay, $data);
+                 return $resultPay;
                  $decode = $this->decodeXml($resultPay);
                  if ($decode["result_code"] == "SUCCESS")
                  {
