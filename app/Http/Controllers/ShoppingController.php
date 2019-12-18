@@ -121,10 +121,6 @@ class ShoppingController extends Controller
         $id = $req->get('id');
         $title = 'title';
         $shopping = Shopping::shoppingSelect($id);
-        $fixedId = $req->get('fixed_id');
-        if ($fixedId){
-            $fixedId = 111;
-        }
         $address = Address::GetAddress($req->get('login_id'));
         return [
             "name" => $shopping->name,
@@ -412,5 +408,10 @@ class ShoppingController extends Controller
             "count" => count($leasing),
             "leasings" => $leasing
         ];
+    }
+
+    public function getFixedAddress(Request $req) {
+        $leasing =  FixedAddress::GetAddress($req->get('id'));
+        return $leasing;
     }
 }
