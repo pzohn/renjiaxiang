@@ -26,4 +26,12 @@ class  SendAddress extends Model {
         $sendAddress->save();
         return $sendAddress;
     }
+
+    public static function addressInsertFix($params) {
+        $sendAddress = new self;
+        $sendAddress->fixed_id = array_get($params,"fixed_id");
+        $sendAddress->trade_id = array_get($params,"trade_id");
+        $sendAddress->save();
+        return $sendAddress;
+    }
 }
