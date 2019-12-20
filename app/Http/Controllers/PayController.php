@@ -1347,7 +1347,7 @@ class PayController extends Controller
                     $spbill_create_ip = $req->getClientIp();
                     $notify_url = $params["notify_url"];
                     $trade_type = $params["trade_type"];
-                    $sign = $this->createSign($stringA);
+                    $sign = $this->createSign($stringA,$zhang->d);
 
 
                     $data = "<xml>
@@ -1383,7 +1383,7 @@ class PayController extends Controller
                  if ($decode["result_code"] == "SUCCESS")
                  {
                     $sian_time = (string)time();
-                    $resign = $this->createReSign($decode,$sian_time);
+                    $resign = $this->createReSign($decode,$sian_time,$zhang->d);
                     return $this->wxBack($decode,$resign,$sian_time);
                  }
                  else if($decode["result_code"] == "FAIL")
