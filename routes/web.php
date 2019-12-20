@@ -61,6 +61,8 @@ Route::post('/onPayShopping', 'PayController@onPayShopping');
 
 Route::post('/onPayShoppingFix', 'PayController@onPayShoppingFix');
 
+Route::post('/onPayForCertFix', 'PayController@onPayForCertFix');
+
 Route::post('/onPayForCert', 'PayController@onPayForCert');
 
 Route::post('/onRePay', 'PayController@onRePay');
