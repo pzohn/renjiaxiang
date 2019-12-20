@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\FixedAddress;
 
 class  SendAddress extends Model {
         
@@ -11,6 +12,20 @@ class  SendAddress extends Model {
         $sendAddress = SendAddress::where("trade_id", $id)->first();
         if ($sendAddress) {
             return $sendAddress;
+        }
+    }
+
+    public static function GetAddressEx($id) {
+        $sendAddress = SendAddress::where("trade_id", $id)->first();
+        if ($sendAddress) {
+            if ($sendAddress->fixed_id == 0){
+                return $sendAddress;
+            }else {
+                $fixAddress = FixedAddress::GetAddress($sendAddress->fixed_id);
+                if ($fixAddress) {
+                    return $fixAddress;
+                }
+            }
         }
     }
 
