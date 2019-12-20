@@ -1267,12 +1267,123 @@ class PayController extends Controller
                  Childtrade::payInsert($childtrade);
                  $this->insertAddressFix($req->get('address_id'),$tradeNew->id);
                  $resultPay = GuzzleHttp:: postXml($urlPay, $data);
-                 return $resultPay;
                  $decode = $this->decodeXml($resultPay);
                  if ($decode["result_code"] == "SUCCESS")
                  {
                     $sian_time = (string)time();
                     $resign = $this->createReSign($decode,$sian_time,$zhang->d);
+                    return $this->wxBack($decode,$resign,$sian_time);
+                 }
+                 else if($decode["result_code"] == "FAIL")
+                 {
+                     return [
+                        "errcode" => $decode["err_code"],
+                        "errmsg" => $decode["err_code_des"],
+                     ];
+                 }
+
+            }
+
+        } catch (\Exception $e) {
+            // 异常处理
+            \Log::info("----------", [$e]);
+            return [
+                "code" => $e->getCode(),
+                "msg"  => $e->getMessage(),
+                "data" => [],
+            ];
+        }
+    }
+
+    public function onPayForCertFix(Request $req) {
+        $zhang = Zhang::getZhang($req->get('shop_id'));
+        $urlLogin = "https://api.weixin.qq.com/sns/jscode2session";
+        $paramsLogin = [
+            'appid' => $zhang->a,
+            'secret' => $zhang->b,
+            'js_code' => $req->get('js_code'),
+            'grant_type' => "authorization_code",
+        ];
+        try {
+            $resultLogin = GuzzleHttp::guzzleGet($urlLogin, $paramsLogin);
+            if (isset($resultLogin['errcode'])) {
+                return [
+                    "errcode" => $resultLogin['errcode'],
+                    "errmsg" => "无效登录信息",
+                ];
+            }
+            $openid = $resultLogin['openid'];
+            $session_key = $resultLogin['session_key'];
+
+            if ($openid && $session_key) {
+                $urlPay = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+                $params = [
+                    'appid' => $paramsLogin["appid"],
+                    'body' => $req->get('body'),
+                    'mch_id' =>  $zhang->c,
+                    'nonce_str' => $this->createRand(32),
+                    'notify_url' => "https://www.hattonstar.com/onPayBack",
+                    'openid' => $openid,
+                    'out_trade_no'=> $this->createTradeNo(),
+                    'spbill_create_ip' => $req->getClientIp(),
+                    'total_fee' => $req->get('charge') * 100,
+                    'trade_type' => "JSAPI",
+                    ];
+
+                    ksort($params);
+
+                    $stringA = "";
+                    foreach ($params as $k => $v) {
+                        $stringA = $stringA . "&" . $k . "=" . $v;
+                    }
+                    $stringA = ltrim($stringA, "&");
+
+                    $appid = $params["appid"];
+                    $mch_id = $params["mch_id"];
+                    $nonce_str = $params["nonce_str"];
+                    $body = $params["body"];
+                    $out_trade_no = $params["out_trade_no"];
+                    $total_fee = $params["total_fee"];
+                    $spbill_create_ip = $req->getClientIp();
+                    $notify_url = $params["notify_url"];
+                    $trade_type = $params["trade_type"];
+                    $sign = $this->createSign($stringA);
+
+
+                    $data = "<xml>
+                    <appid>$appid</appid>
+                    <body>$body</body>
+                    <mch_id>$mch_id</mch_id>
+                    <nonce_str>$nonce_str</nonce_str>
+                    <notify_url>$notify_url</notify_url>
+                    <openid>$openid</openid>
+                    <out_trade_no>$out_trade_no</out_trade_no>
+                    <spbill_create_ip>$spbill_create_ip</spbill_create_ip>
+                    <total_fee>$total_fee</total_fee>
+                    <trade_type>$trade_type</trade_type>
+                    <sign>$sign</sign>
+                 </xml>";
+                 \Log::info("-----------pay", [$data]);
+                 $trade = [
+                    'out_trade_no' => $params["out_trade_no"],
+                    'body' => $params["body"],
+                    'detail_id' => 0,
+                    'total_fee' => $params["total_fee"] * 0.01,
+                    'wx_id' => $req->get('wx_id'),
+                    'shop_id' => $this->getShopIdByCert($req->get('certInfo')),
+                    'name' => $req->get('name'),
+                    'share_id' => $req->get('share_id'),
+                    'use_royalty' => $req->get('use_royalty')
+                 ];
+                 $tradeNew = Trade::payInsertForId($trade);
+                 $this->certsInsert($req->get('certInfo'), $tradeNew->id);
+                 $this->insertAddressFix($req->get('address_id'),$tradeNew->id);
+                 $resultPay = GuzzleHttp:: postXml($urlPay, $data);
+                 $decode = $this->decodeXml($resultPay);
+                 if ($decode["result_code"] == "SUCCESS")
+                 {
+                    $sian_time = (string)time();
+                    $resign = $this->createReSign($decode,$sian_time);
                     return $this->wxBack($decode,$resign,$sian_time);
                  }
                  else if($decode["result_code"] == "FAIL")
