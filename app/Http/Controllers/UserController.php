@@ -212,6 +212,7 @@ class UserController extends Controller
                 'grant_type' => "authorization_code",
             ];
             $resultLogin = GuzzleHttp::guzzleGet($urlLogin, $paramsLogin);
+            return $resultLogin;
             $openId = $resultLogin["openid"];
             $wxuser = Wxuser::getInfo($openId,$req->get('shop_id'));
             if (!$wxuser){
