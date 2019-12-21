@@ -73,7 +73,7 @@ class  Shopping extends Model {
     }
 
     public static function shoppingGetByType($type,$shop_id) {
-        $shopping = Shopping::where("type", $type)->where("shop_id", $shop_id)->get();
+        $shopping = Shopping::where("type", $type)->where("state", 1)->where("shop_id", $shop_id)->get();
         return $shopping;
     }
 }
