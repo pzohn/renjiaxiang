@@ -260,14 +260,16 @@ class ShoppingController extends Controller
         if (count($indexGoods)){
             foreach ($indexGoods as $k => $v) {
                 $shopping = Shopping::shoppingSelect($v->object_id);
-                $indexGoodsTmp[] = [
-                "id" => $v->object_id,
-                "name" => $shopping->name,
-                "price" => $shopping->price,
-                "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
-                ];
-                if ($index == 6){
-                    break;
+                if ($shopping) {
+                    $indexGoodsTmp[] = [
+                        "id" => $v->object_id,
+                        "name" => $shopping->name,
+                        "price" => $shopping->price,
+                        "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
+                        ];
+                        if ($index == 6){
+                            break;
+                        }
                 }
             }
         }
@@ -275,14 +277,16 @@ class ShoppingController extends Controller
         if (count($indexWeeks)){
             foreach ($indexWeeks as $k => $v) {
                 $shopping = Shopping::shoppingSelect($v->object_id);
-                $indexWeeksTmp[] = [
-                "id" => $v->object_id,
-                "name" => $shopping->name,
-                "price" => $shopping->price,
-                "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
-                ];
-                if ($index == 6){
-                    break;
+                if ($shopping) {
+                    $indexWeeksTmp[] = [
+                        "id" => $v->object_id,
+                        "name" => $shopping->name,
+                        "price" => $shopping->price,
+                        "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
+                        ];
+                        if ($index == 6){
+                            break;
+                        }
                 }
             }
         }
