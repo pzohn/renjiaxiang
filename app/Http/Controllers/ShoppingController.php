@@ -244,13 +244,15 @@ class ShoppingController extends Controller
         if (count($indexLunbos)){
             foreach ($indexLunbos as $k => $v) {
                 $shopping = Shopping::shoppingSelect($v->object_id);
-                $index ++;
-                $indexLunbosTmp[] = [
-                "id" => $v->object_id,
-                "title_pic" => Image::GetImageUrlByParentId($shopping->id,$lunbo,$shopping->type)[0],
-                ];
-                if ($index == 6){
-                    break;
+                if ($shopping) {
+                    $index ++;
+                    $indexLunbosTmp[] = [
+                    "id" => $v->object_id,
+                    "title_pic" => Image::GetImageUrlByParentId($shopping->id,$lunbo,$shopping->type)[0],
+                    ];
+                    if ($index == 6){
+                        break;
+                    }
                 }
             }
         }
