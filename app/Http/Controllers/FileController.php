@@ -101,11 +101,11 @@ class FileController extends Controller
     {
         $shopping = Shopping::shoppingSelect($req->get('id'));
         if ($shopping) {
-            $image = Image::GetImageUrlByParentId($shopping->id,$req->get('path'),$req->get('type'));
+            $images = Image::GetImageUrlByParentId($shopping->id,$req->get('path'),$req->get('type'));
             foreach ($images as $k => $v) {
                 Storage::disk('public')->delete($v); 
             }
-            return $image;
+            return $images;
         }
         //  $file = $req->file('file');
         //  $filepath = $req->get('path');
