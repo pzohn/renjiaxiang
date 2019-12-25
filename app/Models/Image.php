@@ -33,6 +33,10 @@ class  Image extends Model {
         return  $imagesTmp;
     }
 
+    public static function DelImageUrlByParentId($id,$file,$type) {
+        Image::where("parent_id", $id)->where("file", $file)->where("type", $type)->delete();
+    }
+
     public static function UpdateTypeByParentId($id,$type) {
         $images = Image::where("parent_id", $id)->get();
         foreach ($images as $k => $v) {

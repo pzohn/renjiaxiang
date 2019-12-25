@@ -104,45 +104,45 @@ class FileController extends Controller
             $images = Image::GetImageUrlByParentId($shopping->id,$req->get('path'),$req->get('type'));
             foreach ($images as $k => $v) {
                 Storage::disk('public')->delete($v); 
+                Image::DelImageUrlByParentId($shopping->id,$req->get('path'),$req->get('type'));
             }
-            return $images;
+            $file = $req->file('file');
+            $filepath = $req->get('path');
+            if($file->isValid()) {
+               $originalName = $file->getClientOriginalName(); // 文件原名
+               $ext = $file->getClientOriginalExtension();     // 扩展名
+               $realPath = $file->getRealPath();   //临时文件的绝对路径
+               $type = $file->getClientMimeType();
+   
+               $savename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;;
+               $filename = $filepath . '/' . $savename;
+               
+               $bool = Storage::disk('public')->put($filename, file_get_contents($realPath));
+               if ($bool){
+                   $params = [
+                       'parent_id' => $req->get('id'),
+                       'url' => $savename,
+                       'file' => $filepath,
+                       'type' => $req->get('type')
+                   ];
+                   $image = Image::urlInsert($params);
+                   if ($image) {
+                       return [
+                           "code" => 0,
+                           "msg" => "文件上传成功",
+                           "data" => [
+                               "image_id" => $image->id
+                           ]
+                       ];
+                   }
+               }
+           }
+           return [
+               "code" => 1,
+               "msg" => "文件上传失败",
+               "data" => []
+           ];
         }
-        //  $file = $req->file('file');
-        //  $filepath = $req->get('path');
-        //  if($file->isValid()) {
-        //     $originalName = $file->getClientOriginalName(); // 文件原名
-        //     $ext = $file->getClientOriginalExtension();     // 扩展名
-        //     $realPath = $file->getRealPath();   //临时文件的绝对路径
-        //     $type = $file->getClientMimeType();
-
-        //     $savename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;;
-        //     $filename = $filepath . '/' . $savename;
-            
-        //     $bool = Storage::disk('public')->put($filename, file_get_contents($realPath));
-        //     if ($bool){
-        //         $params = [
-        //             'parent_id' => $req->get('parent_id'),
-        //             'url' => $savename,
-        //             'file' => $filepath,
-        //             'type' => $req->get('type')
-        //         ];
-        //         $image = Image::urlInsert($params);
-        //         if ($image) {
-        //             return [
-        //                 "code" => 0,
-        //                 "msg" => "文件上传成功",
-        //                 "data" => [
-        //                     "image_id" => $image->id
-        //                 ]
-        //             ];
-        //         }
-        //     }
-        // }
-        // return [
-        //     "code" => 1,
-        //     "msg" => "文件上传失败",
-        //     "data" => []
-        // ];
     }
 
     public function uploadOneRepeat(Request $req)
