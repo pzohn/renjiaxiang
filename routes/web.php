@@ -119,7 +119,11 @@ Route::post('/onPayrCertFree', 'PayController@onPayrCertFree');
 
 Route::post('/uploadOne', 'FileController@uploadOne');
 
+Route::post('/uploadOneEx', 'FileController@uploadOneEx');
+
 Route::post('/editOne', 'FileController@editOne');
+
+Route::post('/deleteAll', 'FileController@deleteAll');
 
 Route::post('/uploadOneRepeat', 'FileController@uploadOneRepeat');
 
