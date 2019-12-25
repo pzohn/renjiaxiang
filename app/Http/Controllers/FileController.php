@@ -101,10 +101,10 @@ class FileController extends Controller
     {
         $shopping = Shopping::shoppingSelect($req->get('id'));
         if ($shopping) {
-            $images = Image::GetImageUrlByParentId($shopping->id,$req->get('path'),$req->get('type'));
+            $images = Image::GetImageUrlByParentId($shopping->id,$req->get('path'),$shopping->type);
             foreach ($images as $k => $v) {
                 Storage::disk('public')->delete($v); 
-                Image::DelImageUrlByParentId($shopping->id,$req->get('path'),$req->get('type'));
+                Image::DelImageUrlByParentId($shopping->id,$req->get('path'),$shopping->type);
             }
             $file = $req->file('file');
             $filepath = $req->get('path');
@@ -123,7 +123,7 @@ class FileController extends Controller
                        'parent_id' => $req->get('id'),
                        'url' => $savename,
                        'file' => $filepath,
-                       'type' => $req->get('type')
+                       'type' => $shopping->type
                    ];
                    $image = Image::urlInsert($params);
                    if ($image) {

@@ -388,6 +388,11 @@ class ShoppingController extends Controller
         }    
     }
 
+    public function updateShoppingType(Request $req) {
+        $shopping =  Shopping::updateShoppingType($req->get('id'),$req->get('type'));
+        return  $shopping;
+    }
+
     protected function delFlag($type,$shop_id,$object_id) {
         $indexsetId = Indexset::GetIndexId($type,$shop_id,$object_id);
         if ($indexsetId) {

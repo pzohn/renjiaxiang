@@ -63,6 +63,15 @@ class  Shopping extends Model {
         }
     }
 
+    public static function updateShoppingType($id,$type) {
+        $shopping = Shopping::where("id", $id)->first();
+        if ($shopping) {
+            $shopping->type = $type;
+            $shopping->update();
+            return $shopping;
+        }
+    }
+
     public static function shoppingRepeat($params) {
         $shopping = Shopping::where("name", array_get($params,"name"))->where("price", array_get($params,"price"))->where("type", array_get($params,"type"))->where("oper", array_get($params,"oper"))->where("shop_id", array_get($params,"shop_id"))->where("royalty", array_get($params,"royalty"))->where("integral", array_get($params,"integral"))->first();
         if ($shopping) {
