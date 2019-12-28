@@ -68,7 +68,7 @@ class  Trade extends Model {
     }
 
 
-    public static function payUpdate($out_trade_no) {
+    public static function payUpdate($out_trade_no,$type = 1) {
         $trade = Trade::where("out_trade_no", $out_trade_no)->first();
         if ($trade) {
             if($trade->pay_status == 1)
@@ -78,6 +78,13 @@ class  Trade extends Model {
             $trade->pay_status = 1;
             if ($trade->wx_id == 0){
                 $trade->edit_flag = 1;
+            }
+            if ($type = 2) {
+                $trade->send_status = 1;
+            }
+            if ($type = 3) {
+                $trade->send_status = 1;
+                $trade->finish_status = 1;
             }
             $trade->update();
             return 1;

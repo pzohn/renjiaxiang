@@ -219,7 +219,7 @@ class PayController extends Controller
                 if($trade1->pay_status == 1){
                     return  $trade1;
                 }
-                $flag = Trade::payUpdate($params["out_trade_no"]);
+                $flag = Trade::payUpdate($params["out_trade_no"],$zhang->pay_status);
                 $trade = Trade::paySelect($params["out_trade_no"]);
                 if ( $flag == 1){
                     $this->doForme($trade);
