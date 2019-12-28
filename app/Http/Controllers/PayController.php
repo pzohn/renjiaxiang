@@ -1409,11 +1409,11 @@ class PayController extends Controller
     }
 
     public function onRePay(Request $req) {
-
+        $zhang = Zhang::getZhang($req->get('shop_id'));
         $urlLogin = "https://api.weixin.qq.com/sns/jscode2session";
         $paramsLogin = [
-        	'appid' => "wx8d32477fdd368d9a",
-            'secret' => "d46d773f17e3f483e0673ec5b22aaa10",
+        	'appid' => $zhang->a,
+            'secret' => $zhang->b,
             'js_code' => $req->get('js_code'),
             'grant_type' => "authorization_code",
         ];
@@ -1434,7 +1434,7 @@ class PayController extends Controller
                 $params = [
                     'appid' => $paramsLogin["appid"],
                     'body' => $trade->body,
-                    'mch_id' => "1558764141",
+                    'mch_id' =>  $zhang->c,
                     'nonce_str' => $this->createRand(32),
                     'notify_url' => "https://www.hattonstar.com/onPayBack",
                     'openid' => $openid,
@@ -1460,7 +1460,7 @@ class PayController extends Controller
                     $spbill_create_ip = $req->getClientIp();
                     $notify_url = $params["notify_url"];
                     $trade_type = $params["trade_type"];
-                    $sign = $this->createSign($stringA);
+                    $sign = $this->createSign($stringA,$zhang->d);
 
 
                     $data = "<xml>
@@ -1482,7 +1482,7 @@ class PayController extends Controller
                  if ($decode["result_code"] == "SUCCESS")
                  {
                     $sian_time = (string)time();
-                    $resign = $this->createReSign($decode,$sian_time);
+                    $resign = $this->createReSign($decode,$sian_time,$zhang->d);
                     return $this->wxBack($decode,$resign,$sian_time);
                  }
                  else if($decode["result_code"] == "FAIL")
