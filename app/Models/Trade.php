@@ -79,10 +79,10 @@ class  Trade extends Model {
             if ($trade->wx_id == 0){
                 $trade->edit_flag = 1;
             }
-            if ($type = 2) {
+            if ($type == 2) {
                 $trade->send_status = 1;
             }
-            if ($type = 3) {
+            if ($type == 3) {
                 $trade->send_status = 1;
                 $trade->finish_status = 1;
             }
