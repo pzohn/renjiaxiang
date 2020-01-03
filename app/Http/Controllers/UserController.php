@@ -271,21 +271,9 @@ class UserController extends Controller
             if ($b1 && $b2){
                 $b = 0;
             }
-            return [
-                'code' => $b,
-                'data' => [
-                    'name' => $name,
-                    'phone' => $phone
-                ]
-            ];
+            return $b;
         } else {
-            return [
-                'code' => 1,
-                'data' => [
-                    'name' => '',
-                    'phone' => ''
-                ]
-            ];
+            return 1;
         }
     }
 }
