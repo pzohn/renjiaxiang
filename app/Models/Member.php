@@ -74,6 +74,16 @@ class  Member extends Model {
         }
     }
 
+    public static function baseInfoUpdateWxId($params) {
+        $member = Member::where("wx_id", array_get($params,"wx_id"))->first();
+        if ($member) {
+            $member->name = array_get($params,"name");
+            $member->phone = array_get($params,"phone");
+            $member->update();
+            return $member;
+        }
+    }
+
     public static function memberUpdateRoyalty($wx_id,$royalty) {
         $member = Member::where("wx_id", $wx_id)->first();
         if ($member) {

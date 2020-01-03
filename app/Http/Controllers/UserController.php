@@ -276,4 +276,16 @@ class UserController extends Controller
             return 1;
         }
     }
+
+    public function BaseInfoUpdate(Request $req) {
+        $params = [
+            'phone' => $req->get('phone'),
+            'name' => $req->get('name'),
+            'wx_id' => $req->get('wx_id')
+            ];
+        $member = Member::baseInfoUpdateWxId($params);
+        if ($member){
+            return $member;
+        }
+    }
 }
