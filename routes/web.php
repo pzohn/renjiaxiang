@@ -180,3 +180,5 @@ Route::post('/updateWxBaseInfo', 'UserController@updateWxBaseInfo');
 Route::post('/memberSelect', 'UserController@memberSelect');
 
 Route::post('/memberUpdate', 'UserController@memberUpdate');
+
+Route::post('/getBaseInfo', 'UserController@getBaseInfo');

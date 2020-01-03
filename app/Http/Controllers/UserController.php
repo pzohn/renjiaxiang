@@ -259,4 +259,33 @@ class UserController extends Controller
             return $member;
         }
     }
+
+    public function getBaseInfo(Request $req) {
+        $member = Member::memberSelect($req->get('wx_id'));
+        if ($member){
+            $name = $member->name;
+            $phone = $member->phone;
+            $b1 = (!ctype_space($name) && !empty($name));
+            $b2 = (!ctype_space($phone) && !empty($phone));
+            $b = 1;
+            if ($b1 && $b2){
+                $b = 0;
+            }
+            return [
+                'code' => $b,
+                'data' => [
+                    'name' => $name,
+                    'phone' => $phone
+                ]
+            ];
+        } else {
+            return [
+                'code' => 1,
+                'data' => [
+                    'name' => '',
+                    'phone' => ''
+                ]
+            ];
+        }
+    }
 }
