@@ -155,6 +155,8 @@ Route::post('/getFixedAddress', 'ShoppingController@getFixedAddress');
 
 Route::post('/updateShoppingType', 'ShoppingController@updateShoppingType');
 
+Route::post('/downGet', 'ShoppingController@downGet');
+
 Route::post('/getAddress', 'UserController@getAddress');
 
 Route::post('/getAddressById', 'UserController@getAddressById');

@@ -348,6 +348,38 @@ class ShoppingController extends Controller
         }
     }
 
+    public function downGet(Request $req) {
+        $shoppings = Shopping::downsSelect($req->get('shop_id'));
+        if (count($shoppings)){
+            $shoppingsTmp = [];
+            foreach ($shoppings as $k => $v) {
+                $shoppingsTmp[] = [
+                "id" => $v->id,
+                "name" => $v->name,
+                "avatar" => 'https://www.hattonstar.com/storage/'. Image::GetTitleUrlByParentId($v->id,$v->type),
+                "type" => Shoppingtype::GetTypeById($v->type)->name,
+                "price" => $v->price,
+                "royalty" => $v->royalty,
+                "integral" => $v->integral,
+                "time" => $v->updated_at->format('Y-m-d H:i:s')
+                ];
+            }
+            $result_data = [
+                'code' => 0,
+                'msg' => '获得商品信息成功',
+                'data' =>  $shoppingsTmp
+            ];
+            return $result_data;
+        }else{
+            $result_data = [
+                'code' => 1,
+                'msg' => '获得商品信息失败',
+                'data' => []
+            ];
+            return $result_data;
+        }
+    }
+
     protected function switchToflag($switch) {
         if ($switch == 'on'){
             return true;

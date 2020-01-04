@@ -12,6 +12,13 @@ class  Shopping extends Model {
         }
     }
 
+    public static function downsSelect($shop_id) {
+        $shoppings = Shopping::where("state", 0)->where("shop_id", $shop_id)->get();
+        if ($shoppings) {
+            return $shoppings;
+        }
+    }
+
     public static function shoppingOff($id) {
         $shopping = Shopping::where("id", $id)->first();
         if ($shopping) {
