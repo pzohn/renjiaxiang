@@ -139,6 +139,12 @@ class ShoppingController extends Controller
         return $shopping;
     }
 
+    public function shoppingUp(Request $req) {
+        $id = $req->get('id');
+        $shopping = Shopping::shoppingUp($id);
+        return $shopping;
+    }
+
     public function shoppingsOff(Request $req) {
         $ids = $req->get('ids');
         $pos = strpos($ids, '@');
@@ -155,6 +161,22 @@ class ShoppingController extends Controller
                 $this->delFlag(1,$shopping->shop_id,$shopping->id);
                 $this->delFlag(2,$shopping->shop_id,$shopping->id);
                 $this->delFlag(3,$shopping->shop_id,$shopping->id);
+            }
+            return 0;
+        }
+        return 1;
+    }
+
+    public function shoppingsUp(Request $req) {
+        $ids = $req->get('ids');
+        $pos = strpos($ids, '@');
+        if ($pos == false){
+            $shopping = Shopping::shoppingUp($ids);
+            return 0;
+        }else{
+            $arry = preg_split("/@/",$ids);
+            foreach ($arry as $v) {
+                $shopping = Shopping::shoppingUp($v);
             }
             return 0;
         }

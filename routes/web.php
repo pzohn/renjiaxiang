@@ -157,6 +157,10 @@ Route::post('/updateShoppingType', 'ShoppingController@updateShoppingType');
 
 Route::post('/downGet', 'ShoppingController@downGet');
 
+Route::post('/shoppingUp', 'ShoppingController@shoppingUp');
+
+Route::post('/shoppingsUp', 'ShoppingController@shoppingsUp');
+
 Route::post('/getAddress', 'UserController@getAddress');
 
 Route::post('/getAddressById', 'UserController@getAddressById');
