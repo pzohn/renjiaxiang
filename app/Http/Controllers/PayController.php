@@ -1848,7 +1848,9 @@ class PayController extends Controller
             $shopping = Shopping::shoppingSelect($v->shopping_id);
             if ($shopping){
                 $royalty += $shopping->royalty * $v->num;
+                $royalty = number_format($royalty,2);
                 $integral += $shopping->integral * $v->num;
+                $integral = number_format($integral,2);
                 Shopping::updateStock($v->shopping_id,$v->num);
             }
         }
