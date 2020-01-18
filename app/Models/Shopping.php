@@ -37,6 +37,26 @@ class  Shopping extends Model {
         }
     }
 
+    public static function updateStock($id) {
+        $shopping = Shopping::where("id", $id)->first();
+        if ($shopping) {
+            if ($shopping->stock)
+            $shopping->stock -= 1;
+            $shopping->update();
+            return $shopping->stock;
+        }
+        return 0;
+    }
+
+    public static function updateStockEx($id,$stock) {
+        $shopping = Shopping::where("id", $id)->first();
+        if ($shopping) {
+            $shopping->stock = $stock;
+            $shopping->update();
+            return $shopping->stock;
+        }
+    }
+
     public static function shoppingsSelectByName($name,$shop_id) {
         $shoppings = Shopping::where('name','like', '%'.$name.'%')->where("state", 1)->where("shop_id", $shop_id)->get();
         if ($shoppings) {
@@ -62,6 +82,7 @@ class  Shopping extends Model {
         $shopping->shop_id = array_get($params,"shop_id");
         $shopping->royalty = array_get($params,"royalty");
         $shopping->integral = array_get($params,"integral");
+        $shopping->stock = array_get($params,"stock");
         $shopping->save();
         return $shopping;
     }
@@ -74,6 +95,7 @@ class  Shopping extends Model {
             $shopping->royalty = array_get($params,"royalty");
             $shopping->integral = array_get($params,"integral");
             $shopping->type = array_get($params,"type");
+            $shopping->stock = array_get($params,"stock");
             $shopping->update();
             return $shopping;
         }
@@ -89,7 +111,7 @@ class  Shopping extends Model {
     }
 
     public static function shoppingRepeat($params) {
-        $shopping = Shopping::where("name", array_get($params,"name"))->where("price", array_get($params,"price"))->where("type", array_get($params,"type"))->where("oper", array_get($params,"oper"))->where("shop_id", array_get($params,"shop_id"))->where("royalty", array_get($params,"royalty"))->where("integral", array_get($params,"integral"))->first();
+        $shopping = Shopping::where("name", array_get($params,"name"))->where("price", array_get($params,"price"))->where("type", array_get($params,"type"))->where("oper", array_get($params,"oper"))->where("shop_id", array_get($params,"shop_id"))->where("royalty", array_get($params,"royalty"))->where("integral", array_get($params,"integral"))->where("stock", array_get($params,"stock"))->first();
         if ($shopping) {
             return $shopping->id;
         }else{

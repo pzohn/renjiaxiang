@@ -479,4 +479,9 @@ class ShoppingController extends Controller
         $leasing =  FixedAddress::GetAddress($req->get('id'));
         return $leasing;
     }
+
+    public function updateStockEx(Request $req) {
+        $shopping_stock =  Shopping::updateStockEx($req->get('id'),$req->get('stock'));
+        return $shopping_stock;
+    }
 }

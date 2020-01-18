@@ -161,6 +161,8 @@ Route::post('/shoppingUp', 'ShoppingController@shoppingUp');
 
 Route::post('/shoppingsUp', 'ShoppingController@shoppingsUp');
 
+Route::post('/updateStockEx', 'ShoppingController@updateStockEx');
+
 Route::post('/getAddress', 'UserController@getAddress');
 
 Route::post('/getAddressById', 'UserController@getAddressById');

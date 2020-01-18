@@ -1838,6 +1838,7 @@ class PayController extends Controller
             if ($shopping){
                 $royalty += $shopping->royalty;
                 $integral += $shopping->integral;
+                Shopping::updateStock($v->shopping_id);
             }
         }
         if (($trade->share_id != 0) && ($trade->share_id != $trade->wx_id)){
