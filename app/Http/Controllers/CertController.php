@@ -63,6 +63,7 @@ class CertController extends Controller
       $str = '';
       $index = 0;
       foreach ($arryCert as $v) {
+         $item = $v;
          $arryItem = preg_split("/,/",$item);
          $id = $arryItem[0];
          $num = $arryItem[1];
