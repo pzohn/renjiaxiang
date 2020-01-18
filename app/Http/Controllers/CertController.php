@@ -57,6 +57,33 @@ class CertController extends Controller
         Cert::certupdate($id,$count);
      }
 
+     public function certStock(Request $req) {
+      $certInfo = $req->get('certInfo');
+      $arryCert = preg_split("/@/",$certInfo);
+      $str = '';
+      $index = 0;
+      foreach ($arryCert as $v) {
+         $arryItem = preg_split("/,/",$item);
+         $id = $arryItem[0];
+         $num = $arryItem[1];
+         $shopping = Shopping::shoppingSelect($id);
+         if ($shopping){
+            if (($shopping->stock == 0) || ($shopping->stock < $num)){
+               $str = $str . $shopping->name;
+               $str = $str . ',';
+               $index ++;
+            }
+         }
+      }
+      if ($index){
+         $str = rtrim($str, ",");
+      }
+      return [
+         'result' => $index,
+         'str' => $str
+      ];
+   }
+
      public function getCertsNum(Request $req) {
       $wx_id = $req->get('wx_id');
       $certs = Cert::certsSelect($wx_id);
