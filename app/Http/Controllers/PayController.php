@@ -1816,7 +1816,7 @@ class PayController extends Controller
 
     public function onPayrCertFree(Request $req) {
         $shop_id = $this->getShopIdByCert($req->get('certInfo'));
-        $zhang = Zhang::getZhang($shopping->shop_id);
+        $zhang = Zhang::getZhang($shop_id);
         $shopping = Shopping::shoppingSelect($req->get('detail_id'));
         $params = [
             'out_trade_no' => $this->createTradeNo(),
