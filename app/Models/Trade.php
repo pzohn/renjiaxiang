@@ -19,7 +19,7 @@ class  Trade extends Model {
         return $trade;
     }
 
-    public static function payInsertFree($params) {
+    public static function payInsertFree($params,$type = 1) {
 
         $trade = new self;
         $trade->out_trade_no = array_get($params,"out_trade_no");
@@ -32,6 +32,13 @@ class  Trade extends Model {
         $trade->share_id = array_get($params,"share_id");
         $trade->use_royalty = array_get($params,"use_royalty");
         $trade->pay_status = 1;
+        if ($type == 2) {
+            $trade->send_status = 1;
+        }
+        if ($type == 3) {
+            $trade->send_status = 1;
+            $trade->finish_status = 1;
+        }
         $trade->save();
         return $trade;
     }

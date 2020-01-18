@@ -1798,7 +1798,7 @@ class PayController extends Controller
             'share_id' => $req->get('share_id'),
             'use_royalty' => $req->get('use_royalty')
             ];
-        $trade =Trade::payInsertFree($params);
+        $trade =Trade::payInsertFree($params,$zhang->pay_status);
         $childtrade = [
             'shopping_id' => $shopping->id,
             'num' => $req->get('num'),
@@ -1828,7 +1828,7 @@ class PayController extends Controller
             'share_id' => $req->get('share_id'),
             'use_royalty' => $req->get('use_royalty')
             ];
-        $trade =Trade::payInsertFree($params);
+        $trade =Trade::payInsertFree($params,$zhang->pay_status);
         $this->certsInsert($req->get('certInfo'), $trade->id);
         if ($zhang->pay_status == 1){
             $this->insertAddress($req->get('address_id'),$trade->id);
