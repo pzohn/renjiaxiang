@@ -1850,7 +1850,6 @@ class PayController extends Controller
                 $royalty += $shopping->royalty * $v->num;
                 $royalty = number_format($royalty,2);
                 $integral += $shopping->integral * $v->num;
-                $integral = number_format($integral,2);
                 Shopping::updateStock($v->shopping_id,$v->num);
             }
         }
