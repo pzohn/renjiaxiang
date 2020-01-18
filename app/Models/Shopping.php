@@ -37,11 +37,11 @@ class  Shopping extends Model {
         }
     }
 
-    public static function updateStock($id) {
+    public static function updateStock($id,$stock) {
         $shopping = Shopping::where("id", $id)->first();
         if ($shopping) {
             if ($shopping->stock)
-            $shopping->stock -= 1;
+            $shopping->stock -= $stock;
             $shopping->update();
             return $shopping->stock;
         }

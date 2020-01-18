@@ -1847,9 +1847,9 @@ class PayController extends Controller
         foreach ($childtrades as $k => $v) {
             $shopping = Shopping::shoppingSelect($v->shopping_id);
             if ($shopping){
-                $royalty += $shopping->royalty;
-                $integral += $shopping->integral;
-                Shopping::updateStock($v->shopping_id);
+                $royalty += $shopping->royalty * $v->num;
+                $integral += $shopping->integral * $v->num;
+                Shopping::updateStock($v->shopping_id,$v->num);
             }
         }
         if (($trade->share_id != 0) && ($trade->share_id != $trade->wx_id)){
