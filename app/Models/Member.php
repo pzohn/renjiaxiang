@@ -97,6 +97,7 @@ class  Member extends Model {
         $member = Member::where("wx_id", $wx_id)->first();
         if ($member) {
             $member->royalty -= $royalty;
+            $member->royalty = number_format($member->royalty,2);
             $member->update();
             return $member;
         }
