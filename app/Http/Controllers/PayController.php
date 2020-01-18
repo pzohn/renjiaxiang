@@ -1787,6 +1787,7 @@ class PayController extends Controller
 
     public function onPayShoppingFree(Request $req) {
         $shopping = Shopping::shoppingSelect($req->get('detail_id'));
+        $zhang = Zhang::getZhang($shopping->shop_id);
         $params = [
             'out_trade_no' => $this->createTradeNo(),
             'body' => $shopping->name,
@@ -1804,26 +1805,36 @@ class PayController extends Controller
             'trade_id' => $trade->id
          ];
         Childtrade::payInsert($childtrade);
-        $this->insertAddress($req->get('address_id'),$trade->id);
+        if ($zhang->pay_status == 1){
+            $this->insertAddress($req->get('address_id'),$trade->id);
+        } else if (($zhang->pay_status == 2) || ($zhang->pay_status == 3)){
+            $this->insertAddressFix($req->get('address_id'),$trade->id);
+        }
         $this->doForme($trade);
         return $trade;
     }
 
     public function onPayrCertFree(Request $req) {
+        $shop_id = $this->getShopIdByCert($req->get('certInfo'));
+        $zhang = Zhang::getZhang($shopping->shop_id);
         $shopping = Shopping::shoppingSelect($req->get('detail_id'));
         $params = [
             'out_trade_no' => $this->createTradeNo(),
             'body' => $req->get('body'),
             'detail_id' => 0,
             'wx_id' => $req->get('wx_id'),
-            'shop_id' =>$this->getShopIdByCert($req->get('certInfo')),
+            'shop_id' => $shop_id,
             'name' => $req->get('name'),
             'share_id' => $req->get('share_id'),
             'use_royalty' => $req->get('use_royalty')
             ];
         $trade =Trade::payInsertFree($params);
         $this->certsInsert($req->get('certInfo'), $trade->id);
-        $this->insertAddress($req->get('address_id'),$trade->id);
+        if ($zhang->pay_status == 1){
+            $this->insertAddress($req->get('address_id'),$trade->id);
+        } else if (($zhang->pay_status == 2) || ($zhang->pay_status == 3)){
+            $this->insertAddressFix($req->get('address_id'),$trade->id);
+        }
         $this->doForme($trade);
         return $trade;
     }
