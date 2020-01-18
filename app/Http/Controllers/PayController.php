@@ -1865,4 +1865,27 @@ class PayController extends Controller
             $member = Member::memberUpdateRoyaltySell($trade->wx_id,$trade->use_royalty);
         }
     }
+
+    public function repayStock(Request $req) {
+        $str = '';
+        $index = 0;
+        $childtrades = Childtrade::paySelectById($req->get('trade_id'));
+        foreach ($childtrades as $k => $v) {
+            $shopping = Shopping::shoppingSelect($v->shopping_id);
+            if ($shopping){
+                if (($shopping->stock == 0) || ($shopping->stock < $v->num)){
+                    $str = $str . $shopping->name;
+                    $str = $str . ',';
+                    $index ++;
+                }
+            }
+        }
+        if ($index){
+            $str = rtrim($str, ",");
+         }
+         return [
+            'result' => $index,
+            'str' => $str
+         ];
+    }
 }

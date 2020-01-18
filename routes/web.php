@@ -119,6 +119,8 @@ Route::post('/onPayShoppingFree', 'PayController@onPayShoppingFree');
 
 Route::post('/onPayrCertFree', 'PayController@onPayrCertFree');
 
+Route::post('/repayStock', 'PayController@repayStock');
+
 Route::post('/uploadOne', 'FileController@uploadOne');
 
 Route::post('/uploadOneEx', 'FileController@uploadOneEx');
