@@ -384,6 +384,7 @@ class ShoppingController extends Controller
                 "price" => $v->price,
                 "royalty" => $v->royalty,
                 "integral" => $v->integral,
+                "stock" => $v->stock,
                 "time" => $v->updated_at->format('Y-m-d H:i:s')
                 ];
             }
