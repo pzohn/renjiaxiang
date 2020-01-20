@@ -19,6 +19,7 @@ class ShoppingController extends Controller
             'type' => $req->get('type'),
             'oper' => $req->get('oper'),
             'royalty' => $req->get('royalty'),
+            'stock' => $req->get('stock'),
             'integral' => $req->get('integral'),
             'shop_id' => $req->get('shop_id')
             ];
@@ -191,6 +192,7 @@ class ShoppingController extends Controller
             "price" => $req->get('price'),
             "royalty" => $req->get('royalty'),
             "integral" => $req->get('integral'),
+            "stock" => $req->get('stock'),
             "type" => $req->get('type')
         ];
         $shopping = Shopping::shoppingUpdatePart($params);
