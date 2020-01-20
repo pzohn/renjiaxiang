@@ -16,4 +16,9 @@ class  Card extends Model {
             return $card;
         }
     }
+
+    public static function getCards() {
+        $cards = Card::where("NETFLAG", 1)->get();
+        return $cards;
+    }
 }

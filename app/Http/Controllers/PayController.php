@@ -253,6 +253,50 @@ class PayController extends Controller
         return $card;
     }
 
+    public function getCards(Request $req) {
+        $cards = Card::getCards();
+        $cardsTmp = [];
+        if (count($cards)){
+            foreach ($cards as $k => $v) {
+                $card = Card::getCard($v->ID);
+                if ($v->ID)
+                if ($card) {
+                    $cardsTmp[] = [
+                    "id" => $card->ID,
+                    "pic_id" => mt_rand(1,9),
+                    "title" => $card->DESC,
+                    "price" => $card->PRICE,
+                    "usetype" => $this->getUseType($card->USENUM),
+                    "playtype" => $this->getPlayType($card->TYPE),
+                    ];
+                }
+            }
+        }
+        return $cardsTmp;
+    }
+
+    protected function getUseType($usetype) {
+        if ($usetype == 1){
+            return '单词卡';
+        }else if ($usetype > 1){
+            return strval($usetype) . '次场';
+        }else{
+            return "";
+        }
+    }
+
+    protected function getPlayType($playtype) {
+        if ($cardtype == 1){
+            return '半日场';
+        }else if ($cardtype == 2){
+            return '全日场';
+        }else if ($cardtype == 3){
+            return '通用场';
+        }else{
+            return "";
+        }
+    }
+
     public function getShop(Request $req) {
         $phone = $req->get('phone');
         $pass = $req->get('pass');
