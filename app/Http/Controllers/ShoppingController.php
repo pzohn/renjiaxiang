@@ -350,6 +350,7 @@ class ShoppingController extends Controller
                 "price" => $v->price,
                 "royalty" => $v->royalty,
                 "integral" => $v->integral,
+                "stock" => $v->stock,
                 "time" => $v->updated_at->format('Y-m-d H:i:s'),
                 "flag" => $this->flagToswitch($v->shop_id,$v->id),
                 "flag1" => $this->flagToswitch1($v->shop_id,$v->id)
