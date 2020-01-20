@@ -286,11 +286,11 @@ class PayController extends Controller
     }
 
     protected function getPlayType($playtype) {
-        if ($cardtype == 1){
+        if ($playtype == 1){
             return '半日场';
-        }else if ($cardtype == 2){
+        }else if ($playtype == 2){
             return '全日场';
-        }else if ($cardtype == 3){
+        }else if ($playtype == 3){
             return '通用场';
         }else{
             return "";
