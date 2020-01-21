@@ -254,7 +254,7 @@ class PayController extends Controller
     }
 
     public function getCards(Request $req) {
-        $cards = Card::getCards();
+        $cards = Card::getCards($req->get('netflag'));
         $cardsTmp = [];
         if (count($cards)){
             foreach ($cards as $k => $v) {

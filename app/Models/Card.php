@@ -17,8 +17,8 @@ class  Card extends Model {
         }
     }
 
-    public static function getCards() {
-        $cards = Card::where("NETFLAG", 1)->get();
+    public static function getCards($netflag) {
+        $cards = Card::where("NETFLAG", $netflag)->get();
         return $cards;
     }
 }
