@@ -268,6 +268,7 @@ class PayController extends Controller
                     "price" => $card->PRICE,
                     "usetype" => $this->getUseType($card->USENUM),
                     "playtype" => $this->getPlayType($card->TYPE),
+                    "palynum" => $card->USENUM
                     ];
                 }
             }
