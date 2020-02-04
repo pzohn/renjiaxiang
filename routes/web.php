@@ -198,3 +198,5 @@ Route::post('/memberUpdate', 'UserController@memberUpdate');
 Route::post('/getBaseInfo', 'UserController@getBaseInfo');
 
 Route::post('/BaseInfoUpdate', 'UserController@BaseInfoUpdate');
+
+Route::post('/getExpress', 'UserController@getExpress');
