@@ -8,7 +8,7 @@ class Childexpress extends Model {
     public $timestamps = false;
 
     public static function getchildexpresses($id) {
-        $childexpresses = Childexpress::where("parent_id", $id)->get();
+        $childexpresses = Childexpress::where("parent_id", $id)->orderBy('time_desc', 'desc')->get();
         if ($childexpresses) {
             return $childexpresses;
         }

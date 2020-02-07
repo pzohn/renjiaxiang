@@ -355,4 +355,28 @@ class UserController extends Controller
         }
         return -1;
     }
+
+    public function getExpressById(Request $req) {
+        $exprss = Express::getExpressById($req->get('id'));
+        $childexpresses = Childexpress::getchildexpresses($exprss->id);
+        $list = [];
+        if (count($childexpresses)){
+            foreach ($childexpresses as $k => $v) {
+                $list[] = [
+                    "status" => $v->status_desc,
+                    "time" => $v->time_desc
+                ];
+            }
+        }
+        return [
+            'number' => $exprss->$exprss,
+            'expName' => $exprss->$expName,
+            'expSite' => $exprss->$expSite,
+            'expPhone' => $exprss->$expPhone,
+            'updateTime' => $exprss->$updateTime,
+            'takeTime' => $exprss->$takeTime,
+            'logo' => $exprss->$logo,
+            'list' => $list
+        ];
+    }
 }
