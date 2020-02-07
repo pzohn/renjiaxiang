@@ -369,13 +369,13 @@ class UserController extends Controller
             }
         }
         return [
-            'number' => $exprss->$number,
-            'expName' => $exprss->$expName,
-            'expSite' => $exprss->$expSite,
-            'expPhone' => $exprss->$expPhone,
-            'updateTime' => $exprss->$updateTime,
-            'takeTime' => $exprss->$takeTime,
-            'logo' => $exprss->$logo,
+            'number' => $exprss->number,
+            'expName' => $exprss->expName,
+            'expSite' => $exprss->expSite,
+            'expPhone' => $exprss->expPhone,
+            'updateTime' => $exprss->updateTime,
+            'takeTime' => $exprss->takeTime,
+            'logo' => $exprss->logo,
             'list' => $list
         ];
     }
