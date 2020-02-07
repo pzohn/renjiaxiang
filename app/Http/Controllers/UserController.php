@@ -369,7 +369,7 @@ class UserController extends Controller
             }
         }
         return [
-            'number' => $exprss->$exprss,
+            'number' => $exprss->$number,
             'expName' => $exprss->$expName,
             'expSite' => $exprss->$expSite,
             'expPhone' => $exprss->$expPhone,
