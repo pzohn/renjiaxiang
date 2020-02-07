@@ -329,14 +329,14 @@ class UserController extends Controller
                 if ($result->status == 0){
                     $param = [
                         'id' => $exprss->id,
-                        'deliverystatus' => intval($result->deliverystatus),
-                        'issign' => intval($result->issign),
-                        'expName' => $result->expName,
-                        'expSite' => $result->expSite,
-                        'expPhone' => $result->expPhone,
-                        'updateTime' => $result->updateTime,
-                        'takeTime' => $result->takeTime,
-                        'logo' => $result->logo
+                        'deliverystatus' => intval($result->result->deliverystatus),
+                        'issign' => intval($result->result->issign),
+                        'expName' => $result->result->expName,
+                        'expSite' => $result->result->expSite,
+                        'expPhone' => $result->result->expPhone,
+                        'updateTime' => $result->result->updateTime,
+                        'takeTime' => $result->result->takeTime,
+                        'logo' => $result->result->logo
                     ];
                     Express::expressUpdate($param);
                     foreach ($result->result->list as $k => $v) {
