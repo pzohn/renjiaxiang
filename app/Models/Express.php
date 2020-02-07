@@ -8,12 +8,20 @@ class Express extends Model {
     public $timestamps = false;
 
     public static function getExpress($id) {
-        $express = express::where("trade_id", $id)->first();
+        $express = Express::where("trade_id", $id)->first();
         if ($express) {
             return $express;
         }
     }
-
+    
+    public static function getExpressByNum($number) {
+        $express = Express::where("number", $number)->first();
+        if ($express) {
+            return $express;
+        }else{
+            return 0;
+        }
+    }
     public static function expressInsert($params) {
         $express = new self;
         $express->trade_id = array_get($params,"trade_id");

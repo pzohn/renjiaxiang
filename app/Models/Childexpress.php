@@ -3,12 +3,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class childexpress extends Model {
+class Childexpress extends Model {
         
     public $timestamps = false;
 
     public static function getchildexpresses($id) {
-        $childexpresses = childexpress::where("parent_id", $id)->get();
+        $childexpresses = Childexpress::where("parent_id", $id)->get();
         if ($childexpresses) {
             return $childexpresses;
         }

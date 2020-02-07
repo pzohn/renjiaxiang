@@ -9,6 +9,8 @@ use App\Models\Address;
 use App\Models\Member;
 use App\Models\Wxuser;
 use App\Models\Zhang;
+use App\Models\Express;
+use App\Models\Childexpress;
 use App\Libs\GuzzleHttp;
 
 class UserController extends Controller
@@ -290,15 +292,27 @@ class UserController extends Controller
     }
 
     public function getExpress(Request $req) {
+        $number = $req->get('number');
+        $exprss = Express::getExpressByNum($number);
+        if ($exprss){
+            if ($exprss->deliverystatus){
+                $deliverystatus = intval($exprss->deliverystatus);
+                $issign = intval($exprss->issign);
+                if (($deliverystatus >= 3) || ($issign == 1)){
+                    
+                }
+            }
+    
+        }
         $zhang = Zhang::getZhang($req->get('shop_id'));
-        $appcode = $zhang->e_code;
+        $appcode = $zhang->e;
         if ($appcode){
             $host = "https://wuliu.market.alicloudapi.com";//api访问链接
             $path = "/kdi";//API访问后缀
             $method = "GET";
             $headers = array();
             array_push($headers, "Authorization:APPCODE " . $appcode);
-            $querys = "no=" . $req->get('number');  //参数写在这里
+            $querys = "no=" . $number;  //参数写在这里
             $bodys = "";
             $url = $host . $path . "?" . $querys;//url拼接
         
@@ -316,8 +330,12 @@ class UserController extends Controller
                 curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
                 curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
             }
-            return curl_exec($curl);
-            //echo(curl_exec($curl)); 
+            $result = curl_exec($curl);
+            if ($result->status == 0){
+                
+            }else{
+
+            }
         }
     }
 }
