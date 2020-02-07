@@ -324,7 +324,8 @@ class UserController extends Controller
                     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
                     curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
                 }
-                $result = curl_exec($curl);
+                $jsonStr = curl_exec($curl);
+                $result = json_decode($jsonStr);
                 if ($result->status == 0){
                     $param = [
                         'id' => $exprss->id,
