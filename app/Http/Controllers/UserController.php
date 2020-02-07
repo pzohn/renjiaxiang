@@ -344,7 +344,7 @@ class UserController extends Controller
                             $paramList = [
                                 'parent_id' => $exprss->id,
                                 'time_desc' => $v->time,
-                                'status_desc' => $v->time_desc
+                                'status_desc' => $v->status
                             ];
                             Childexpress::childexpressInsert($paramList);
                         }
