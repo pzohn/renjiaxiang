@@ -376,6 +376,8 @@ class UserController extends Controller
             'updateTime' => $exprss->updateTime,
             'takeTime' => $exprss->takeTime,
             'logo' => $exprss->logo,
+            'deliverystatus' => $exprss->deliverystatus,
+            'issign' => $exprss->issign,
             'list' => $list
         ];
     }
