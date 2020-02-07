@@ -295,47 +295,63 @@ class UserController extends Controller
         $number = $req->get('number');
         $exprss = Express::getExpressByNum($number);
         if ($exprss){
-            if ($exprss->deliverystatus){
-                $deliverystatus = intval($exprss->deliverystatus);
-                $issign = intval($exprss->issign);
-                if (($deliverystatus >= 3) || ($issign == 1)){
-                    
+            if (($exprss->deliverystatus >= 3) || ($exprss->issign == 1)){
+                return $exprss->id;       
+            }
+            $zhang = Zhang::getZhang($req->get('shop_id'));
+            $appcode = $zhang->e;
+            if ($appcode){
+                $host = "https://wuliu.market.alicloudapi.com";//api访问链接
+                $path = "/kdi";//API访问后缀
+                $method = "GET";
+                $headers = array();
+                array_push($headers, "Authorization:APPCODE " . $appcode);
+                $querys = "no=" . $number;  //参数写在这里
+                $bodys = "";
+                $url = $host . $path . "?" . $querys;//url拼接
+            
+                $curl = curl_init();
+                curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+                curl_setopt($curl, CURLOPT_URL, $url);
+                curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+                curl_setopt($curl, CURLOPT_FAILONERROR, false);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($curl, CURLOPT_HEADER, false);
+                //curl_setopt($curl, CURLOPT_HEADER, true); 如不输出json, 请打开这行代码，打印调试头部状态码。
+                //状态码: 200 正常；400 URL无效；401 appCode错误； 403 次数用完； 500 API网管错误
+                if (1 == strpos("$".$host, "https://"))
+                {
+                    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+                    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+                }
+                $result = curl_exec($curl);
+                if ($result->status == 0){
+                    $param = [
+                        'id' => $exprss->id,
+                        'deliverystatus' => intval($result->deliverystatus),
+                        'issign' => intval($result->issign),
+                        'expName' => $result->expName,
+                        'expSite' => $result->expSite,
+                        'expPhone' => $result->expPhone,
+                        'updateTime' => $result->updateTime,
+                        'takeTime' => $result->takeTime,
+                        'logo' => $result->logo
+                    ];
+                    Express::expressUpdate($param);
+                    foreach ($result->result->list as $k => $v) {
+                        if (Childexpress::getChildFlag( $exprss->id,$v->time) == 0){
+                            $paramList = [
+                                'parent_id' => $exprss->id,
+                                'time_desc' => $v->time,
+                                'status_desc' => $v->time_desc
+                            ];
+                            Childexpress::childexpressInsert($paramList);
+                        }
+                    }
+                    return $exprss->id;
                 }
             }
-    
         }
-        $zhang = Zhang::getZhang($req->get('shop_id'));
-        $appcode = $zhang->e;
-        if ($appcode){
-            $host = "https://wuliu.market.alicloudapi.com";//api访问链接
-            $path = "/kdi";//API访问后缀
-            $method = "GET";
-            $headers = array();
-            array_push($headers, "Authorization:APPCODE " . $appcode);
-            $querys = "no=" . $number;  //参数写在这里
-            $bodys = "";
-            $url = $host . $path . "?" . $querys;//url拼接
-        
-            $curl = curl_init();
-            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
-            curl_setopt($curl, CURLOPT_URL, $url);
-            curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($curl, CURLOPT_FAILONERROR, false);
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($curl, CURLOPT_HEADER, false);
-            //curl_setopt($curl, CURLOPT_HEADER, true); 如不输出json, 请打开这行代码，打印调试头部状态码。
-            //状态码: 200 正常；400 URL无效；401 appCode错误； 403 次数用完； 500 API网管错误
-            if (1 == strpos("$".$host, "https://"))
-            {
-                curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-                curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-            }
-            $result = curl_exec($curl);
-            if ($result->status == 0){
-                
-            }else{
-
-            }
-        }
+        return -1;
     }
 }

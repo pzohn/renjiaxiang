@@ -31,15 +31,13 @@ class Express extends Model {
     }
 
     public static function expressUpdate($params) {
-        $express = Express::where("number", array_get($params,"number"))->first();
+        $express = Express::where("id", array_get($params,"id"))->first();
         if ($express) {
             $express->deliverystatus = array_get($params,"deliverystatus");
             $express->issign = array_get($params,"issign");
             $express->expName = array_get($params,"expName");
             $express->expSite = array_get($params,"expSite");
             $express->expPhone = array_get($params,"expPhone");
-            $express->courier = array_get($params,"courier");
-            $express->courierPhone = array_get($params,"courierPhone");
             $express->updateTime = array_get($params,"updateTime");
             $express->takeTime = array_get($params,"takeTime");
             $express->logo = array_get($params,"logo");

@@ -14,6 +14,15 @@ class Childexpress extends Model {
         }
     }
 
+    public static function getChildFlag($parent_id,$time_desc) {
+        $childexpresses = Childexpress::where("parent_id", $parent_id)->where("time_desc", $time_desc)->first();
+        if ($childexpresses) {
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
     public static function childexpressInsert($params) {
         $childexpress = new self;
         $childexpress->status_desc = array_get($params,"status_desc");
