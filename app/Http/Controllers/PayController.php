@@ -18,6 +18,7 @@ use App\Models\Image;
 use App\Models\Wxuser;
 use App\Models\Member;
 use App\Models\Zhang;
+use App\Models\Express;
 
 class PayController extends Controller
 {
@@ -731,7 +732,8 @@ class PayController extends Controller
                         "phone" =>  $v->phone,
                         "body" => $v->body,
                         "id" => $v->id,
-                        "use_royalty" => $v->use_royalty
+                        "use_royalty" => $v->use_royalty,
+                        "express" => Express::getExpressNum($v->id)
                     ];
                 }
             }
@@ -967,7 +969,8 @@ class PayController extends Controller
                         "phone" =>  $v->phone,
                         "body" => $v->body,
                         "id" => $v->id,
-                        "use_royalty" => $v->use_royalty                
+                        "use_royalty" => $v->use_royalty,
+                        "express" => Express::getExpressNum($v->id)                
                     ];
                 }
             }
@@ -1018,7 +1021,8 @@ class PayController extends Controller
                         "phone" =>  $v->phone,
                         "body" => $v->body,
                         "id" => $v->id,
-                        "use_royalty" => $v->use_royalty                
+                        "use_royalty" => $v->use_royalty,
+                        "express" => Express::getExpressNum($v->id)                
                     ];
                 }
             }

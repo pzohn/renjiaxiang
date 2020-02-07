@@ -7,10 +7,12 @@ class Express extends Model {
         
     public $timestamps = false;
 
-    public static function getExpress($id) {
+    public static function getExpressNum($id) {
         $express = Express::where("trade_id", $id)->first();
         if ($express) {
-            return $express;
+            return $express->number;
+        }else{
+            return '';
         }
     }
     
