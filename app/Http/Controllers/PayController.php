@@ -294,7 +294,7 @@ class PayController extends Controller
             return '全日卡';
         }else if ($playtype == 3){
             return '通用卡';
-        }}else if (($playtype >= 4) && ($playtype <= 7)){
+        }else if (($playtype >= 4) && ($playtype <= 7)){
             return '时效卡';
         }else{
             return "";
