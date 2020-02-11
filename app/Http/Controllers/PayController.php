@@ -279,7 +279,7 @@ class PayController extends Controller
 
     protected function getUseType($usetype) {
         if ($usetype == 1){
-            return '单词卡';
+            return '单次卡';
         }else if ($usetype > 1){
             return strval($usetype) . '次场';
         }else{
@@ -289,11 +289,13 @@ class PayController extends Controller
 
     protected function getPlayType($playtype) {
         if ($playtype == 1){
-            return '半日场';
+            return '半日卡';
         }else if ($playtype == 2){
-            return '全日场';
+            return '全日卡';
         }else if ($playtype == 3){
-            return '通用场';
+            return '通用卡';
+        }}else if (($playtype >= 4) && ($playtype <= 7)){
+            return '时效卡';
         }else{
             return "";
         }
