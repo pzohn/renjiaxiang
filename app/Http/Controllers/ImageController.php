@@ -26,7 +26,6 @@ class ImageController extends Controller
                 ];
             }
             $access_token = $resultToken['access_token'];
-            return $access_token;
             if ($access_token) {
                 $urlOcr = "https://aip.baidubce.com/rest/2.0/ocr/v1/general";
                 $params = [
@@ -36,6 +35,7 @@ class ImageController extends Controller
                     ];
 
                  $result= GuzzleHttp::guzzleGet($urlOcr, $params);
+                 return $result;
                  if($result["error_code"] == "FAIL")
                  {
                      return [
