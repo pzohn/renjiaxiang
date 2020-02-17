@@ -204,3 +204,5 @@ Route::post('/getExpress', 'UserController@getExpress');
 Route::post('/getExpressById', 'UserController@getExpressById');
 
 Route::post('/getOcrResult', 'ImageController@getOcrResult');
+
+Route::post('/getOcrResultEx', 'ImageController@getOcrResultEx');
