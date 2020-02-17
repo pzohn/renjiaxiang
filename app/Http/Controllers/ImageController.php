@@ -26,7 +26,7 @@ class ImageController extends Controller
                 ];
             }
             $access_token = $resultToken['access_token'];
-            return $resultToken;
+            return $access_token;
             if ($access_token) {
                 $urlOcr = "https://aip.baidubce.com/rest/2.0/ocr/v1/general";
                 $params = [
