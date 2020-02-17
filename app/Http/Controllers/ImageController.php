@@ -37,9 +37,8 @@ class ImageController extends Controller
                  $result = GuzzleHttp::guzzleGet($urlOcr, $params);
                  return [
                     'result' => $result,
-                    'url' => $req->get('url'),
-                    'access_token' =>  $access_token,
-                    'Content-Type' => "application/x-www-form-urlencoded"
+                    'params' => $params,
+                    'urlOcr' =>  $urlOcr
                  ];
                  
                  if(isset($result["error_code"]))
