@@ -110,7 +110,7 @@ class ImageController extends Controller
         ];
         try {
             $resultToken = GuzzleHttp::guzzleGet($urlToken, $paramsToken);
-            return $resultToken
+            return $resultToken;
 
         } catch (\Exception $e) {
             // 异常处理
