@@ -35,7 +35,7 @@ class ImageController extends Controller
                     ];
 
                  $result= GuzzleHttp::guzzleGet($urlOcr, $params);
-                 return $params;
+                
                  if(isset($result["error_code"]))
                  {
                      return [
