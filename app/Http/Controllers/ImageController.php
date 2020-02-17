@@ -34,8 +34,8 @@ class ImageController extends Controller
                     'Content-Type' => "application/x-www-form-urlencoded"
                     ];
 
-                 $result= GuzzleHttp::guzzleGet($urlOcr, $params);
-                
+                 $result = GuzzleHttp::guzzleGet($urlOcr, $params);
+                 return $result;
                  if(isset($result["error_code"]))
                  {
                      return [
