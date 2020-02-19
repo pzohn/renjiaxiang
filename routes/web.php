@@ -23,17 +23,7 @@ Route::post('/user/save', 'UserController@setUser');
 
 Route::post('/onGetUpdateResult', 'UserController@getUpdateResult');
 
-Route::post('/onPay', 'PayController@onPay');
-
-Route::post('/onPayShop', 'PayController@onPayShop');
-
-Route::post('/onPayGroup', 'PayController@onPayGroup');
-
 Route::post('/onPayBack', 'PayController@onPayBack');
-
-Route::post('/onPayShopBack', 'PayController@onPayShopBack');
-
-Route::post('/onPayGroupBack', 'PayController@onPayGroupBack');
 
 Route::post('/getCard', 'PayController@getCard');
 
@@ -206,3 +196,15 @@ Route::post('/getExpressById', 'UserController@getExpressById');
 Route::post('/getOcrResult', 'ImageController@getOcrResult');
 
 Route::post('/getOcrResultEx', 'ImageController@getOcrResultEx');
+
+Route::post('/onPay', 'HattonPayController@onPay');
+
+Route::post('/onPayShop', 'HattonPayController@onPayShop');
+
+Route::post('/onPayGroup', 'HattonPayController@onPayGroup');
+
+Route::post('/onPayShopBack', 'HattonPayController@onPayShopBack');
+
+Route::post('/onPayGroupBack', 'HattonPayController@onPayGroupBack');
+
+Route::post('/onPayBackForHatton', 'HattonPayController@onPayBackForHatton');
