@@ -25,8 +25,6 @@ Route::post('/onGetUpdateResult', 'UserController@getUpdateResult');
 
 Route::post('/onPayBack', 'PayController@onPayBack');
 
-Route::post('/getCard', 'PayController@getCard');
-
 Route::post('/getShop', 'PayController@getShop');
 
 Route::post('/resetPass', 'UserController@resetPass');
@@ -110,8 +108,6 @@ Route::post('/onPayShoppingFree', 'PayController@onPayShoppingFree');
 Route::post('/onPayrCertFree', 'PayController@onPayrCertFree');
 
 Route::post('/repayStock', 'PayController@repayStock');
-
-Route::post('/getCards', 'PayController@getCards');
 
 Route::post('/uploadOne', 'FileController@uploadOne');
 
@@ -208,3 +204,7 @@ Route::post('/onPayShopBack', 'HattonPayController@onPayShopBack');
 Route::post('/onPayGroupBack', 'HattonPayController@onPayGroupBack');
 
 Route::post('/onPayBackForHatton', 'HattonPayController@onPayBackForHatton');
+
+Route::post('/getCard', 'HattonPayController@getCard');
+
+Route::post('/getCards', 'HattonPayController@getCards');

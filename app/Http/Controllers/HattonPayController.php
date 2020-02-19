@@ -195,27 +195,25 @@ class HattonPayController extends Controller
         foreach ($params as $k => $v) {
             $str .= "&".$k ."=" . $v;
         }
-        $tradeTmp = Tradetmp::paySelect($params["out_trade_no"]);
+        $trade = Tradetmp::paySelect($params["out_trade_no"]);
         $tmp = "&key=" . 'renzheng840728chengboren15081900';
         $str .= $tmp;
         $str = ltrim($str, "&");
         $sign_strTmp = strtoupper(md5($str));
         if($sign_strTmp == $sign_str)
         {
-            $trade1 = Tradetmp::paySelect($params["out_trade_no"]);
-            if($trade1->pay_status == 1){
-                return  $trade1;
+            $flag = Tradetmp::payUpdate($params["out_trade_no"]);
+            if ($flag == 1){
+                $trade = Tradetmp::paySelect($params["out_trade_no"]);
+                $card = Card::getCard($trade->detail_id);
+                $infoPara =[
+                    'PHONE' => $trade->phone,
+                    'CARDID' => $trade->detail_id,
+                    'CARDNUM' => $card->USENUM
+                ];
+                $info = Information::updateCard($infoPara);
+                return $info;
             }
-            Tradetmp::payUpdate($params["out_trade_no"]);
-            $tradetmp = Tradetmp::paySelect($params["out_trade_no"]);
-            $card = Card::getCard($trade->detail_id);
-            $infoPara =[
-                'PHONE' => $trade->phone,
-                'CARDID' => $trade->detail_id,
-                'CARDNUM' => $card->USENUM
-            ];
-            $info = Information::updateCard($infoPara);
-            return $info;
         }
     }
 

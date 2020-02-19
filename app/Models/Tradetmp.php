@@ -44,6 +44,7 @@ class  Tradetmp extends Model {
             $tradetmp->pay_status = 1;
             $tradetmp->edit_flag = 1;
             $tradetmp->update();
+            return 1;
         }
     }
 
