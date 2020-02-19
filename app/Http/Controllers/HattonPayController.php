@@ -93,7 +93,6 @@ class HattonPayController extends Controller
                  ];
                  Tradetmp::payInsert($trade);
                  $resultPay = GuzzleHttp:: postXml($urlPay, $data);
-                 return $resultPay;
                  $decode = $this->decodeXml($resultPay);
                  if ($decode["result_code"] == "SUCCESS")
                  {
@@ -201,7 +200,6 @@ class HattonPayController extends Controller
         $str .= $tmp;
         $str = ltrim($str, "&");
         $sign_strTmp = strtoupper(md5($str));
-        $updateTrade;
         if($sign_strTmp == $sign_str)
         {
             $trade1 = Tradetmp::paySelect($params["out_trade_no"]);
