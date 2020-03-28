@@ -18,7 +18,15 @@ class  Card extends Model {
     }
 
     public static function getCards($netflag) {
-        $cards = Card::where("NETFLAG", $netflag)->get();
-        return $cards;
+        if ($netflag == 1){
+            $cards = Card::where("NETFLAG", 1)->where("ONFLAG", 1)->get();
+            return $cards; 
+        }else if ($netflag == 2){
+            $cards = Card::where("SHAREFLAG", 1)->where("ONFLAG", 1)->get();
+            return $cards;
+        }else if ($netflag == 3){
+            $cards = Card::where("TEAMFLAG", 1)->where("ONFLAG", 1)->get();
+            return $cards;
+        }
     }
 }
