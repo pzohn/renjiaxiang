@@ -248,7 +248,8 @@ class HattonPayController extends Controller
                     "price" => $card->PRICE,
                     "usetype" => $this->getUseType($card->USENUM),
                     "playtype" => $this->getPlayType($card->TYPE),
-                    "palynum" => $card->USENUM
+                    "palynum" => $card->USENUM,
+                    "parentfree" => $card->PARENTFREE
                     ];
                 }
             }
