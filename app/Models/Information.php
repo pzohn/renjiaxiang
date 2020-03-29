@@ -29,7 +29,7 @@ class  Information extends Model {
             }
             else
             {
-                $information = Information::where("CODE", array_get($params,"PHONE"))->where("PASSWORD", array_get($params,"PASSWORD"))->first();
+                $information = Information::where("CODE", array_get($params,"PHONE"))->first();
                 if(!$information)
                 {
                     return 1;
