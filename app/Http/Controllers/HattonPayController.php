@@ -244,7 +244,7 @@ class HattonPayController extends Controller
                     $cardsTmp[] = [
                     "id" => $card->ID,
                     "pic_id" => mt_rand(1,9),
-                    "title" => $card->DESC,
+                    "title" => $card->NAME,
                     "price" => $card->PRICE,
                     "usetype" => $this->getUseType($card->USENUM),
                     "playtype" => $this->getPlayType($card->TYPE),

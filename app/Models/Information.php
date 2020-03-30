@@ -38,7 +38,7 @@ class  Information extends Model {
                 $carddesc = "";
                 if($cardid != 0)
                 {
-                    $carddesc = Card::getCard($cardid)->DESC;
+                    $carddesc = Card::getCard($cardid)->NAME;
                 }
                 unset($information['cardid']);
                 $result = [
@@ -118,7 +118,7 @@ class  Information extends Model {
         $carddesc = "";
         if($cardid != 0)
         {
-            $carddesc = Card::getCard($cardid)->DESC;
+            $carddesc = Card::getCard($cardid)->NAME;
         }
         $result = [
             "ID"=> $information->ID,
