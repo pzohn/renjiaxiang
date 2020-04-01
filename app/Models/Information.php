@@ -122,7 +122,10 @@ class  Information extends Model {
             $carddesc = "";
             if($cardid != 0)
             {
-                $carddesc = Card::getCard($cardid)->NAME;
+                $cardtmp =  Card::getCard($cardid);
+                if($cardtmp){
+                    $carddesc = $cardtmp->NAME;
+                }
             }
             $result = [
                 "ID"=> $information->ID,
