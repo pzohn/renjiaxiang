@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/hh', function () {
-    return "hi world";
+    return view('welcome');
 });
  
 Route::post('/user/save', 'UserController@setUser');
