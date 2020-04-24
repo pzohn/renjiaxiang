@@ -106,11 +106,19 @@ class  Information extends Model {
     public static function updateCard($params) {
         $information = Information::where("CODE", array_get($params,"PHONE"))->first();
         if ($information) {
-            $information->CARDID = array_get($params,"CARDID");
-            $information->CARDNUM = array_get($params,"CARDNUM");
-            $information->EDITFLAG = 1;
-            \DB::update('update information set CARDID = ?, CARDNUM = ?, EDITFLAG = ? where CODE = ?', [$information->CARDID,
-            $information->CARDNUM,$information->EDITFLAG,$information->PHONE]);
+            $CARDNUM = $information->CARDNUM;
+            if ($CARDNUM > 0){
+                $information->CARDNUM = array_get($params,"CARDNUM") + $CARDNUM;
+                $information->EDITFLAG = 1;
+                \DB::update('update information set CARDNUM = ?, EDITFLAG = ? where CODE = ?', [
+                $information->CARDNUM,$information->EDITFLAG,$information->PHONE]);
+            }else ($CARDNUM == 0){
+                $information->CARDID = array_get($params,"CARDID");
+                $information->CARDNUM = array_get($params,"CARDNUM");
+                $information->EDITFLAG = 1;
+                \DB::update('update information set CARDID = ?, CARDNUM = ?, EDITFLAG = ? where CODE = ?', [$information->CARDID,
+                $information->CARDNUM,$information->EDITFLAG,$information->PHONE]);
+            }
             return $information;
         }
     }
