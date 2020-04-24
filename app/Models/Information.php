@@ -112,7 +112,7 @@ class  Information extends Model {
                 $information->EDITFLAG = 1;
                 \DB::update('update information set CARDNUM = ?, EDITFLAG = ? where CODE = ?', [
                 $information->CARDNUM,$information->EDITFLAG,$information->PHONE]);
-            }else ($CARDNUM == 0){
+            }else if($CARDNUM == 0){
                 $information->CARDID = array_get($params,"CARDID");
                 $information->CARDNUM = array_get($params,"CARDNUM");
                 $information->EDITFLAG = 1;
