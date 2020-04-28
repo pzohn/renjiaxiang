@@ -208,3 +208,5 @@ Route::post('/onPayBackForHatton', 'HattonPayController@onPayBackForHatton');
 Route::post('/getCard', 'HattonPayController@getCard');
 
 Route::post('/getCards', 'HattonPayController@getCards');
+
+Route::post('/getTradesInfoByShopId', 'PayController@getTradesInfoByShopId');

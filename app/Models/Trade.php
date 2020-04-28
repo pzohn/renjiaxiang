@@ -261,4 +261,11 @@ class  Trade extends Model {
             return $trade;
         }
     }
+
+    public static function getTradesInfoByShopId($shop_id) {
+        $trades = Trade::where("shop_id", $shop_id)->where("show_status", 1)->where("pay_status", 1)->orderBy('updated_at', 'desc')->get();
+        if ($trades) {
+            return $trades;
+        }
+    }
 }

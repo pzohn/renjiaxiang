@@ -1395,4 +1395,51 @@ class PayController extends Controller
             'str' => $str
          ];
     }
+
+    public function getTradesInfoByShopId(Request $req) {
+        $trades = Trade::getTradesInfoByShopId($req->get('shop_id'));
+        $title = "title";
+        if ($trades){
+            $tradesTmp = [];
+            foreach ($trades as $k => $v) {
+                $count = 0;
+                $childtrades = Childtrade::paySelectById($v->id);
+                $childtradesTmp = [];
+                foreach ($childtrades as $k1 => $v1) {
+                    $shopping = Shopping::shoppingSelect($v1->shopping_id);
+                    if ($shopping){
+                        $count += 1;
+                        $childtradesTmp[] = [
+                            "name" => $shopping->name,
+                            "charge" => $shopping->price,
+                            "num" => $v1->num
+                        ]; 
+                    }
+                }
+
+                if ($count){
+                    $tradesTmp[] = [
+                        "time" => $v->updated_at->format('Y-m-d H:i:s'),
+                        "tradeid" => $v->out_trade_no,
+                        "charge" => $v->total_fee,
+                        "count" => $count,
+                        "detail" => $childtradesTmp,
+                        "address" => SendAddress::GetAddressEx($v->id),
+                        "status" => $this->getRefundStatus($v->finish_refund_status),
+                        "color" => $this->getRefundColor($v->finish_refund_status),
+                        "phone" =>  $v->phone,
+                        "body" => $v->body,
+                        "id" => $v->id,
+                        "use_royalty" => $v->use_royalty                
+                    ];
+                }
+            }
+            $result_data = [
+                'code' => 0,
+                'msg' => '',
+                'count' => count($tradesTmp),
+                'data' => $tradesTmp
+            ];
+            return $result_data;
+        }
 }
