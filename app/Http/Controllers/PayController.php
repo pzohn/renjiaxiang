@@ -1442,4 +1442,5 @@ class PayController extends Controller
             ];
             return $result_data;
         }
+    }
 }
