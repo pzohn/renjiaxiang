@@ -1430,7 +1430,8 @@ class PayController extends Controller
                         "phone" =>  $v->phone,
                         "body" => $v->body,
                         "id" => $v->id,
-                        "use_royalty" => $v->use_royalty                
+                        "use_royalty" => $v->use_royalty,
+                        "name" => $v->name             
                     ];
                 }
             }
