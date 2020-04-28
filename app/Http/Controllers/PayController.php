@@ -1422,12 +1422,10 @@ class PayController extends Controller
                         "time" => $v->updated_at->format('Y-m-d H:i:s'),
                         "tradeid" => $v->out_trade_no,
                         "charge" => $v->total_fee,
-                        "count" => $count,
                         "detail" => $childtradesTmp,
                         "address" => SendAddress::GetAddressEx($v->id),
-                        "status" => $this->getRefundStatus($v->finish_refund_status),
-                        "color" => $this->getRefundColor($v->finish_refund_status),
-                        "phone" =>  $v->phone,
+                        "status" => $this->getNewStatus($v->$finishstatus,$v->$post_refund_status,$v->$finish_refund_status),
+                        "statusex" => $this->getNewStatusEx($v->$sendstatus,$v->$finishstatus,$v->$post_refund_status,$v->$finish_refund_status),
                         "body" => $v->body,
                         "id" => $v->id,
                         "use_royalty" => $v->use_royalty,
@@ -1442,6 +1440,42 @@ class PayController extends Controller
                 'data' => $tradesTmp
             ];
             return $result_data;
+        }
+    }
+
+    protected function getNewStatus($finishstatus,$post_refund_status,$finish_refund_status) {
+        if ($post_refund_status == 1){
+            if ($post_refund_status == 1){
+                return "完成退货"；
+            }else{
+                return "申请退货";
+            }
+        }else{
+            if ($finishstatus == 0){
+                return '已付款';
+            }else {
+                return '已完成';
+            }
+        }
+    }
+
+    protected function getNewStatusEx($sendstatus,$finishstatus,$post_refund_status,$finish_refund_status) {
+        if ($post_refund_status == 1){
+            if ($post_refund_status == 1){
+                return "完成退货"；
+            }else{
+                return "申请退货";
+            }
+        }else{
+            if ($sendstatus == 0){
+                return '已付款';
+            }else {
+                if ($finishstatus == 0){
+                    return '已发货';
+                }else{
+                    return "已完成";
+                }
+            }
         }
     }
 }
