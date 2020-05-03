@@ -262,8 +262,22 @@ class  Trade extends Model {
         }
     }
 
-    public static function getTradesInfoByShopId($shop_id) {
-        $trades = Trade::where("shop_id", $shop_id)->where("show_status", 1)->where("pay_status", 1)->orderBy('updated_at', 'desc')->get();
+    public static function getTradesInfoByShopId($params) {
+        $tradeid = $req->get('tradeid');
+        $shopid = $req->get('shop_id');
+        $name = $req->get('name');
+        $status = $req->get('status');
+
+        if ($tradeid){
+            $trades = Trade::where("shop_id", $shop_id)->where("show_status", 1)->where("pay_status", 1)->where("tradeid",'like','%'.$tradeid.'%')->orderBy('updated_at', 'desc')->get();
+        }
+
+
+
+
+
+
+        //$trades = Trade::where("shop_id", $shop_id)->where("show_status", 1)->where("pay_status", 1)->orderBy('updated_at', 'desc')->get();
         if ($trades) {
             return $trades;
         }
