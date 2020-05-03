@@ -271,6 +271,9 @@ class  Trade extends Model {
         if ($tradeid){
             $trades = Trade::where("shop_id", $shop_id)->where("show_status", 1)->where("pay_status", 1)
             ->where("tradeid",'like','%'.$tradeid.'%')->orderBy('updated_at', 'desc')->get();
+            if ($trades) {
+                return $trades;
+            }
         }
 
 
@@ -279,9 +282,6 @@ class  Trade extends Model {
 
 
         //$trades = Trade::where("shop_id", $shop_id)->where("show_status", 1)->where("pay_status", 1)->orderBy('updated_at', 'desc')->get();
-        if ($trades) {
-            return $trades;
-        }
     }
 
     public static function updateStatus($id,$status) {
