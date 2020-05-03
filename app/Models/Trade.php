@@ -268,4 +268,42 @@ class  Trade extends Model {
             return $trades;
         }
     }
+
+    public static function updateStatus($id,$status) {
+        $trade = Trade::where("id", $id)->first();
+        if ($trade) {
+            if ($status == 1){
+                $trade->send_status = 0;
+                $trade->finish_status = 0;
+                $trade->post_refund_status = 0;
+                $trade->finish_refund_status = 0;
+            }
+            else if($status == 2)
+            {
+                $trade->send_status = 1;
+                $trade->finish_status = 0;
+                $trade->post_refund_status = 0;
+                $trade->finish_refund_status = 0;
+            }
+            else if($status == 3)
+            {
+                $trade->send_status = 1;
+                $trade->finish_status = 1;
+                $trade->post_refund_status = 0;
+                $trade->finish_refund_status = 0;
+            }
+            else if($status == 4)
+            {
+                $trade->post_refund_status = 1;
+                $trade->finish_refund_status = 0;
+            }
+            else if($status == 5)
+            {
+                $trade->post_refund_status = 1;
+                $trade->finish_refund_status = 1;
+            }
+            $trade->update();
+        }
+    }
+    return $trade;
 }
