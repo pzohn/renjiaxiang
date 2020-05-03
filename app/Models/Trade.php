@@ -270,7 +270,7 @@ class  Trade extends Model {
 
         if ($tradeid){
             $trades = Trade::where("shop_id", $shop_id)->where("show_status", 1)->where("pay_status", 1)
-            ->where("tradeid",'like','%'.$tradeid.'%')->orderBy('updated_at', 'desc')->get();
+            ->where("out_trade_no",'like','%'.$tradeid.'%')->orderBy('updated_at', 'desc')->get();
             if ($trades) {
                 return $trades;
             }
