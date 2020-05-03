@@ -1397,7 +1397,7 @@ class PayController extends Controller
     }
 
     public function getTradesInfoByShopId(Request $req) {
-        $id = $req->get('shop_id');
+        $id = $req->get('id');
         if ($id)
         {
             $trades = Trade::paySelectById($id);
