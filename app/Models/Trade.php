@@ -304,6 +304,6 @@ class  Trade extends Model {
             }
             $trade->update();
         }
+        return $trade;
     }
-    return $trade;
 }
