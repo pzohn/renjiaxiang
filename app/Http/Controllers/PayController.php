@@ -1445,7 +1445,7 @@ class PayController extends Controller
 
     protected function getNewStatus($finishstatus,$post_refund_status,$finish_refund_status) {
         if ($post_refund_status == 1){
-            if ($post_refund_status == 1){
+            if ($finish_refund_status == 1){
                 return 5;//完成退货
             }else{
                 return 4;//申请退货
@@ -1461,7 +1461,7 @@ class PayController extends Controller
 
     protected function getNewStatusEx($sendstatus,$finishstatus,$post_refund_status,$finish_refund_status) {
         if ($post_refund_status == 1){
-            if ($post_refund_status == 1){
+            if ($finish_refund_status == 1){
                 return 5;
             }else{
                 return 4;
