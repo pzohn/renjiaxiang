@@ -268,14 +268,6 @@ class  Trade extends Model {
         $name = array_get($params,"name");
         $status = array_get($params,"status");
 
-
-        if ($name){
-            $trades = Trade::where("shop_id", $shop_id)->where("show_status", 1)->where("pay_status", 1)
-            ->where("name",'like','%'.$name.'%')->orderBy('updated_at', 'desc')->get();
-            if ($trades) {
-                return $trades;
-            }
-        }
         if ($tradeid){
             $trades = Trade::where("shop_id", $shop_id)->where("show_status", 1)->where("pay_status", 1)
             ->where("out_trade_no",'like','%'.$tradeid.'%')->orderBy('updated_at', 'desc')->get();
@@ -284,14 +276,55 @@ class  Trade extends Model {
             }
         }
 
-    
+        if ($name){
+            $trades = Trade::where("shop_id", $shop_id)->where("show_status", 1)->where("pay_status", 1)
+            ->where("name",'like','%'.$name.'%')->orderBy('updated_at', 'desc')->get();
+            if ($trades) {
+                return $trades;
+            }
+        }
 
-
-
-
-
-
-        //$trades = Trade::where("shop_id", $shop_id)->where("show_status", 1)->where("pay_status", 1)->orderBy('updated_at', 'desc')->get();
+        if ($status){
+            if ($status = 1){
+                $trades = Trade::where("shop_id", $shop_id)->where("show_status", 1)->where("pay_status", 1)
+                ->where("post_refund_status", 0)->where("finish_refund_status", 0)
+                ->where("send_status", 0)->where("finish_status", 0)->orderBy('updated_at', 'desc')->get();
+                if ($trades) {
+                    return $trades;
+                }
+            }else if ($status = 2){
+                $trades = Trade::where("shop_id", $shop_id)->where("show_status", 1)->where("pay_status", 1)
+                ->where("post_refund_status", 0)->where("finish_refund_status", 0)
+                ->where("send_status", 1)->where("finish_status", 0)->orderBy('updated_at', 'desc')->get();
+                if ($trades) {
+                    return $trades;
+                }
+            }else if ($status = 3){
+                $trades = Trade::where("shop_id", $shop_id)->where("show_status", 1)->where("pay_status", 1)
+                ->where("post_refund_status", 0)->where("finish_refund_status", 0)
+                ->where("send_status", 1)->where("finish_status", 1)->orderBy('updated_at', 'desc')->get();
+                if ($trades) {
+                    return $trades;
+                }
+            }
+            else if ($status = 4){
+                $trades = Trade::where("shop_id", $shop_id)->where("show_status", 1)->where("pay_status", 1)
+                ->where("post_refund_status", 1)->where("finish_refund_status", 0)
+                ->orderBy('updated_at', 'desc')->get();
+                if ($trades) {
+                    return $trades;
+                }
+            }else if ($status = 5){
+                $trades = Trade::where("shop_id", $shop_id)->where("show_status", 1)->where("pay_status", 1)
+                ->where("post_refund_status", 1)->where("finish_refund_status", 1)
+                ->orderBy('updated_at', 'desc')->get();
+                if ($trades) {
+                    return $trades;
+                }
+            }
+        }
+        $trades = Trade::where("shop_id", $shop_id)->where("show_status", 1)->where("pay_status", 1)->orderBy('updated_at', 'desc')->get();
+        return $trades;
     }
 
     public static function updateStatus($id,$status) {
