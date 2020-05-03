@@ -1400,7 +1400,7 @@ class PayController extends Controller
         $params = [
             'tradeid' => $req->get('tradeid'),
             'shop_id' => $req->get('shop_id'),
-            'name' => $req->get('shop_id'),
+            'name' => $req->get('name'),
             'status' => $req->get('status')
             ];
 
