@@ -1397,6 +1397,57 @@ class PayController extends Controller
     }
 
     public function getTradesInfoByShopId(Request $req) {
+        $id = $req->get('shop_id');
+        if ($id)
+        {
+            $trades = Trade::paySelectById($id);
+
+            $title = "title";
+            if ($trades){
+                $tradesTmp = [];
+                foreach ($trades as $k => $v) {
+                    $count = 0;
+                    $childtrades = Childtrade::paySelectById($v->id);
+                    $childtradesTmp = [];
+                    foreach ($childtrades as $k1 => $v1) {
+                        $shopping = Shopping::shoppingSelect($v1->shopping_id);
+                        if ($shopping){
+                            $count += 1;
+                            $childtradesTmp[] = [
+                                "name" => $shopping->name,
+                                "charge" => $shopping->price,
+                                "num" => $v1->num
+                            ]; 
+                        }
+                    }
+    
+                    if ($count){
+                        $tradesTmp[] = [
+                            "time" => $v->updated_at->format('Y-m-d H:i:s'),
+                            "tradeid" => $v->out_trade_no,
+                            "charge" => $v->total_fee,
+                            "detail" => $childtradesTmp,
+                            "address" => SendAddress::GetAddressEx($v->id),
+                            "status" => $this->getNewStatus($v->finish_status,$v->post_refund_status,$v->finish_refund_status),
+                            "statusex" => $this->getNewStatusEx($v->send_status,$v->finishstatus,$v->post_refund_status,$v->finish_refund_status),
+                            "body" => $v->body,
+                            "id" => $v->id,
+                            "use_royalty" => $v->use_royalty,
+                            "name" => $v->name             
+                        ];
+                    }
+                }
+                $result_data = [
+                    'code' => 0,
+                    'msg' => '',
+                    'count' => count($tradesTmp),
+                    'data' => $tradesTmp
+                ];
+                return $result_data;
+            }
+
+            
+        }
         $trades = Trade::getTradesInfoByShopId($req->get('shop_id'));
         $title = "title";
         if ($trades){
