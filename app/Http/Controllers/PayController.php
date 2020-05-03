@@ -1401,6 +1401,7 @@ class PayController extends Controller
         if ($id)
         {
             $trades = Trade::paySelectById($id);
+            return $trades;
 
             $title = "title";
             if ($trades){
