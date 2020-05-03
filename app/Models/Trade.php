@@ -263,10 +263,10 @@ class  Trade extends Model {
     }
 
     public static function getTradesInfoByShopId($params) {
-        $tradeid = $array_get($params,"tradeid");
-        $shop_id = $array_get($params,"shop_id");
-        $name = $array_get($params,"name");
-        $status = $array_get($params,"status");
+        $tradeid = array_get($params,"tradeid");
+        $shop_id = array_get($params,"shop_id");
+        $name = array_get($params,"name");
+        $status = array_get($params,"status");
 
         if ($tradeid){
             $trades = Trade::where("shop_id", $shop_id)->where("show_status", 1)->where("pay_status", 1)
