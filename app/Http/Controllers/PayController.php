@@ -1446,15 +1446,15 @@ class PayController extends Controller
     protected function getNewStatus($finishstatus,$post_refund_status,$finish_refund_status) {
         if ($post_refund_status == 1){
             if ($post_refund_status == 1){
-                return "完成退货";
+                return 5;//完成退货
             }else{
-                return "申请退货";
+                return 4;//申请退货
             }
         }else{
             if ($finishstatus == 0){
-                return '已付款';
+                return 1;//已付款
             }else {
-                return '已完成';
+                return 3;//'已完成'
             }
         }
     }
@@ -1462,18 +1462,18 @@ class PayController extends Controller
     protected function getNewStatusEx($sendstatus,$finishstatus,$post_refund_status,$finish_refund_status) {
         if ($post_refund_status == 1){
             if ($post_refund_status == 1){
-                return "完成退货";
+                return 5;
             }else{
-                return "申请退货";
+                return 4;
             }
         }else{
             if ($sendstatus == 0){
-                return '已付款';
+                return 1;
             }else {
                 if ($finishstatus == 0){
-                    return '已发货';
+                    return 2;//已发货
                 }else{
-                    return "已完成";
+                    return 3;
                 }
             }
         }
