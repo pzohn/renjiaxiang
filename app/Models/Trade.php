@@ -268,13 +268,6 @@ class  Trade extends Model {
         $name = array_get($params,"name");
         $status = array_get($params,"status");
 
-        if ($tradeid){
-            $trades = Trade::where("shop_id", $shop_id)->where("show_status", 1)->where("pay_status", 1)
-            ->where("out_trade_no",'like','%'.$tradeid.'%')->orderBy('updated_at', 'desc')->get();
-            if ($trades) {
-                return $trades;
-            }
-        }
 
         if ($name){
             $trades = Trade::where("shop_id", $shop_id)->where("show_status", 1)->where("pay_status", 1)
@@ -283,6 +276,15 @@ class  Trade extends Model {
                 return $trades;
             }
         }
+        if ($tradeid){
+            $trades = Trade::where("shop_id", $shop_id)->where("show_status", 1)->where("pay_status", 1)
+            ->where("out_trade_no",'like','%'.$tradeid.'%')->orderBy('updated_at', 'desc')->get();
+            if ($trades) {
+                return $trades;
+            }
+        }
+
+    
 
 
 
