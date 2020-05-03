@@ -276,6 +276,14 @@ class  Trade extends Model {
             }
         }
 
+        if ($name){
+            $trades = Trade::where("shop_id", $shop_id)->where("show_status", 1)->where("pay_status", 1)
+            ->where("name",'like','%'.$name.'%')->orderBy('updated_at', 'desc')->get();
+            if ($trades) {
+                return $trades;
+            }
+        }
+
 
 
 
