@@ -82,6 +82,16 @@ class HattonPayController extends Controller
                     <sign>$sign</sign>
                  </xml>";
                  \Log::info("-----------", [$data]);
+
+                 $detail_id =  $req->get('detail_id');
+                 $name = $req->get('name');
+                 if (($detail_id >= 51) && ($detail_id <= 59)){
+                    $info = Information::getInformationEx($tradetmp->phone);
+                    if ($info){
+                        $name = $info->SCHOOL . "_" . $info->CLASS. "_" .$name;
+                    }
+                }
+
                  $trade = [
                     'out_trade_no' => $params["out_trade_no"],
                     'body' => $params["body"],
@@ -89,7 +99,7 @@ class HattonPayController extends Controller
                     'total_fee' => $params["total_fee"] * 0.01,
                     'phone' => $req->get('phone'),
                     'shop_id' => $req->get('shop_id'),
-                    'name' => $req->get('name'),
+                    'name' => $name,
                  ];
                  Tradetmp::payInsert($trade);
                  $resultPay = GuzzleHttp:: postXml($urlPay, $data);
@@ -381,14 +391,6 @@ class HattonPayController extends Controller
                  </xml>";
                  \Log::info("-----------", [$data]);
 
-                 $detail_id =  $req->get('detail_id');
-                 $name = $req->get('name');
-                 if (($detail_id >= 51) && ($detail_id <= 59)){
-                    $info = Information::getInformationEx($tradetmp->phone);
-                    if ($info){
-                        $name = $info->SCHOOL . "_" . $info->CLASS. "_" .$name;
-                    }
-                }
                  $trade = [
                     'out_trade_no' => $params["out_trade_no"],
                     'body' => $params["body"],
@@ -396,7 +398,7 @@ class HattonPayController extends Controller
                     'total_fee' => $params["total_fee"]  * 0.01,
                     'phone' => $req->get('phone'),
                     'shop_id' => $req->get('shop_id'),
-                    'name' => $name,
+                    'name' => $req->get('name'),
                  ];
                  Trade::payInsert($trade);
                  $resultPay = GuzzleHttp:: postXml($urlPay, $data);
