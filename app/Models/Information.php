@@ -197,6 +197,44 @@ class  Information extends Model {
         return -1;
     }
 
+    public static function getInformationEx($phone) {
+        $information = Information::where("CODE", $phone)->first();
+        if ($information){
+            $cardid = $information->CARDID;
+            $carddesc = "";
+            $cardnum = 0;
+            if($cardid != 0)
+            {
+                $cardnum = $information->CARDNUM;
+                if ($information->OTHER){
+                    $cardid = $information->OTHER;
+                    $cardnum = $information->OTHERNUM;
+                }
+                $cardtmp =  Card::getCard($cardid);
+                if($cardtmp){
+                    $carddesc = $cardtmp->NAME;
+                }
+            }
+            $result = [
+                "ID"=> $information->ID,
+                "NAME"=> $information->NAME,
+                "AGE"=> $information->AGE,
+                "SEX"=> $information->SEX,
+                "PHONE"=> $information->PHONE,
+                "ADDRESS"=> $information->ADDRESS,
+                "FATHER"=> $information->FATHER,
+                "MOTHER"=> $information->MOTHER,
+                "CARDDESC"=> $carddesc,
+                "CARDNUM"=> $cardnum,
+                "SCHOOL"=> $information->SCHOOL,
+                "CLASS"=> $information->CLASS,
+                "AUTHORITY" => $information->AUTHORITY
+            ];
+            return $result;
+        }
+        return -1;
+    }
+
 
     public static function resetPass($params) {
         $information = Information::where("CODE", array_get($params,"PHONE"))->where("NAME", array_get($params,"NAME"))->first();
