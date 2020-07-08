@@ -142,13 +142,21 @@ class  Information extends Model {
     public static function updateCardEx($params) {
         $information = Information::where("CODE", array_get($params,"PHONE"))->first();
         if ($information) {
+            $OTHERNUM = $information->OTHERNUM;
+            if ($OTHERNUM > 0){
+                $information->OTHERNUM = array_get($params,"CARDNUM") + $OTHERNUM;
+                $information->EDITFLAG = 1;
+                \DB::update('update information set OTHERNUM = ?, EDITFLAG = ? where CODE = ?', [
+                $information->OTHERNUM,$information->EDITFLAG,$information->PHONE]);
+            }else if($CARDNUM == 0){
                 $information->OTHER = array_get($params,"CARDID");
                 $information->OTHERNUM = array_get($params,"CARDNUM");
                 $information->EDITFLAG = 1;
                 \DB::update('update information set OTHER = ?, OTHERNUM = ?, EDITFLAG = ? where CODE = ?', [$information->OTHER,
                 $information->OTHERNUM,$information->EDITFLAG,$information->PHONE]);
             }
-        return $information;
+            return $information;
+        }
     }
 
     public static function getInformation($params) {
