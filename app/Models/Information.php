@@ -76,6 +76,8 @@ class  Information extends Model {
                 $information->CARDID = array_get($params,"CARDID");
                 $information->CARDNUM = array_get($params,"CARDNUM");
                 $information->PASSWORD = array_get($params,"PASSWORD");
+                $information->SCHOOL = array_get($params,"SCHOOL");
+                $information->CLASS = array_get($params,"CLASS");
                 $information->EDITFLAG = 1;
                 $information->save();
                 return $information;
@@ -132,8 +134,7 @@ class  Information extends Model {
                 \DB::update('update information set OTHER = ?, OTHERNUM = ?, EDITFLAG = ? where CODE = ?', [$information->OTHER,
                 $information->OTHERNUM,$information->EDITFLAG,$information->PHONE]);
             }
-            return $information;
-        }
+        return $information;
     }
 
     public static function getInformation($params) {
