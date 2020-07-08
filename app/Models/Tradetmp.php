@@ -17,10 +17,10 @@ class  Tradetmp extends Model {
         $tradetmp->shop_id = array_get($params,"shop_id");
         $tradetmp->name = array_get($params,"name");
         if (($tradetmp->detail_id >= 51) && ($tradetmp->detail_id <= 59)){
-            $info = Information::getInformationEx($tradetmp->phone);
-            if ($info){
-                $tradetmp->name = $info->SCHOOL . $info->CLASS . $tradetmp->name;
-            }
+            // $info = Information::getInformationEx($tradetmp->phone);
+            // if ($info){
+            //     $tradetmp->name = $info->SCHOOL . $info->CLASS . $tradetmp->name;
+            // }
         }
         $tradetmp->save();
         return $tradetmp;
