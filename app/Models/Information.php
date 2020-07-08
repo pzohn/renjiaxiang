@@ -91,14 +91,19 @@ class  Information extends Model {
             if ($information) {
                 $information->NAME = array_get($params,"NAME");
                 $information->AGE = array_get($params,"AGE");
-                $information->ADDRESS = array_get($params,"ADDRESS");
-                $information->FATHER = array_get($params,"FATHER");
-                $information->MOTHER = array_get($params,"MOTHER");
+                // $information->ADDRESS = array_get($params,"ADDRESS");
+                // $information->FATHER = array_get($params,"FATHER");
+                // $information->MOTHER = array_get($params,"MOTHER");
+                $information->SCHOOL = array_get($params,"SCHOOL");
+                $information->CLASS = array_get($params,"CLASS");
                 $information->EDITFLAG = 1;
                 
-                \DB::update('update information set NAME = ?, AGE = ?,ADDRESS = ?,FATHER = ?,
-                MOTHER = ?, EDITFLAG = ? where CODE = ?', [$information->NAME,$information->AGE,$information->ADDRESS,
-                $information->FATHER,$information->MOTHER,$information->EDITFLAG,$information->PHONE]);
+                // \DB::update('update information set NAME = ?, AGE = ?,ADDRESS = ?,FATHER = ?,
+                // MOTHER = ?, EDITFLAG = ? where CODE = ?', [$information->NAME,$information->AGE,$information->ADDRESS,
+                // $information->FATHER,$information->MOTHER,$information->EDITFLAG,$information->PHONE]);
+                \DB::update('update information set NAME = ?, AGE = ?,SCHOOL = ?,CLASS = ?,
+                EDITFLAG = ? where CODE = ?', [$information->NAME,$information->AGE,$information->SCHOOL,
+                $information->CLASS,$information->EDITFLAG,$information->PHONE]);
                 return $information;
             }
             return 0;   
