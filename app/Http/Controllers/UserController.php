@@ -227,7 +227,6 @@ class UserController extends Controller
         } else {
             return 0;
         }
-
     }
 
     public function updateWxBaseInfo(Request $req) {
