@@ -86,7 +86,7 @@ class HattonPayController extends Controller
                  $detail_id =  $req->get('detail_id');
                  $name = $req->get('name');
                  if (($detail_id >= 51) && ($detail_id <= 59)){
-                    $info = Information::getInformationEx($tradetmp->phone);
+                    $info = Information::getInformationEx($req->get('phone'));
                     if ($info){
                         $name = $info->SCHOOL . "_" . $info->CLASS. "_" .$name;
                     }
