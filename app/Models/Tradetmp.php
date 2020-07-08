@@ -19,7 +19,7 @@ class  Tradetmp extends Model {
         if (($tradetmp->detail_id >= 51) && ($tradetmp->detail_id <= 59)){
             $info = Information::getInformationEx($tradetmp->phone);
             if ($info){
-            //     $tradetmp->name = $info->SCHOOL . $info->CLASS . $tradetmp->name;
+                 $tradetmp->name = $info->SCHOOL;// . $info->CLASS . $tradetmp->name
             }
         }
         $tradetmp->save();
