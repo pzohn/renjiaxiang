@@ -123,6 +123,19 @@ class  Information extends Model {
         }
     }
 
+    public static function updateCardEx($params) {
+        $information = Information::where("CODE", array_get($params,"PHONE"))->first();
+        if ($information) {
+                $information->OTHER = array_get($params,"CARDID");
+                $information->OTHERNUM = array_get($params,"CARDNUM");
+                $information->EDITFLAG = 1;
+                \DB::update('update information set OTHER = ?, OTHERNUM = ?, EDITFLAG = ? where CODE = ?', [$information->OTHER,
+                $information->OTHERNUM,$information->EDITFLAG,$information->PHONE]);
+            }
+            return $information;
+        }
+    }
+
     public static function getInformation($params) {
         $information = Information::where("CODE", array_get($params,"PHONE"))->first();
         if ($information){

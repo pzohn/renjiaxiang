@@ -211,7 +211,11 @@ class HattonPayController extends Controller
                     'CARDID' => $trade->detail_id,
                     'CARDNUM' => $card->USENUM
                 ];
-                $info = Information::updateCard($infoPara);
+                if (($trade->detail_id >= 51) && ($trade->detail_id <= 59)){
+                    $info = Information::updateCardEx($infoPara);
+                }else{
+                    $info = Information::updateCard($infoPara);
+                }
                 return $info;
             }
         }
