@@ -148,7 +148,7 @@ class  Information extends Model {
                 $information->EDITFLAG = 1;
                 \DB::update('update information set OTHERNUM = ?, EDITFLAG = ? where CODE = ?', [
                 $information->OTHERNUM,$information->EDITFLAG,$information->PHONE]);
-            }else if($CARDNUM == 0){
+            }else if($OTHERNUM == 0){
                 $information->OTHER = array_get($params,"CARDID");
                 $information->OTHERNUM = array_get($params,"CARDNUM");
                 $information->EDITFLAG = 1;
