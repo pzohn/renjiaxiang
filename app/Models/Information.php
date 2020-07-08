@@ -36,12 +36,19 @@ class  Information extends Model {
                 }
                 $cardid = $information->CARDID;
                 $carddesc = "";
+                $cardnum = 0;
                 if($cardid != 0)
                 {
+                    $cardnum = $information->CARDNUM;
+                    if ($information->OTHER){
+                        $cardid = $information->OTHER;
+                        $cardnum = $information->OTHERNUM;
+                    }
                     $cardtmp =  Card::getCard($cardid);
                     if($cardtmp){
                         $carddesc = $cardtmp->NAME;
                     }
+                    
                 }
                 unset($information['cardid']);
                 $result = [
@@ -54,7 +61,9 @@ class  Information extends Model {
                     "FATHER"=> $information->FATHER,
                     "MOTHER"=> $information->MOTHER,
                     "CARDDESC"=> $carddesc,
-                    "CARDNUM"=> $information->CARDNUM,
+                    "CARDNUM"=> $cardnum,
+                    "SCHOOL"=> $information->SCHOOL,
+                    "CLASS"=> $information->CLASS,
                     "AUTHORITY" => $information->AUTHORITY
                 ];
                 return $result;
