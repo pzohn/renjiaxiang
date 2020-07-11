@@ -34,6 +34,7 @@ class  Information extends Model {
                 {
                     return 1;
                 }
+                return $information;
                 $cardid = $information->CARDID;
                 $carddesc = "";
                 $cardnum = 0;
