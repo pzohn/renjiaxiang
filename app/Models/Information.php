@@ -34,14 +34,13 @@ class  Information extends Model {
                 {
                     return 1;
                 }
-                return $information;
                 $cardid = $information->CARDID;
                 $carddesc = "";
                 $cardnum = 0;
                 if($cardid != 0)
                 {
                     $cardnum = $information->CARDNUM;
-                    if ($information->OTHER){
+                    if ($information->OTHER != 0){
                         $cardid = $information->OTHER;
                         $cardnum = $information->OTHERNUM;
                     }
