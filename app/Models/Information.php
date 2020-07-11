@@ -171,10 +171,14 @@ class  Information extends Model {
             if($cardid != 0)
             {
                 $cardnum = $information->CARDNUM;
-                if ($information->OTHER){
-                    $cardid = $information->OTHER;
-                    $cardnum = $information->OTHERNUM;
-                }
+                $cardtmp =  Card::getCard($cardid);
+                if($cardtmp){
+                    $carddesc = $cardtmp->NAME;
+                }   
+            }
+            if ($information->OTHER){
+                $cardid = $information->OTHER;
+                $cardnum = $information->OTHERNUM;
                 $cardtmp =  Card::getCard($cardid);
                 if($cardtmp){
                     $carddesc = $cardtmp->NAME;
