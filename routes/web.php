@@ -212,3 +212,5 @@ Route::post('/getCards', 'HattonPayController@getCards');
 Route::post('/getTradesInfoByShopId', 'PayController@getTradesInfoByShopId');
 
 Route::post('/updateStatus', 'PayController@updateStatus');
+
+Route::post('/IsShareForZhaobo', 'UserController@IsShareForZhaobo');

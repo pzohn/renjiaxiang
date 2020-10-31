@@ -50,6 +50,11 @@ class Parter extends Model {
         }
     }
 
+    public static function getParterForWx($wx_id) {
+        $parter = Parter::where("wx_id", $wx_id)->first();
+        return $parter;
+    }
+
     public static function getParterInfo($phone,$pass) {
         $parter = Parter::where("phone", $phone)->first();
         if ($parter) {

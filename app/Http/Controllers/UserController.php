@@ -10,6 +10,7 @@ use App\Models\Member;
 use App\Models\Wxuser;
 use App\Models\Zhang;
 use App\Models\Express;
+use App\Models\Parter;
 use App\Models\Childexpress;
 use App\Libs\GuzzleHttp;
 
@@ -228,6 +229,16 @@ class UserController extends Controller
             return 0;
         }
     }
+
+    public function IsShareForZhaobo(Request $req) {
+        $parter = Parter::getParterInfo($req->get('wx_id'));
+        if ($parter){
+            return 1;
+        }else {
+            return 0;
+        }
+    }
+
 
     public function updateWxBaseInfo(Request $req) {
         $params = [
