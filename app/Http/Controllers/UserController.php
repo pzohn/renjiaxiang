@@ -231,7 +231,7 @@ class UserController extends Controller
     }
 
     public function IsShareForZhaobo(Request $req) {
-        $parter = Parter::getParterInfo($req->get('wx_id'));
+        $parter = Parter::getParterForWx($req->get('wx_id'));
         if ($parter){
             return 1;
         }else {
