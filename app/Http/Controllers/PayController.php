@@ -1278,6 +1278,8 @@ class PayController extends Controller
 
     public function getShareForZhaobo(Request $req) {
         $parter = Parter::getParterForWx($req->get('wx_id'));
+        $share_count = 0;
+        $one_flag = 0;
         if ($parter){
             $share_id = $parter->id;
             $trades = Trade::getShareForPerson($share_id);
@@ -1294,6 +1296,7 @@ class PayController extends Controller
                     $trade_name = $address->name;
                 }
                 $childtrades = Childtrade::paySelectById($v->id);
+                $share_count += $childtrades[0]->num;
                 $tradesOne[] = [
                     "time" => $v->updated_at->format('Y-m-d H:i:s'),
                     "tradeid" => $v->out_trade_no,
@@ -1306,6 +1309,7 @@ class PayController extends Controller
                 ];
             }
             if ($parter->share_parent_id == 1){
+                $one_flag = ;
                 $parters = Parter::getPartersForParent($share_id);
                 foreach ($parters as $k1 => $v1) {
                     $share_two_id = $v1->id;
@@ -1313,6 +1317,7 @@ class PayController extends Controller
                     $trades_Two = Trade::getShareForPerson($share_two_id);
                     foreach ($trades_Two as $k2 => $v2) {
                         $childtrades = Childtrade::paySelectById($v2->id);
+                        $share_count += $childtrades[0]->num;
                         $address = Address::GetAddressByLoginId($v2->wx_id);
                         $trade_addr = "";
                         $trade_phone = "";
@@ -1340,7 +1345,8 @@ class PayController extends Controller
             $result_data = [
                 'code' => 0,
                 'msg' => '',
-                'count' => count($tradesOne),
+                '$one_flag' => $$one_flag.
+                'count' => $share_count,
                 'tradesOne' => $tradesOne,
                 'tradesTwo' => $tradesTwo
             ];
