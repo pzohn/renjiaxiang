@@ -1309,7 +1309,7 @@ class PayController extends Controller
                 ];
             }
             if ($parter->share_parent_id == 1){
-                $one_flag = ;
+                $one_flag = 1;
                 $parters = Parter::getPartersForParent($share_id);
                 foreach ($parters as $k1 => $v1) {
                     $share_two_id = $v1->id;
@@ -1344,8 +1344,8 @@ class PayController extends Controller
 
             $result_data = [
                 'code' => 0,
-                'msg' => '',
-                '$one_flag' => $$one_flag.
+                'msg' => '返回成功',
+                'one_flag' => $$one_flag,
                 'count' => $share_count,
                 'tradesOne' => $tradesOne,
                 'tradesTwo' => $tradesTwo
