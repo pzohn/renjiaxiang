@@ -1302,7 +1302,7 @@ class PayController extends Controller
                     "trade_name" => $trade_name,
                     "trade_phone" => $trade_phone,
                     "trade_addr" => $trade_addr,
-                    "num" => $childtrades->num
+                    "num" => $childtrades[0]->num
                 ];
             }
             if ($parter->share_parent_id == 1){
@@ -1331,7 +1331,7 @@ class PayController extends Controller
                             "trade_phone" => $trade_phone,
                             "trade_addr" => $trade_addr,
                             "share_name" => $share_name,
-                            "num" => $childtrades->num
+                            "num" => $childtrades[0]->num
                         ];
                     }
                 }
