@@ -1276,6 +1276,118 @@ class PayController extends Controller
         return $result_data;
     }
 
+    public function getShareForZhaobo(Request $req) {
+        $parter = Parter::getParterForWx($req->get('wx_id'));
+        if ($parter){
+            $share_id = $parter->id;
+            $trades = Trade::getShareForPerson($share_id);
+            $tradesOne = [];
+            $tradesTwo = [];
+            foreach ($trades as $k => $v) {
+                $address = Address::GetAddressByLoginId($v->wx_id);
+                $trade_addr = "";
+                $trade_phone = "";
+                $trade_name = "";
+                if ($address != 0){
+                    $trade_addr = $address->province.$address->city.$address->area.$address->detail; 
+                    $trade_phone = $address->phone;
+                    $trade_name = $address->name;
+                }
+                $childtrades = Childtrade::paySelectById($v->id);
+                $tradesOne[] = [
+                    "time" => $v->updated_at->format('Y-m-d H:i:s'),
+                    "tradeid" => $v->out_trade_no,
+                    "charge" => $v->total_fee,
+                    "body" => $v->body,
+                    "trade_name" => $trade_name,
+                    "trade_phone" => $trade_phone,
+                    "trade_addr" => $trade_addr,
+                    "num" => $childtrades->num
+                ];
+            }
+            if ($parter->share_parent_id == 1){
+                $parters = Parter::getPartersForParent($share_id);
+                foreach ($parters as $k1 => $v1) {
+                    $share_two_id = $v1->id;
+                    $share_name = $v1->name;
+                    $trades_Two = Trade::getShareForPerson($share_two_id);
+                    foreach ($trades_Two as $k2 => $v2) {
+                        $childtrades = Childtrade::paySelectById($v2->id);
+                        $address = Address::GetAddressByLoginId($v2->wx_id);
+                        $trade_addr = "";
+                        $trade_phone = "";
+                        $trade_name = "";
+                        if ($address != 0){
+                            $trade_addr = $address->province.$address->city.$address->area.$address->detail; 
+                            $trade_phone = $address->phone;
+                            $trade_name = $address->name;
+                        }
+                        $tradesTwo[] = [
+                            "time" => $v2->updated_at->format('Y-m-d H:i:s'),
+                            "tradeid" => $v2->out_trade_no,
+                            "charge" => $v2->total_fee,
+                            "body" => $v2->body,
+                            "trade_name" => $trade_name,
+                            "trade_phone" => $trade_phone,
+                            "trade_addr" => $trade_addr,
+                            "share_name" => $share_name,
+                            "num" => $childtrades->num
+                        ];
+                    }
+                }
+            }
+
+            $result_data = [
+                'code' => 0,
+                'msg' => '',
+                'count' => count($tradesOne),
+                'tradesOne' => $tradesOne,
+                'tradesTwo' => $tradesTwo
+            ];
+            return $result_data;
+
+        }else {
+            return [
+                'code' => 1,
+                'msg' => '该分销商暂未绑定'
+            ];;
+        }
+
+
+
+        $tradesTmp = [];
+        foreach ($trades as $k => $v) {
+            $tradesTmp[] = [
+                "time" => $v->updated_at->format('Y-m-d H:i:s'),
+                "tradeid" => $v->out_trade_no,
+                "charge" => $v->total_fee,
+                "body" => $v->body,
+                "nikename" => Wxuser::getNameById($v->wx_id),
+                "royalty" => $v->royalty
+            ];
+        }
+        $tradesUse = Trade::getShareUseForPerson($req->get('wx_id'));
+        $tradesUseTmp = [];
+        foreach ($tradesUse as $k1 => $v1) {
+            $tradesUseTmp[] = [
+                "time" => $v1->updated_at->format('Y-m-d H:i:s'),
+                "tradeid" => $v1->out_trade_no,
+                "charge" => $v1->total_fee,
+                "body" => $v1->body,
+                "use_royalty" => $v1->use_royalty
+            ];
+        }
+        $result_data = [
+            'code' => 0,
+            'msg' => '',
+            'count' => count($tradesTmp),
+            'royalty' => $member->royalty,
+            'data' => $tradesTmp,
+            'dataTrade' => $tradesUseTmp
+        ];
+        return $result_data;
+    }
+
     protected function getRefundStatus($finish_status) {
         if ($finish_status == 0){
             return '待处理';
