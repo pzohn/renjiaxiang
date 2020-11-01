@@ -1288,7 +1288,7 @@ class PayController extends Controller
                 $trade_addr = "";
                 $trade_phone = "";
                 $trade_name = "";
-                if ($address != 0){
+                if ($address){
                     $trade_addr = $address->province.$address->city.$address->area.$address->detail; 
                     $trade_phone = $address->phone;
                     $trade_name = $address->name;
@@ -1317,7 +1317,7 @@ class PayController extends Controller
                         $trade_addr = "";
                         $trade_phone = "";
                         $trade_name = "";
-                        if ($address != 0){
+                        if ($address){
                             $trade_addr = $address->province.$address->city.$address->area.$address->detail; 
                             $trade_phone = $address->phone;
                             $trade_name = $address->name;
