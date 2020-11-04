@@ -73,6 +73,7 @@ class  Trade extends Model {
         $trade->share_id = array_get($params,"share_id");
         $trade->use_royalty = array_get($params,"use_royalty");
         $trade->use_royalty = array_get($params,"use_royalty");
+        $trade->pay_status = 1;
         $trade->send_status = 1;
         $trade->save();
         return $trade;
