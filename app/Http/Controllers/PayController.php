@@ -685,6 +685,29 @@ class PayController extends Controller
         }
     }
 
+    public function onPayShoppingDown(Request $req) {
+        $shopping = Shopping::shoppingSelect($req->get('detail_id'));
+        $trade = [
+            'out_trade_no' => $this->createTradeNo(),
+            'body' => $shopping->name,
+            'detail_id' => $req->get('detail_id'),
+            'total_fee' => $req->get('total_fee'),
+            'wx_id' => $req->get('wx_id'),
+            'shop_id' => $req->get('shop_id'),
+            'name' => $req->get('name'),
+            'share_id' => $req->get('share_id'),
+            'use_royalty' => $req->get('use_royalty')
+         ];
+         $tradeNew = Trade::payInsertForIdDown($trade);
+         $childtrade = [
+            'shopping_id' => $req->get('detail_id'),
+            'num' => $req->get('num'),
+            'trade_id' => $tradeNew->id
+         ];
+         Childtrade::payInsert($childtrade);
+         $this->insertAddress($req->get('address_id'),$tradeNew->id);
+    }
+
     public function onPayShoppingFix(Request $req) {
         $zhang = Zhang::getZhang($req->get('shop_id'));
         $urlLogin = "https://api.weixin.qq.com/sns/jscode2session";
