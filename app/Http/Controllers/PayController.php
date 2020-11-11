@@ -661,9 +661,12 @@ class PayController extends Controller
         }else if ($paystatus == 1){
             if ($sendstatus == 0 && $finishstatus == 0){
                 return '待发货';
-            }else if ($sendstatus == 1){
+            }else if ($sendstatus == 0 && $finishstatus == 1){
+                return '已完成';
+            }
+            else if ($sendstatus == 1){
                 if ($finishstatus == 0){
-                    return '线下交易';
+                    return '线下交易待确认';
                 }else if ($finishstatus == 1){
                     return '已完成';
                 }
