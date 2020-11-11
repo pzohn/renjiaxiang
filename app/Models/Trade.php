@@ -302,6 +302,15 @@ class  Trade extends Model {
         }
     }
 
+    public static function finishOrder($id) {
+        $trade = Trade::where("id", $id)->first();
+        if ($trade) {
+            $trade->finish_status = 1;
+            $trade->update();
+            return $trade;
+        }
+    }
+
     public static function getTradesInfoByShopId($params) {
         $tradeid = array_get($params,"tradeid");
         $shop_id = array_get($params,"shop_id");

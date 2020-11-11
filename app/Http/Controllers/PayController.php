@@ -1435,6 +1435,14 @@ class PayController extends Controller
         }
     }
 
+    public function finishOrder(Request $req) {
+        $id = $req->get('id');
+        $trade = Trade::finishOrder($id);
+        if ($trade) {
+            return  $trade;
+        }
+    }
+
     public function postRefund(Request $req) {
         $trade = Trade::postRefund($req->get('id'),$req->get('refund_status'));
         if ($trade) {

@@ -224,3 +224,5 @@ Route::post('/getOrderAllForShopManger', 'PayController@getOrderAllForShopManger
 Route::post('/getOrderAllForShopMangerUnFinish', 'PayController@getOrderAllForShopMangerUnFinish');
 
 Route::post('/getOrderAllForShopMangerFinish', 'PayController@getOrderAllForShopMangerFinish');
+
+Route::post('/finishOrder', 'PayController@finishOrder');
