@@ -1622,6 +1622,7 @@ class PayController extends Controller
 
     public function getShareForZhaoboEx(Request $req) {
         $parters = Parter::getParterForWxEx();
+        $share_count = 0;
         if ($parters){
             foreach ($parters as $k1 => $v1) {
                 $share_two_id = $v1->id;
@@ -1655,7 +1656,6 @@ class PayController extends Controller
             $result_data = [
                 'code' => 0,
                 'msg' => '返回成功',
-                'one_flag' => $one_flag,
                 'count' => $share_count,
                 'tradesTwo' => $tradesTwo
             ];
