@@ -1624,7 +1624,7 @@ class PayController extends Controller
         $share_count = 0;
         $tradesTwo = [];
         $parters = Parter::getParterForWxEx();
-        if ($parter){
+        if ($parters){
             foreach ($parters as $k1 => $v1) {
                 $share_two_id = $v1->id;
                 $share_name = $v1->name;
