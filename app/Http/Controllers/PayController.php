@@ -1622,7 +1622,7 @@ class PayController extends Controller
 
     public function getShareForZhaoboEx(Request $req) {
         $parters = Parter::getParterForWxEx();
-        if ($parter){
+        if ($parters){
             foreach ($parters as $k1 => $v1) {
                 $share_two_id = $v1->id;
                 $share_name = $v1->name;
