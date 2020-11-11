@@ -289,7 +289,7 @@ class PayController extends Controller
                         "count" => $count,
                         "detail" => $childtradesTmp,
                         "address" => SendAddress::GetAddressEx($v->id),
-                        "status" => $this->getStatus($v->pay_status,$v->send_status,$v->finish_status),
+                        "status" => $this->getStatusZhaobo($v->pay_status,$v->send_status,$v->finish_status),
                         "color" => $this->getColor($v->pay_status,$v->send_status,$v->finish_status),
                         "phone" =>  $v->phone,
                         "body" => $v->body,
@@ -649,6 +649,22 @@ class PayController extends Controller
                 if ($finishstatus == 0){
                     return '待收货';
                 }else{
+                    return '已完成';
+                }
+            }
+        }
+    }
+
+    protected function getStatusZhaobo($paystatus,$sendstatus,$finishstatus) {
+        if ($paystatus == 0){
+            return '待付款';
+        }else if ($paystatus == 1){
+            if ($sendstatus == 0 && $finishstatus == 0){
+                return '待发货';
+            }else if ($sendstatus == 1){
+                if ($finishstatus == 0){
+                    return '线下交易';
+                }else if ($finishstatus == 1){
                     return '已完成';
                 }
             }
