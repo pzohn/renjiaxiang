@@ -13,6 +13,7 @@ use App\Models\Express;
 use App\Models\Parter;
 use App\Models\Childexpress;
 use App\Libs\GuzzleHttp;
+use App\Models\Usermanager;
 
 class UserController extends Controller
 {
@@ -232,13 +233,16 @@ class UserController extends Controller
 
     public function IsShareForZhaobo(Request $req) {
         $parter = Parter::getParterForWx($req->get('wx_id'));
+        $usermanager = Usermanager::getMangerForWx($req->get('wx_id'),$req->get('shop_id'));
+        if ($usermanager){
+            return 2;
+        }
         if ($parter){
             return 1;
         }else {
             return 0;
         }
     }
-
 
     public function updateWxBaseInfo(Request $req) {
         $params = [
@@ -327,8 +331,8 @@ class UserController extends Controller
                 curl_setopt($curl, CURLOPT_FAILONERROR, false);
                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($curl, CURLOPT_HEADER, false);
-                //curl_setopt($curl, CURLOPT_HEADER, true); 如不输出json, 请打开这行代码，打印调试头部状态码。
-                //状态码: 200 正常；400 URL无效；401 appCode错误； 403 次数用完； 500 API网管错误
+                //curl_setopt($curl, CURLOPT_HEADER, true); 如不输出json, 请打开这行代码，打印调试头部状态码�?
+                //状态码: 200 正常�?400 URL无效�?401 appCode错误�? 403 次数用完�? 500 API网管错误
                 if (1 == strpos("$".$host, "https://"))
                 {
                     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
