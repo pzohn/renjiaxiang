@@ -9,7 +9,7 @@ class Usermanager extends Model {
     public $timestamps = false;
         
     public static function getMangerForWx($wx_id, $shop_id) {
-        $usermanager = Usermanager::where("shop_sub_id", $wx_id)where("shop_id", $shop_id)->first();
+        $usermanager = Usermanager::where("shop_sub_id", $wx_id)->where("shop_id", $shop_id)->first();
         return $usermanager;
     }
 }
