@@ -1683,7 +1683,6 @@ class PayController extends Controller
             $result_data = [
                 'code' => 0,
                 'msg' => '返回成功',
-                'one_flag' => $one_flag,
                 'count' => $share_count,
                 'tradesTwo' => $tradesTwo
             ];
