@@ -1502,9 +1502,21 @@ class PayController extends Controller
 
     public function getShareForPerson(Request $req) {
         $member = Member::memberSelect($req->get('wx_id'));
-        $trades = Trade::getShareForPerson($req->get('wx_id'));
+        $trades = Trade::getShareForPersonEx1($req->get('wx_id'));
         $tradesTmp = [];
         foreach ($trades as $k => $v) {
+            $tradesTmp[] = [
+                "time" => $v->updated_at->format('Y-m-d H:i:s'),
+                "tradeid" => $v->out_trade_no,
+                "charge" => $v->total_fee,
+                "body" => $v->body,
+                "nikename" => Wxuser::getNameById($v->wx_id),
+                "royalty" => $v->royalty
+            ];
+        }
+
+        $trades1 = Trade::getShareForPersonEx2($req->get('wx_id'));
+        foreach ($trades1 as $k1 => $v1) {
             $tradesTmp[] = [
                 "time" => $v->updated_at->format('Y-m-d H:i:s'),
                 "tradeid" => $v->out_trade_no,
@@ -1525,6 +1537,7 @@ class PayController extends Controller
                 "use_royalty" => $v1->use_royalty
             ];
         }
+        
         $result_data = [
             'code' => 0,
             'msg' => '',
