@@ -290,7 +290,7 @@ class PayController extends Controller
                         "detail" => $childtradesTmp,
                         "address" => SendAddress::GetAddressEx($v->id),
                         "status" => $this->getStatusZhaobo($v->pay_status,$v->send_status,$v->finish_status),
-                        "color" => $this->getColor($v->pay_status,$v->send_status,$v->finish_status),
+                        "color" => $this->getColorZhaobo($v->pay_status,$v->send_status,$v->finish_status),
                         "phone" =>  $v->phone,
                         "body" => $v->body,
                         "id" => $v->id,
