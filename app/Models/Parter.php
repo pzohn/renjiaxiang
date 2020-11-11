@@ -55,6 +55,11 @@ class Parter extends Model {
         return $parter;
     }
 
+    public static function getParterForWxEx() {
+        $parters = Parter::where("type_id", 2)->get();
+        return $parters;
+    }
+
     public static function getPartersForParent($parent_id) {
         $parters = Parter::where("share_parent_id", $parent_id)->get();
         return $parters;
