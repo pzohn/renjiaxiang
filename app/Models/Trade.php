@@ -216,6 +216,13 @@ class  Trade extends Model {
         }
     }
 
+    public static function getOrderAllForShopEx($shop_id) {
+        $trades = Trade::where("shop_id", $shop_id)->where("show_status", 1)->where("pay_status", 1)->where("finish_status",'<>', 1)->where("post_refund_status", 0)->where("finish_refund_status", 0)->orderBy('updated_at', 'desc')->get();
+        if ($trades) {
+            return $trades;
+        }
+    }
+
     public static function getOrderUnPay() {
         $trades = Trade::where("pay_status", 0)->orderBy('updated_at', 'desc')->get();
         if ($trades) {
