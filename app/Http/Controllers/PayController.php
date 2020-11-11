@@ -674,17 +674,20 @@ class PayController extends Controller
         }
     }
 
-    protected function getColor($paystatus,$sendstatus,$finishstatus) {
+    protected function getColorZhaobo($paystatus,$sendstatus,$finishstatus) {
         if ($paystatus == 0){
             return 'red';
         }else if ($paystatus == 1){
-            if ($sendstatus == 0){
+            if ($sendstatus == 0 && $finishstatus == 0){
                 return 'orange';
+            }else if ($sendstatus == 0 && $finishstatus == 1){
+                return 'green';
             }else if ($sendstatus == 1){
                 if ($finishstatus == 0){
                     return 'blue';
-                }else{
+                }elseelse if ($finishstatus == 1){
                     return 'green';
+                }
                 }
             }
         }
