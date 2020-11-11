@@ -257,7 +257,7 @@ class PayController extends Controller
         }
     }
 
-    public function getOrderAllForShop(Request $req) {
+    public function getOrderAllForShopManger(Request $req) {
         $shop_id = $req->get('shop_id');
         $trades = Trade::getOrderAllForShop($shop_id);
         $title = "title";

@@ -219,4 +219,4 @@ Route::post('/getShareForZhaobo', 'PayController@getShareForZhaobo');
 
 Route::post('/onPayShoppingDown', 'PayController@onPayShoppingDown');
 
-Route::post('/getOrderAllForShop', 'PayController@getOrderAllForShop');
+Route::post('/getOrderAllForShopManger', 'PayController@getOrderAllForShopManger');
