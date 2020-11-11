@@ -1502,21 +1502,9 @@ class PayController extends Controller
 
     public function getShareForPerson(Request $req) {
         $member = Member::memberSelect($req->get('wx_id'));
-        $trades = Trade::getShareForPersonEx1($req->get('wx_id'));
+        $trades = Trade::getShareForPerson($req->get('wx_id'));
         $tradesTmp = [];
         foreach ($trades as $k => $v) {
-            $tradesTmp[] = [
-                "time" => $v->updated_at->format('Y-m-d H:i:s'),
-                "tradeid" => $v->out_trade_no,
-                "charge" => $v->total_fee,
-                "body" => $v->body,
-                "nikename" => Wxuser::getNameById($v->wx_id),
-                "royalty" => $v->royalty
-            ];
-        }
-
-        $trades1 = Trade::getShareForPersonEx2($req->get('wx_id'));
-        foreach ($trades1 as $k1 => $v1) {
             $tradesTmp[] = [
                 "time" => $v->updated_at->format('Y-m-d H:i:s'),
                 "tradeid" => $v->out_trade_no,
@@ -1537,7 +1525,6 @@ class PayController extends Controller
                 "use_royalty" => $v1->use_royalty
             ];
         }
-        
         $result_data = [
             'code' => 0,
             'msg' => '',
@@ -1629,18 +1616,45 @@ class PayController extends Controller
             return [
                 'code' => 1,
                 'msg' => '该分销商暂未绑定'
-            ];;
+            ];
         }
     }
 
     public function getShareForZhaoboEx(Request $req) {
-        $parters = Parter::getParterForWxEx();
         $share_count = 0;
-        if ($parters){
+        $tradesTwo = [];
+        $parters = Parter::getParterForWxEx();
+        if ($parter){
             foreach ($parters as $k1 => $v1) {
                 $share_two_id = $v1->id;
                 $share_name = $v1->name;
-                $trades_Two = Trade::getShareForPerson($share_two_id);
+                $trades_Two = Trade::getShareForPersonEx1($share_two_id);
+                foreach ($trades_Two as $k2 => $v2) {
+                    $childtrades = Childtrade::paySelectById($v2->id);
+                    $share_count += $childtrades[0]->num;
+                    $address = Address::GetAddressByLoginId($v2->wx_id);
+                    $trade_addr = "";
+                    $trade_phone = "";
+                    $trade_name = "";
+                    if ($address){
+                        $trade_addr = $address->province.$address->city.$address->area.$address->detail; 
+                        $trade_phone = $address->phone;
+                        $trade_name = $address->name;
+                    }
+                    $tradesTwo[] = [
+                        "time" => $v2->updated_at->format('Y-m-d H:i:s'),
+                        "tradeid" => $v2->out_trade_no,
+                        "charge" => $v2->total_fee,
+                        "body" => $v2->body,
+                        "trade_name" => $trade_name,
+                        "trade_phone" => $trade_phone,
+                        "trade_addr" => $trade_addr,
+                        "share_name" => $share_name,
+                        "num" => $childtrades[0]->num
+                    ];
+                }
+
+                $trades_Two = Trade::getShareForPersonEx2($share_two_id);
                 foreach ($trades_Two as $k2 => $v2) {
                     $childtrades = Childtrade::paySelectById($v2->id);
                     $share_count += $childtrades[0]->num;
@@ -1669,15 +1683,11 @@ class PayController extends Controller
             $result_data = [
                 'code' => 0,
                 'msg' => '返回成功',
+                'one_flag' => $one_flag,
                 'count' => $share_count,
                 'tradesTwo' => $tradesTwo
             ];
             return $result_data;
-        }else {
-            return [
-                'code' => 1,
-                'msg' => '该分销商暂未绑定'
-            ];;
         }
     }
 
