@@ -685,9 +685,8 @@ class PayController extends Controller
             }else if ($sendstatus == 1){
                 if ($finishstatus == 0){
                     return 'blue';
-                }elseelse if ($finishstatus == 1){
+                }else if ($finishstatus == 1){
                     return 'green';
-                }
                 }
             }
         }
