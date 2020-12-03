@@ -196,14 +196,14 @@ class  Trade extends Model {
     }
 
     public static function getShareForPersonEx1($wx_id) {
-        $trades = Trade::where("share_id", $wx_id)->where("send_status", 0)->where("finish_refund_status", 0)->where("pay_status", 1)->orderBy('updated_at', 'desc')->get();
+        $trades = Trade::where("share_id", $wx_id)->where("shop_id", 5)->where("send_status", 0)->where("finish_refund_status", 0)->where("pay_status", 1)->orderBy('updated_at', 'desc')->get();
         if ($trades) {
             return $trades;
         }
     }
 
     public static function getShareForPersonEx2($wx_id) {
-        $trades = Trade::where("share_id", $wx_id)->where("send_status", 1)->where("finish_status", 1)->where("finish_refund_status", 0)->where("pay_status", 1)->orderBy('updated_at', 'desc')->get();
+        $trades = Trade::where("share_id", $wx_id)->where("shop_id", 5)->where("send_status", 1)->where("finish_status", 1)->where("finish_refund_status", 0)->where("pay_status", 1)->orderBy('updated_at', 'desc')->get();
         if ($trades) {
             return $trades;
         }
