@@ -1602,54 +1602,58 @@ class PayController extends Controller
                     $share_name = $v1->name;
                     $trades_Two = Trade::getShareForPersonEx1($share_two_id);
                     foreach ($trades_Two as $k2 => $v2) {
-                        $childtrades = Childtrade::paySelectById($v2->id);
-                        $share_count += $childtrades[0]->num;
-                        $address = Address::GetAddressByLoginId($v2->wx_id);
-                        $trade_addr = "";
-                        $trade_phone = "";
-                        $trade_name = "";
-                        if ($address){
-                            $trade_addr = $address->province.$address->city.$address->area.$address->detail; 
-                            $trade_phone = $address->phone;
-                            $trade_name = $address->name;
+                        if ($v2->wx_id){
+                            $childtrades = Childtrade::paySelectById($v2->id);
+                            $share_count += $childtrades[0]->num;
+                            $address = Address::GetAddressByLoginId($v2->wx_id);
+                            $trade_addr = "";
+                            $trade_phone = "";
+                            $trade_name = "";
+                            if ($address){
+                                $trade_addr = $address->province.$address->city.$address->area.$address->detail; 
+                                $trade_phone = $address->phone;
+                                $trade_name = $address->name;
+                            }
+                            $tradesTwo[] = [
+                                "time" => $v2->updated_at->format('Y-m-d H:i:s'),
+                                "tradeid" => $v2->out_trade_no,
+                                "charge" => $v2->total_fee,
+                                "body" => $v2->body,
+                                "trade_name" => $trade_name,
+                                "trade_phone" => $trade_phone,
+                                "trade_addr" => $trade_addr,
+                                "share_name" => $share_name,
+                                "num" => $childtrades[0]->num
+                            ];
                         }
-                        $tradesTwo[] = [
-                            "time" => $v2->updated_at->format('Y-m-d H:i:s'),
-                            "tradeid" => $v2->out_trade_no,
-                            "charge" => $v2->total_fee,
-                            "body" => $v2->body,
-                            "trade_name" => $trade_name,
-                            "trade_phone" => $trade_phone,
-                            "trade_addr" => $trade_addr,
-                            "share_name" => $share_name,
-                            "num" => $childtrades[0]->num
-                        ];
                     }
 
                     $trades_Two = Trade::getShareForPersonEx2($share_two_id);
                     foreach ($trades_Two as $k2 => $v2) {
-                        $childtrades = Childtrade::paySelectById($v2->id);
-                        $share_count += $childtrades[0]->num;
-                        $address = Address::GetAddressByLoginId($v2->wx_id);
-                        $trade_addr = "";
-                        $trade_phone = "";
-                        $trade_name = "";
-                        if ($address){
-                            $trade_addr = $address->province.$address->city.$address->area.$address->detail; 
-                            $trade_phone = $address->phone;
-                            $trade_name = $address->name;
+                        if ($v2->wx_id){
+                            $childtrades = Childtrade::paySelectById($v2->id);
+                            $share_count += $childtrades[0]->num;
+                            $address = Address::GetAddressByLoginId($v2->wx_id);
+                            $trade_addr = "";
+                            $trade_phone = "";
+                            $trade_name = "";
+                            if ($address){
+                                $trade_addr = $address->province.$address->city.$address->area.$address->detail; 
+                                $trade_phone = $address->phone;
+                                $trade_name = $address->name;
+                            }
+                            $tradesTwo[] = [
+                                "time" => $v2->updated_at->format('Y-m-d H:i:s'),
+                                "tradeid" => $v2->out_trade_no,
+                                "charge" => $v2->total_fee,
+                                "body" => $v2->body,
+                                "trade_name" => $trade_name,
+                                "trade_phone" => $trade_phone,
+                                "trade_addr" => $trade_addr,
+                                "share_name" => $share_name,
+                                "num" => $childtrades[0]->num
+                            ];
                         }
-                        $tradesTwo[] = [
-                            "time" => $v2->updated_at->format('Y-m-d H:i:s'),
-                            "tradeid" => $v2->out_trade_no,
-                            "charge" => $v2->total_fee,
-                            "body" => $v2->body,
-                            "trade_name" => $trade_name,
-                            "trade_phone" => $trade_phone,
-                            "trade_addr" => $trade_addr,
-                            "share_name" => $share_name,
-                            "num" => $childtrades[0]->num
-                        ];
                     }
                 }
             }
