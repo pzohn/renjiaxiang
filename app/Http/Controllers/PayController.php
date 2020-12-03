@@ -1542,7 +1542,7 @@ class PayController extends Controller
         $one_flag = 0;
         if ($parter){
             $share_id = $parter->id;
-            $trades = Trade::getShareForPerson($share_id);
+            $trades = Trade::getShareForPersonEx1($share_id);
             $tradesOne = [];
             $tradesTwo = [];
             foreach ($trades as $k => $v) {
@@ -1568,13 +1568,65 @@ class PayController extends Controller
                     "num" => $childtrades[0]->num
                 ];
             }
+
+            $trades = Trade::getShareForPersonEx2($share_id);
+            foreach ($trades as $k => $v) {
+                $address = Address::GetAddressByLoginId($v->wx_id);
+                $trade_addr = "";
+                $trade_phone = "";
+                $trade_name = "";
+                if ($address){
+                    $trade_addr = $address->province.$address->city.$address->area.$address->detail; 
+                    $trade_phone = $address->phone;
+                    $trade_name = $address->name;
+                }
+                $childtrades = Childtrade::paySelectById($v->id);
+                $share_count += $childtrades[0]->num;
+                $tradesOne[] = [
+                    "time" => $v->updated_at->format('Y-m-d H:i:s'),
+                    "tradeid" => $v->out_trade_no,
+                    "charge" => $v->total_fee,
+                    "body" => $v->body,
+                    "trade_name" => $trade_name,
+                    "trade_phone" => $trade_phone,
+                    "trade_addr" => $trade_addr,
+                    "num" => $childtrades[0]->num
+                ];
+            }
+
             if ($parter->share_parent_id == 1){
                 $one_flag = 1;
                 $parters = Parter::getPartersForParent($share_id);
                 foreach ($parters as $k1 => $v1) {
                     $share_two_id = $v1->id;
                     $share_name = $v1->name;
-                    $trades_Two = Trade::getShareForPerson($share_two_id);
+                    $trades_Two = Trade::getShareForPersonEx1($share_two_id);
+                    foreach ($trades_Two as $k2 => $v2) {
+                        $childtrades = Childtrade::paySelectById($v2->id);
+                        $share_count += $childtrades[0]->num;
+                        $address = Address::GetAddressByLoginId($v2->wx_id);
+                        $trade_addr = "";
+                        $trade_phone = "";
+                        $trade_name = "";
+                        if ($address){
+                            $trade_addr = $address->province.$address->city.$address->area.$address->detail; 
+                            $trade_phone = $address->phone;
+                            $trade_name = $address->name;
+                        }
+                        $tradesTwo[] = [
+                            "time" => $v2->updated_at->format('Y-m-d H:i:s'),
+                            "tradeid" => $v2->out_trade_no,
+                            "charge" => $v2->total_fee,
+                            "body" => $v2->body,
+                            "trade_name" => $trade_name,
+                            "trade_phone" => $trade_phone,
+                            "trade_addr" => $trade_addr,
+                            "share_name" => $share_name,
+                            "num" => $childtrades[0]->num
+                        ];
+                    }
+
+                    $trades_Two = Trade::getShareForPersonEx2($share_two_id);
                     foreach ($trades_Two as $k2 => $v2) {
                         $childtrades = Childtrade::paySelectById($v2->id);
                         $share_count += $childtrades[0]->num;
