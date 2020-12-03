@@ -1602,7 +1602,7 @@ class PayController extends Controller
                     $share_name = $v1->name;
                     $trades_Two = Trade::getShareForPersonEx1($share_two_id);
                     foreach ($trades_Two as $k2 => $v2) {
-                        if ($v2->wx_id){
+                        if ($v2->wx_id > 0){
                             $childtrades = Childtrade::paySelectById($v2->id);
                             $share_count += $childtrades[0]->num;
                             $address = Address::GetAddressByLoginId($v2->wx_id);
@@ -1630,7 +1630,7 @@ class PayController extends Controller
 
                     $trades_Two = Trade::getShareForPersonEx2($share_two_id);
                     foreach ($trades_Two as $k2 => $v2) {
-                        if ($v2->wx_id){
+                        if ($v2->wx_id  > 0){
                             $childtrades = Childtrade::paySelectById($v2->id);
                             $share_count += $childtrades[0]->num;
                             $address = Address::GetAddressByLoginId($v2->wx_id);
