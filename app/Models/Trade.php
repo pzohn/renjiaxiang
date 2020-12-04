@@ -184,15 +184,31 @@ class  Trade extends Model {
         }
     }
 
-    public static function getShareForPerson($wx_id) {
-        $trades = Trade::where("share_id", $wx_id)->where("wx_id", '!=', $wx_id)->where("finish_refund_status", 0)->where("pay_status", 1)->orderBy('updated_at', 'desc')->get();
+    public static function getShareForPerson($share_id) {
+        $trades = Trade::where("share_id", $share_id)->where("wx_id", '!=', $wx_id)->where("finish_refund_status", 0)->where("pay_status", 1)->orderBy('updated_at', 'desc')->get();
         if ($trades) {
             return $trades;
         }
     }
 
-    public static function getShareForPersonEx1($wx_id) {
-        $trades = Trade::where("share_id", $wx_id)->where("shop_id", 5)->where("send_status", 0)
+    public static function getShareForPersonEx1($share_id) {
+        $trades = Trade::where("share_id", $share_id)->where("shop_id", 5)->where("send_status", 0)
+        ->where("finish_refund_status", 0)->where("pay_status", 1)->orderBy('created_at', 'desc')->get();
+        if ($trades) {
+            return $trades;
+        }
+    }
+
+    public static function getShareForPersonEx2($share_id) {
+        $trades = Trade::where("share_id", $share_id)->where("shop_id", 5)->where("send_status", 1)
+        ->where("finish_status", 1)->where("finish_refund_status", 0)->where("pay_status", 1)->orderBy('created_at', 'desc')->get();
+        if ($trades) {
+            return $trades;
+        }
+    }
+
+    public static function getShareForPersonEx3($share_id) {
+        $trades = Trade::where("share_id", $share_id)->where("shop_id", 5)->where("send_status", 0)
         ->whereBetween("created_at", ["2020-11-01 00:00:00", "2020-11-30 23:59:59"])
         ->where("finish_refund_status", 0)->where("pay_status", 1)->orderBy('created_at', 'desc')->get();
         if ($trades) {
@@ -200,8 +216,8 @@ class  Trade extends Model {
         }
     }
 
-    public static function getShareForPersonEx2($wx_id) {
-        $trades = Trade::where("share_id", $wx_id)->where("shop_id", 5)->where("send_status", 1)
+    public static function getShareForPersonEx4($share_id) {
+        $trades = Trade::where("share_id", $share_id)->where("shop_id", 5)->where("send_status", 1)
         ->whereBetween("created_at", ["2020-11-01 00:00:00", "2020-11-30 23:59:59"])
         ->where("finish_status", 1)->where("finish_refund_status", 0)->where("pay_status", 1)->orderBy('created_at', 'desc')->get();
         if ($trades) {
