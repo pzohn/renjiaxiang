@@ -315,7 +315,7 @@ class UserController extends Controller
             $zhang = Zhang::getZhang($req->get('shop_id'));
             $appcode = $zhang->e;
             if ($appcode){
-                $host = "https://wuliu.market.alicloudapi.com";//api访问链接
+                $host = "https://wuliu.market.alicloudapi.com";//访问链接
                 $path = "/kdi";//API访问后缀
                 $method = "GET";
                 $headers = array();
@@ -331,8 +331,8 @@ class UserController extends Controller
                 curl_setopt($curl, CURLOPT_FAILONERROR, false);
                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($curl, CURLOPT_HEADER, false);
-                //curl_setopt($curl, CURLOPT_HEADER, true); 如不输出json, 请打开这行代码，打印调试头部状态码�?
-                //状态码: 200 正常�?400 URL无效�?401 appCode错误�? 403 次数用完�? 500 API网管错误
+                //curl_setopt($curl, CURLOPT_HEADER, true);如不输出json, 请打开这行代码，打印调试头部状态码
+                //状态码: 200 正常 400 URL无效 401 appCode错误 403 次数用完  500 API网管错误
                 if (1 == strpos("$".$host, "https://"))
                 {
                     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
