@@ -231,23 +231,6 @@ class UserController extends Controller
         }
     }
 
-    public function getWxInfo(Request $req) {
-        $zhang = Zhang::getZhang($req->get('shop_id'));
-        if ($zhang){
-            $urlLogin = "https://api.weixin.qq.com/sns/jscode2session";
-            $paramsLogin = [
-                'appid' => $zhang->a,
-                'secret' => $zhang->b,
-                'js_code' => $req->get('js_code'),
-                'grant_type' => "authorization_code",
-            ];
-            $resultLogin = GuzzleHttp::guzzleGet($urlLogin, $paramsLogin);
-            return $resultLogin;
-        } else {
-            return 0;
-        }
-    }
-
     public function IsShareForZhaobo(Request $req) {
         $parter = Parter::getParterForWx($req->get('wx_id'));
         $usermanager = Usermanager::getMangerForWx($req->get('wx_id'),$req->get('shop_id'));
@@ -262,15 +245,6 @@ class UserController extends Controller
     }
 
     public function updateWxBaseInfo(Request $req) {
-        $zhang = Zhang::getZhang($req->get('shop_id'));
-        if ($zhang){
-            $urlLogin = "https://api.weixin.qq.com/sns/jscode2session";
-            $paramsLogin = [
-                'appid' => $zhang->a,
-                'secret' => $zhang->b,
-                'js_code' => $req->get('js_code'),
-                'grant_type' => "authorization_code",
-            ];
         $params = [
             'id' => $req->get('id'),
             'nikename' => $req->get('nikename'),

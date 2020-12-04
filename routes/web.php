@@ -177,8 +177,6 @@ Route::post('/getWxUser', 'UserController@getWxUser');
 
 Route::post('/updateWxBaseInfo', 'UserController@updateWxBaseInfo');
 
-Route::post('/getWxInfo', 'UserController@getWxInfo');
-
 Route::post('/memberSelect', 'UserController@memberSelect');
 
 Route::post('/memberUpdate', 'UserController@memberUpdate');
