@@ -1546,7 +1546,7 @@ class PayController extends Controller
             $tradesOne = [];
             $tradesTwo = [];
             foreach ($trades as $k => $v) {
-                $address = SendAddress::GetAddress($v->wx_id);
+                $address = SendAddress::GetAddress($v->id);
                 $trade_addr = "";
                 $trade_phone = "";
                 $trade_name = "";
@@ -1571,7 +1571,7 @@ class PayController extends Controller
 
             $trades = Trade::getShareForPersonEx2($share_id);
             foreach ($trades as $k => $v) {
-                $address = SendAddress::GetAddress($v->wx_id);
+                $address = SendAddress::GetAddress($v->id);
                 $trade_addr = "";
                 $trade_phone = "";
                 $trade_name = "";
@@ -1604,7 +1604,7 @@ class PayController extends Controller
                     foreach ($trades_Two as $k2 => $v2) {
                         $childtrades = Childtrade::paySelectById($v2->id);
                         $share_count += $childtrades[0]->num;
-                        $address = SendAddress::GetAddress($v2->wx_id);
+                        $address = SendAddress::GetAddress($v2->id);
                         $trade_addr = "";
                         $trade_phone = "";
                         $trade_name = "";
@@ -1630,7 +1630,7 @@ class PayController extends Controller
                     foreach ($trades_Two as $k2 => $v2) {
                         $childtrades = Childtrade::paySelectById($v2->id);
                         $share_count += $childtrades[0]->num;
-                        $address = SendAddress::GetAddress($v2->wx_id);
+                        $address = SendAddress::GetAddress($v2->id);
                         $trade_addr = "";
                         $trade_phone = "";
                         $trade_name = "";
