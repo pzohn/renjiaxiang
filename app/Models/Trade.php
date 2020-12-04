@@ -194,7 +194,7 @@ class  Trade extends Model {
     public static function getShareForPersonEx1($wx_id) {
         $trades = Trade::where("share_id", $wx_id)->where("shop_id", 5)->where("send_status", 0)
         ->whereBetween("created_at", ["2020-11-01 00:00:00", "2020-11-30 23:59:59"])
-        ->where("finish_refund_status", 0)->where("created_at", 1)->orderBy('updated_at', 'desc')->get();
+        ->where("finish_refund_status", 0)->where("pay_status", 1)->orderBy('created_at', 'desc')->get();
         if ($trades) {
             return $trades;
         }
