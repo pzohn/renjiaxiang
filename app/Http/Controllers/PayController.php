@@ -1558,7 +1558,7 @@ class PayController extends Controller
                 $childtrades = Childtrade::paySelectById($v->id);
                 $share_count += $childtrades[0]->num;
                 $tradesOne[] = [
-                    "time" => $v->updated_at->format('Y-m-d H:i:s'),
+                    "time" => $v->created_at->format('Y-m-d H:i:s'),
                     "tradeid" => $v->out_trade_no,
                     "charge" => $v->total_fee,
                     "body" => $v->body,
@@ -1583,7 +1583,7 @@ class PayController extends Controller
                 $childtrades = Childtrade::paySelectById($v->id);
                 $share_count += $childtrades[0]->num;
                 $tradesOne[] = [
-                    "time" => $v->updated_at->format('Y-m-d H:i:s'),
+                    "time" => $v->created_at->format('Y-m-d H:i:s'),
                     "tradeid" => $v->out_trade_no,
                     "charge" => $v->total_fee,
                     "body" => $v->body,
@@ -1614,7 +1614,7 @@ class PayController extends Controller
                             $trade_name = $address->name;
                         }
                         $tradesTwo[] = [
-                            "time" => $v2->updated_at->format('Y-m-d H:i:s'),
+                            "time" => $v2->created_at->format('Y-m-d H:i:s'),
                             "tradeid" => $v2->out_trade_no,
                             "charge" => $v2->total_fee,
                             "body" => $v2->body,
@@ -1640,7 +1640,7 @@ class PayController extends Controller
                             $trade_name = $address->name;
                         }
                         $tradesTwo[] = [
-                            "time" => $v2->updated_at->format('Y-m-d H:i:s'),
+                            "time" => $v2->created_at->format('Y-m-d H:i:s'),
                             "tradeid" => $v2->out_trade_no,
                             "charge" => $v2->total_fee,
                             "body" => $v2->body,
@@ -1694,7 +1694,7 @@ class PayController extends Controller
                         $trade_name = $address->name;
                     }
                     $tradesTwo[] = [
-                        "time" => $v2->updated_at->format('Y-m-d H:i:s'),
+                        "time" => $v2->created_at->format('Y-m-d H:i:s'),
                         "tradeid" => $v2->out_trade_no,
                         "charge" => $v2->total_fee,
                         "body" => $v2->body,
@@ -1720,7 +1720,7 @@ class PayController extends Controller
                         $trade_name = $address->name;
                     }
                     $tradesTwo[] = [
-                        "time" => $v2->updated_at->format('Y-m-d H:i:s'),
+                        "time" => $v2->created_at->format('Y-m-d H:i:s'),
                         "tradeid" => $v2->out_trade_no,
                         "charge" => $v2->total_fee,
                         "body" => $v2->body,
