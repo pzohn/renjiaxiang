@@ -228,3 +228,5 @@ Route::post('/getOrderAllForShopMangerFinish', 'PayController@getOrderAllForShop
 Route::post('/finishOrder', 'PayController@finishOrder');
 
 Route::post('/getShareForZhaoboEx', 'PayController@getShareForZhaoboEx');
+
+Route::post('/getAreasFirst', 'PayController@getAreasFirst');

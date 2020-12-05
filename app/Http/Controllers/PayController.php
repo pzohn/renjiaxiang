@@ -1955,4 +1955,8 @@ class PayController extends Controller
     public function updateStatus(Request $req) {
         return Trade::updateStatus($req->get('id'),$req->get('status'));
     }
+
+    public function getAreasFirst(Request $req) {
+        return Parter::getAreasFirst();
+    }
 }
