@@ -1680,6 +1680,13 @@ class PayController extends Controller
     }
 
     public function getShareForZhaoboEx(Request $req) {
+        $dateflag = $req->get('dateflag');
+        $date_begin = date("Y-m-d H:i:s", mktime(0,0,0,date('m'),1,date('Y')));
+        $date_after = date("Y-m-d H:i:s", mktime(23,59,59,date('m'),date('t'),date('Y')));
+        if ($dateflag == 1){
+            $date_begin = $req->get('date_after') . " " . date("H:i:s", mktime(0,0,0));
+            $date_after = $req->get('date_begin') . " " . date("H:i:s", mktime(23,59,59));
+        }
         $share_count = 0;
         $tradesTwo = [];
         $parters = Parter::getParterForWxEx();
@@ -1687,7 +1694,7 @@ class PayController extends Controller
             foreach ($parters as $k1 => $v1) {
                 $share_two_id = $v1->id;
                 $share_name = $v1->name;
-                $trades_Two = Trade::getShareForPersonEx1($share_two_id);
+                $trades_Two = Trade::getShareForPersonEx3($share_two_id,$date_begin,$date_after);
                 foreach ($trades_Two as $k2 => $v2) {
                     $childtrades = Childtrade::paySelectById($v2->id);
                     $share_count += $childtrades[0]->num;
@@ -1713,7 +1720,7 @@ class PayController extends Controller
                     ];
                 }
 
-                $trades_Two = Trade::getShareForPersonEx2($share_two_id);
+                $trades_Two = Trade::getShareForPersonEx4($share_two_id,$date_begin,$date_after);
                 foreach ($trades_Two as $k2 => $v2) {
                     $childtrades = Childtrade::paySelectById($v2->id);
                     $share_count += $childtrades[0]->num;
