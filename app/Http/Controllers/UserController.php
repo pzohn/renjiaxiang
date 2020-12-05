@@ -395,4 +395,39 @@ class UserController extends Controller
             'list' => $list
         ];
     }
+
+    public function getAreasFirst(Request $req) {
+        $parters = Parter::getAreasFirst();
+        if ($parters){
+            $partersFirst = [];
+            foreach ($parters as $k => $v) {
+                $parters2 = Parter::getPartersForParent($v->id);
+                $partersSecond = [];
+                foreach ($parters2 as $k1 => $v1) {
+                    $partersSecond[] = [
+                        "name" => $v1->name,
+                        "id" => $v1->id
+                    ]; 
+                }
+                $partersFirst[] = [
+                    "name" => $v->name,
+                    "id" => $v->id,
+                    "count" => count($partersSecond),
+                    "Second" => $partersSecond   
+                ];
+            }
+            return [
+                'code' => 0,
+                'msg' => '查询成功',
+                'count' => count($partersFirst),
+                'data' => $partersFirst
+            ];
+        }
+        else{
+            return [
+                'code' => 1,
+                'msg' => '查询失败'
+            ];
+        }
+    }
 }
