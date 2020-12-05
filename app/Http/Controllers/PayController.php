@@ -1768,7 +1768,7 @@ class PayController extends Controller
         }
         $share_count = 0;
         $tradesTwo = [];
-        $parter = Parter::getParterForId($req->get('second_id'));
+        $parter = Parter::getParterForId($req->get('share_id'));
         if ($parter){
             $share_two_id = $parter->id;
             $share_name = $parter->name;
