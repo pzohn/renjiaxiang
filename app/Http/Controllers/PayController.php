@@ -1538,7 +1538,7 @@ class PayController extends Controller
 
     public function getShareForZhaobo(Request $req) {
         $parter = Parter::getParterForWx($req->get('wx_id'));
-        $dateflag = $req->get('dateflag')
+        $dateflag = $req->get('dateflag');
         $date_begin = date("Y-m-d H:i:s", mktime(0,0,0,date('m'),1,date('Y')));
         $date_after = date("Y-m-d H:i:s", mktime(23,59,59,date('m'),date('t'),date('Y')));
         if ($dateflag == 1){
