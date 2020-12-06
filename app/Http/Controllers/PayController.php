@@ -1768,7 +1768,7 @@ class PayController extends Controller
         }
         $share_count = 0;
         $tradesTwo = [];
-        $parter = Parter::getParterForId($req->get('share_id'));
+        $parter = Parter::getParterForId($req->get('second_id'));
         if ($parter){
             $share_two_id = $parter->id;
             $share_name = $parter->name;
@@ -1834,7 +1834,7 @@ class PayController extends Controller
     }
 
     public function getShareForZhaoboEx2(Request $req) {
-        $parter = Parter::getParterForId($req->get('share_id'));
+        $parter = Parter::getParterForId($req->get('first_id'));
         $dateflag = $req->get('dateflag');
         $date_begin = date("Y-m-d H:i:s", mktime(0,0,0,date('m'),1,date('Y')));
         $date_after = date("Y-m-d H:i:s", mktime(23,59,59,date('m'),date('t'),date('Y')));
