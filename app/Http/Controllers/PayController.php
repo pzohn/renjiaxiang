@@ -1763,8 +1763,8 @@ class PayController extends Controller
         $date_begin = date("Y-m-d H:i:s", mktime(0,0,0,date('m'),1,date('Y')));
         $date_after = date("Y-m-d H:i:s", mktime(23,59,59,date('m'),date('t'),date('Y')));
         if ($dateflag == 1){
-            $date_begin = $req->get('date_after') . " " . date("H:i:s", mktime(0,0,0));
-            $date_after = $req->get('date_begin') . " " . date("H:i:s", mktime(23,59,59));
+            $date_begin = $req->get('date_begin') . " " . date("H:i:s", mktime(0,0,0));
+            $date_after = $req->get('date_after') . " " . date("H:i:s", mktime(23,59,59));
         }
         $share_count = 0;
         $tradesTwo = [];
@@ -1839,8 +1839,8 @@ class PayController extends Controller
         $date_begin = date("Y-m-d H:i:s", mktime(0,0,0,date('m'),1,date('Y')));
         $date_after = date("Y-m-d H:i:s", mktime(23,59,59,date('m'),date('t'),date('Y')));
         if ($dateflag == 1){
-            $date_begin = $req->get('date_after') . " " . date("H:i:s", mktime(0,0,0));
-            $date_after = $req->get('date_begin') . " " . date("H:i:s", mktime(23,59,59));
+            $date_begin = $req->get('date_begin') . " " . date("H:i:s", mktime(0,0,0));
+            $date_after = $req->get('date_after') . " " . date("H:i:s", mktime(23,59,59));
         }
         $share_count = 0;
         $one_flag = 0;
