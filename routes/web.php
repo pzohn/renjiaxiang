@@ -232,3 +232,5 @@ Route::post('/getShareForZhaoboEx', 'PayController@getShareForZhaoboEx');
 Route::post('/getAreasFirst', 'UserController@getAreasFirst');
 
 Route::post('/getShareForZhaoboEx1', 'PayController@getShareForZhaoboEx1');
+
+Route::post('/getShareForZhaoboEx2', 'PayController@getShareForZhaoboEx2');

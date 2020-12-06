@@ -1833,6 +1833,152 @@ class PayController extends Controller
         }
     }
 
+    public function getShareForZhaoboEx2(Request $req) {
+        $parter = Parter::getParterForWx($req->get('share_id'));
+        $dateflag = $req->get('dateflag');
+        $date_begin = date("Y-m-d H:i:s", mktime(0,0,0,date('m'),1,date('Y')));
+        $date_after = date("Y-m-d H:i:s", mktime(23,59,59,date('m'),date('t'),date('Y')));
+        if ($dateflag == 1){
+            $date_begin = $req->get('date_after') . " " . date("H:i:s", mktime(0,0,0));
+            $date_after = $req->get('date_begin') . " " . date("H:i:s", mktime(23,59,59));
+        }
+        $share_count = 0;
+        $one_flag = 0;
+        if ($parter){
+            $share_id = $parter->id;
+            $trades = Trade::getShareForPersonEx3($share_id,$date_begin,$date_after);
+            $tradesOne = [];
+            $tradesTwo = [];
+            foreach ($trades as $k => $v) {
+                $address = SendAddress::GetAddress($v->id);
+                $trade_addr = "";
+                $trade_phone = "";
+                $trade_name = "";
+                if ($address){
+                    $trade_addr = $address->province.$address->city.$address->area.$address->detail; 
+                    $trade_phone = $address->phone;
+                    $trade_name = $address->name;
+                }
+                $childtrades = Childtrade::paySelectById($v->id);
+                $share_count += $childtrades[0]->num;
+                $tradesOne[] = [
+                    "time" => $v->created_at->format('Y-m-d H:i:s'),
+                    "tradeid" => $v->out_trade_no,
+                    "charge" => $v->total_fee,
+                    "body" => $v->body,
+                    "trade_name" => $trade_name,
+                    "trade_phone" => $trade_phone,
+                    "trade_addr" => $trade_addr,
+                    "num" => $childtrades[0]->num
+                ];
+            }
+
+            $trades = Trade::getShareForPersonEx4($share_id,$date_begin,$date_after);
+            foreach ($trades as $k => $v) {
+                $address = SendAddress::GetAddress($v->id);
+                $trade_addr = "";
+                $trade_phone = "";
+                $trade_name = "";
+                if ($address){
+                    $trade_addr = $address->province.$address->city.$address->area.$address->detail; 
+                    $trade_phone = $address->phone;
+                    $trade_name = $address->name;
+                }
+                $childtrades = Childtrade::paySelectById($v->id);
+                $share_count += $childtrades[0]->num;
+                $tradesOne[] = [
+                    "time" => $v->created_at->format('Y-m-d H:i:s'),
+                    "tradeid" => $v->out_trade_no,
+                    "charge" => $v->total_fee,
+                    "body" => $v->body,
+                    "trade_name" => $trade_name,
+                    "trade_phone" => $trade_phone,
+                    "trade_addr" => $trade_addr,
+                    "num" => $childtrades[0]->num
+                ];
+            }
+
+            if ($parter->share_parent_id == 1){
+                $one_flag = 1;
+                $parters = Parter::getPartersForParent($share_id);
+                foreach ($parters as $k1 => $v1) {
+                    $share_two_id = $v1->id;
+                    $share_name = $v1->name;
+                    $trades_Two = Trade::getShareForPersonEx3($share_two_id,$date_begin,$date_after);
+                    foreach ($trades_Two as $k2 => $v2) {
+                        $childtrades = Childtrade::paySelectById($v2->id);
+                        $share_count += $childtrades[0]->num;
+                        $address = SendAddress::GetAddress($v2->id);
+                        $trade_addr = "";
+                        $trade_phone = "";
+                        $trade_name = "";
+                        if ($address){
+                            $trade_addr = $address->province.$address->city.$address->area.$address->detail; 
+                            $trade_phone = $address->phone;
+                            $trade_name = $address->name;
+                        }
+                        $tradesTwo[] = [
+                            "time" => $v2->created_at->format('Y-m-d H:i:s'),
+                            "tradeid" => $v2->out_trade_no,
+                            "charge" => $v2->total_fee,
+                            "body" => $v2->body,
+                            "trade_name" => $trade_name,
+                            "trade_phone" => $trade_phone,
+                            "trade_addr" => $trade_addr,
+                            "share_name" => $share_name,
+                            "num" => $childtrades[0]->num
+                        ];
+                    }
+
+                    $trades_Two = Trade::getShareForPersonEx4($share_two_id,$date_begin,$date_after);
+                    foreach ($trades_Two as $k2 => $v2) {
+                        $childtrades = Childtrade::paySelectById($v2->id);
+                        $share_count += $childtrades[0]->num;
+                        $address = SendAddress::GetAddress($v2->id);
+                        $trade_addr = "";
+                        $trade_phone = "";
+                        $trade_name = "";
+                        if ($address){
+                            $trade_addr = $address->province.$address->city.$address->area.$address->detail; 
+                            $trade_phone = $address->phone;
+                            $trade_name = $address->name;
+                        }
+                        $tradesTwo[] = [
+                            "time" => $v2->created_at->format('Y-m-d H:i:s'),
+                            "tradeid" => $v2->out_trade_no,
+                            "charge" => $v2->total_fee,
+                            "body" => $v2->body,
+                            "trade_name" => $trade_name,
+                            "trade_phone" => $trade_phone,
+                            "trade_addr" => $trade_addr,
+                            "share_name" => $share_name,
+                            "num" => $childtrades[0]->num
+                        ];
+                    }
+                }
+            }
+
+            $result_data = [
+                'code' => 0,
+                'msg' => '返回成功',
+                'one_flag' => $one_flag,
+                'count' => $share_count,
+                'First_count' => count($tradesOne),
+                'Second_count' => count($tradesTwo),
+                'tradesOne' => $tradesOne,
+                'tradesTwo' => $tradesTwo
+            ];
+            return $result_data;
+
+        }else {
+            return [
+                'code' => 1,
+                'msg' => '该分销商暂未绑定'
+            ];
+        }
+    }
+
+
     protected function getRefundStatus($finish_status) {
         if ($finish_status == 0){
             return '待处理';
