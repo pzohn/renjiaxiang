@@ -104,7 +104,8 @@ class ShoppingController extends Controller
                         "title" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
                         "poster" => Image::GetImageUrlByParentId($shopping->id,$poster,$shopping->type),
                         "stock" => $shopping->stock,
-                        "init_num" => $shopping->init_num
+                        "init_num" => $shopping->init_num,
+                        "remarks" => $shopping->remarks
                     ]
                 ]
             ];
