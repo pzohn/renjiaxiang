@@ -69,6 +69,12 @@ class  Member extends Model {
             $member->sex = array_get($params,"sex");
             $member->age = array_get($params,"age");
             $member->phone = array_get($params,"phone");
+            $member->school = array_get($params,"school");
+            $member->area = array_get($params,"area");
+            $member->class = array_get($params,"class");
+            $member->grade = array_get($params,"grade");
+            $member->card = array_get($params,"card");
+            $member->nation = array_get($params,"nation");
             $member->update();
             return $member;
         }

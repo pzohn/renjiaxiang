@@ -268,6 +268,12 @@ class UserController extends Controller
             'email' => $req->get('email'),
             'sex' => $req->get('sex'),
             'age' => $req->get('age'),
+            'school' => $req->get('school'),
+            'area' => $req->get('area'),
+            'class' => $req->get('class'),
+            'grade' => $req->get('grade'),
+            'card' => $req->get('card'),
+            'nation' => $req->get('nation'),
             'wx_id' => $req->get('wx_id')
             ];
         $member = Member::memberUpdateWxId($params);
