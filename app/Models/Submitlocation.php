@@ -18,3 +18,4 @@ class Submitlocation extends Model {
         $submitlocation->save();
         return $submitlocation;
     }
+}
