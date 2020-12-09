@@ -446,6 +446,7 @@ class UserController extends Controller
                 "latitude" => $req->get('latitude'),
                 "lbsinfo" => $req->get('lbsinfo'),
                 "address" => $req->get('address'),
+                "mt" => $req->get('mt'),
                 "addresstype" => $req->get('addresstype')
             ];
             $submitlocation = Submitlocation::submitlocationInsert($params);

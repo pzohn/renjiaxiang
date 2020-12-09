@@ -13,6 +13,7 @@ class Submitlocation extends Model {
         $submitlocation->latitude = array_get($params,"latitude");
         $submitlocation->lbsinfo = array_get($params,"lbsinfo");
         $submitlocation->address = array_get($params,"address");
+        $submitlocation->mt = array_get($params,"mt");
         $submitlocation->addresstype = array_get($params,"addresstype");
         $submitlocation->save();
         return $shop;
