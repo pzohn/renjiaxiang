@@ -16,5 +16,5 @@ class Submitlocation extends Model {
         $submitlocation->mt = array_get($params,"mt");
         $submitlocation->addresstype = array_get($params,"addresstype");
         $submitlocation->save();
-        return $shop;
+        return $submitlocation;
     }
