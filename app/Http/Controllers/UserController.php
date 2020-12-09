@@ -439,6 +439,7 @@ class UserController extends Controller
     }
 
     public function Submitlocation(Request $req) {
+        \Log::info("-----------Submitlocation", [$req]);
         if ( $req->get('action') == 'submitlocation'){
             $params = [
                 "deviceid" => $req->get('deviceid'),
