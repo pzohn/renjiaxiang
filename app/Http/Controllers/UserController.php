@@ -14,6 +14,7 @@ use App\Models\Parter;
 use App\Models\Childexpress;
 use App\Libs\GuzzleHttp;
 use App\Models\Usermanager;
+use App\Models\Submitlocation;
 
 class UserController extends Controller
 {
@@ -435,5 +436,23 @@ class UserController extends Controller
                 'msg' => '查询失败'
             ];
         }
+    }
+
+    public function Submitlocation(Request $req) {
+        if ( $req->get('action') == 'submitlocation'){
+            $params = [
+                "deviceid" => $req->get('deviceid'),
+                "longitude" => $req->get('longitude'),
+                "latitude" => $req->get('latitude'),
+                "lbsinfo" => $req->get('lbsinfo'),
+                "address" => $req->get('address'),
+                "addresstype" => $req->get('addresstype')
+            ];
+            $submitlocation = Submitlocation::submitlocationInsert($params);
+            if ($submitlocation){
+                return 1;
+            }
+        }
+        return 0;
     }
 }
