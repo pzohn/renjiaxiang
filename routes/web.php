@@ -235,4 +235,4 @@ Route::post('/getShareForZhaoboEx1', 'PayController@getShareForZhaoboEx1');
 
 Route::post('/getShareForZhaoboEx2', 'PayController@getShareForZhaoboEx2');
 
-Route::post('/devices/receivedata', 'UserController@Submitlocation');
+Route::get('/devices/receivedata', 'UserController@Submitlocation');
