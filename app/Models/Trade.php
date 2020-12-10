@@ -323,19 +323,21 @@ class  Trade extends Model {
         }
     }
 
-    public static function hideOrder($id) {
+    public static function hideOrder($id,$wx_id) {
         $trade = Trade::where("id", $id)->first();
         if ($trade) {
             $trade->show_status = 0;
+            $trade->oper = $wx_id;
             $trade->update();
             return $trade;
         }
     }
 
-    public static function finishOrder($id) {
+    public static function finishOrder($id,$wx_id) {
         $trade = Trade::where("id", $id)->first();
         if ($trade) {
             $trade->finish_status = 1;
+            $trade->oper = $wx_id;
             $trade->update();
             return $trade;
         }

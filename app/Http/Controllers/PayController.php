@@ -1445,7 +1445,11 @@ class PayController extends Controller
 
     public function hideOrder(Request $req) {
         $id = $req->get('id');
-        $trade = Trade::hideOrder($id);
+        $wx_id = 0;
+        if ($req->get('wx_id')){
+            $wx_id = $req->get('wx_id')
+        }
+        $trade = Trade::hideOrder($id,$wx_id);
         if ($trade) {
             return  $trade;
         }
@@ -1453,7 +1457,11 @@ class PayController extends Controller
 
     public function finishOrder(Request $req) {
         $id = $req->get('id');
-        $trade = Trade::finishOrder($id);
+        $wx_id = 0;
+        if ($req->get('wx_id')){
+            $wx_id = $req->get('wx_id')
+        }
+        $trade = Trade::finishOrder($id$wx_id);
         if ($trade) {
             return  $trade;
         }
