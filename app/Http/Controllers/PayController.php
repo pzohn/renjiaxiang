@@ -1461,7 +1461,7 @@ class PayController extends Controller
         if ($req->get('wx_id')){
             $wx_id = $req->get('wx_id');
         }
-        $trade = Trade::finishOrder($id$wx_id);
+        $trade = Trade::finishOrder($id,$wx_id);
         if ($trade) {
             return  $trade;
         }
