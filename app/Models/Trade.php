@@ -327,7 +327,7 @@ class  Trade extends Model {
         $trade = Trade::where("id", $id)->first();
         if ($trade) {
             $trade->show_status = 0;
-            $trade->oper = $wx_id;
+            $trade->oper = strval($wx_id);
             $trade->update();
             return $trade;
         }
@@ -337,7 +337,7 @@ class  Trade extends Model {
         $trade = Trade::where("id", $id)->first();
         if ($trade) {
             $trade->finish_status = 1;
-            $trade->oper = $wx_id;
+            $trade->oper = strval($wx_id);
             $trade->update();
             return $trade;
         }
