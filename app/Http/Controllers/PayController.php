@@ -759,6 +759,22 @@ class PayController extends Controller
         }
     }
 
+    protected function getColor($paystatus,$sendstatus,$finishstatus) {
+        if ($paystatus == 0){
+            return 'red';
+        }else if ($paystatus == 1){
+            if ($sendstatus == 0){
+                return 'orange';
+            }else if ($sendstatus == 1){
+                if ($finishstatus == 0){
+                    return 'blue';
+                }else{
+                    return 'green';;
+                }
+            }
+        }
+    }
+
     protected function getStatusZhaobo($paystatus,$sendstatus,$finishstatus) {
         if ($paystatus == 0){
             return '待付款';
