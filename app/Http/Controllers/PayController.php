@@ -1447,7 +1447,7 @@ class PayController extends Controller
         $id = $req->get('id');
         $wx_id = 0;
         if ($req->get('wx_id')){
-            $wx_id = $req->get('wx_id')
+            $wx_id = $req->get('wx_id');
         }
         $trade = Trade::hideOrder($id,$wx_id);
         if ($trade) {
@@ -1459,7 +1459,7 @@ class PayController extends Controller
         $id = $req->get('id');
         $wx_id = 0;
         if ($req->get('wx_id')){
-            $wx_id = $req->get('wx_id')
+            $wx_id = $req->get('wx_id');
         }
         $trade = Trade::finishOrder($id$wx_id);
         if ($trade) {
