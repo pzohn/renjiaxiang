@@ -67,6 +67,7 @@ class  Information extends Model {
                     "CARDNUM"=> $cardnum,
                     "SCHOOL"=> $information->SCHOOL,
                     "CLASS"=> $information->CLASS,
+                    "CODECARD"=> $information->CODECARD,
                     "AUTHORITY" => $information->AUTHORITY
                 ];
                 return $result;
@@ -90,6 +91,7 @@ class  Information extends Model {
                 $information->PASSWORD = array_get($params,"PASSWORD");
                 $information->SCHOOL = array_get($params,"SCHOOL");
                 $information->CLASS = array_get($params,"CLASS");
+                $information->CODECARD = array_get($params,"CODECARD");
                 $information->EDITFLAG = 1;
                 $information->save();
                 return $information;
@@ -108,6 +110,7 @@ class  Information extends Model {
                 // $information->MOTHER = array_get($params,"MOTHER");
                 $information->SCHOOL = array_get($params,"SCHOOL");
                 $information->CLASS = array_get($params,"CLASS");
+                $information->CODECARD = array_get($params,"CODECARD");
                 $information->EDITFLAG = 1;
                 
                 // \DB::update('update information set NAME = ?, AGE = ?,ADDRESS = ?,FATHER = ?,
@@ -197,6 +200,7 @@ class  Information extends Model {
                 "CARDNUM"=> $cardnum,
                 "SCHOOL"=> $information->SCHOOL,
                 "CLASS"=> $information->CLASS,
+                "CODECARD"=> $information->CODECARD,
                 "AUTHORITY" => $information->AUTHORITY
             ];
             return $result;
