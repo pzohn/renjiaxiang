@@ -432,15 +432,15 @@ class UserController extends Controller
                     $second = true;
                     $parter1 =  Parter::getParterForId($v->id);
                     $parter2 =  Parter::getParterForId($parter1->share_parent_id);
-                    $partersSecond = [];
+                    $partersSecond = [
+                        "name" => $v->name,
+                        "id" => $v->id
+                    ];
                     $partersFirst[] = [
                         "name" => $parter2->name,
                         "id" => $parter2->id,
                         "count" => 1,
-                        "Second" => [
-                            "name" => $v->name,
-                            "id" => $v->id
-                        ]  
+                        "Second" => $partersSecond
                     ]; 
                 }
             }
