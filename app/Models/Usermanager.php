@@ -16,7 +16,7 @@ class Usermanager extends Model {
         }
         else
         {
-            return 0
+            return 0;
         }
     }
 }
