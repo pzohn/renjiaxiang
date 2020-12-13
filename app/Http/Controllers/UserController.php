@@ -234,9 +234,13 @@ class UserController extends Controller
 
     public function IsShareForZhaobo(Request $req) {
         $parter = Parter::getParterForWx($req->get('wx_id'));
-        $usermanager = Usermanager::getMangerForWx($req->get('wx_id'),$req->get('shop_id'));
+        $usermanager = Usermanager::getMangerForWx($req->get('wx_id'),$req->get('shop_id'),1);
+        $usermanager1 = Usermanager::getMangerForWx($req->get('wx_id'),$req->get('shop_id'),2);
         if ($usermanager){
             return 2;
+        }
+        if ($usermanager1){
+            return 3;
         }
         if ($parter){
             return 1;
