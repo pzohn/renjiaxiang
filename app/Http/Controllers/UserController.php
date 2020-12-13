@@ -237,7 +237,7 @@ class UserController extends Controller
         $usermanager = Usermanager::getMangerForWx($req->get('wx_id'),$req->get('shop_id'),1);
         $usermanager1 = Usermanager::getMangerForWx($req->get('wx_id'),$req->get('shop_id'),2);
         if ($usermanager){
-            return 2;
+            return $usermanager;
         }
         if ($usermanager1){
             return 3;
