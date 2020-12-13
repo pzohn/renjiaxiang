@@ -10,6 +10,13 @@ class Usermanager extends Model {
         
     public static function getMangerForWx($wx_id, $shop_id, $work_id) {
         $usermanager = Usermanager::where("shop_sub_id", $wx_id)->where("shop_id", $shop_id)->where("work_id", $work_id)->first();
-        return $usermanager;
+        if ($usermanager)
+        {
+            return $usermanager;
+        }
+        else
+        {
+            return 0
+        }
     }
 }
