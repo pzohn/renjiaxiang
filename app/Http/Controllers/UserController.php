@@ -433,7 +433,7 @@ class UserController extends Controller
                     $partersFirst[] = [
                         "name" => $v->name,
                         "id" => $v->id,
-                        "count" => count($partersSecond),
+                        "count" => 0,
                         "Second" => []   
                     ]; 
                 }
