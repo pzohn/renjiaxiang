@@ -405,6 +405,7 @@ class UserController extends Controller
     }
 
     public function getAreasFirst(Request $req) {
+        $second = false;
         $parters = Parter::getAreasFirst();
         if ($req->get('wx_id') != 0){
             $parters = Parter::getAreasFirstEx($req->get('wx_id'));
@@ -412,26 +413,37 @@ class UserController extends Controller
         if ($parters){
             $partersFirst = [];
             foreach ($parters as $k => $v) {
-                $parters2 = Parter::getPartersForParent($v->id);
-                $partersSecond = [];
-                foreach ($parters2 as $k1 => $v1) {
-                    $partersSecond[] = [
-                        "name" => $v1->name,
-                        "id" => $v1->id
+                if ($v->share_parent_id == 1){
+                    $second = true;
+                    $parters2 = Parter::getPartersForParent($v->id);
+                    $partersSecond = [];
+                    foreach ($parters2 as $k1 => $v1) {
+                        $partersSecond[] = [
+                            "name" => $v1->name,
+                            "id" => $v1->id
+                        ]; 
+                    }
+                    $partersFirst[] = [
+                        "name" => $v->name,
+                        "id" => $v->id,
+                        "count" => count($partersSecond),
+                        "Second" => $partersSecond   
+                    ];
+                }else{
+                    $partersFirst[] = [
+                        "name" => $v->name,
+                        "id" => $v->id,
+                        "count" => count($partersSecond),
+                        "Second" => []   
                     ]; 
                 }
-                $partersFirst[] = [
-                    "name" => $v->name,
-                    "id" => $v->id,
-                    "count" => count($partersSecond),
-                    "Second" => $partersSecond   
-                ];
             }
             return [
                 'code' => 0,
                 'msg' => '查询成功',
                 'count' => count($partersFirst),
-                'data' => $partersFirst
+                'data' => $partersFirst,
+                'second_flag' => $second
             ];
         }
         else{
