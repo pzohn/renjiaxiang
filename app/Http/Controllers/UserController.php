@@ -236,10 +236,10 @@ class UserController extends Controller
         $parter = Parter::getParterForWx($req->get('wx_id'));
         $usermanager = Usermanager::getMangerForWx($req->get('wx_id'),$req->get('shop_id'),1);
         $usermanager1 = Usermanager::getMangerForWx($req->get('wx_id'),$req->get('shop_id'),2);
-        if ($usermanager){
-            return $usermanager;
+        if ($usermanager != 0){
+            return 2;
         }
-        if ($usermanager1){
+        if ($usermanager1 != 0){
             return 3;
         }
         if ($parter){
