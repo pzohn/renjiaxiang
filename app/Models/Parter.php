@@ -70,6 +70,11 @@ class Parter extends Model {
         return $parters;
     }
 
+    public static function getParentParters($id) {
+        $parters = Parter::where("share_parent_id", $parent_id)->get();
+        return $parters;
+    }
+
     public static function getAreasFirst() {
         $parters = Parter::where("share_parent_id", 1)->where("type_id", 2)->get();
         return $parters;
