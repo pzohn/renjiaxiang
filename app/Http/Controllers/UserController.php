@@ -414,7 +414,6 @@ class UserController extends Controller
             $partersFirst = [];
             foreach ($parters as $k => $v) {
                 if ($v->share_parent_id == 1){
-                    $second = true;
                     $parters2 = Parter::getPartersForParent($v->id);
                     $partersSecond = [];
                     foreach ($parters2 as $k1 => $v1) {
@@ -430,11 +429,12 @@ class UserController extends Controller
                         "Second" => $partersSecond   
                     ];
                 }else{
+                    $second = true;
                     $partersFirst[] = [
                         "name" => $v->name,
                         "id" => $v->id,
                         "count" => 0,
-                        "Second" => []   
+                        "Second" => []  
                     ]; 
                 }
             }
