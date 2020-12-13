@@ -406,6 +406,8 @@ class UserController extends Controller
 
     public function getAreasFirst(Request $req) {
         $parters = Parter::getAreasFirst();
+        if ($req->get('wx_id') != 0)
+        $parters = Parter::getAreasFirstEx();
         if ($parters){
             $partersFirst = [];
             foreach ($parters as $k => $v) {

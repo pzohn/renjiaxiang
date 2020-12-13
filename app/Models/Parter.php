@@ -75,6 +75,12 @@ class Parter extends Model {
         return $parters;
     }
 
+    public static function getAreasFirstEx($id) {
+        $parters = Parter::where("wx_id", $id)->get();
+        return $parters;
+    }
+
+
     public static function getParterInfo($phone,$pass) {
         $parter = Parter::where("phone", $phone)->first();
         if ($parter) {
