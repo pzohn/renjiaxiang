@@ -33,7 +33,7 @@ class Express extends Model {
             return 0;
         }
     }
-
+    
     public static function expressInsert($params) {
         $express = new self;
         $express->trade_id = array_get($params,"trade_id");

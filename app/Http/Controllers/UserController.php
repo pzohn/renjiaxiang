@@ -360,6 +360,7 @@ class UserController extends Controller
                         'logo' => $result->result->logo
                     ];
                     Express::expressUpdate($param);
+                    Childexpress::childdelete($exprss->id);
                     foreach ($result->result->list as $k => $v) {
                         if (Childexpress::getChildFlag( $exprss->id,$v->time) == 0){
                             $paramList = [

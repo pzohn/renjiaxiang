@@ -14,6 +14,10 @@ class Childexpress extends Model {
         }
     }
 
+    public static function childdelete($id) {
+        Childexpress::where("parent_id", $id)->delete();
+    }
+
     public static function getChildFlag($parent_id,$time_desc) {
         $childexpresses = Childexpress::where("parent_id", $parent_id)->where("time_desc", $time_desc)->first();
         if ($childexpresses) {
