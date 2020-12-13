@@ -16,6 +16,7 @@ class  Tradetmp extends Model {
         $tradetmp->phone = array_get($params,"phone");
         $tradetmp->shop_id = array_get($params,"shop_id");
         $tradetmp->name = array_get($params,"name");
+        $tradetmp->codecard = array_get($params,"codecard");
         $tradetmp->save();
         return $tradetmp;
     }

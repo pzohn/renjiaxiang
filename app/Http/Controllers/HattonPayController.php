@@ -85,6 +85,10 @@ class HattonPayController extends Controller
 
                  $detail_id =  $req->get('detail_id');
                  $name = $req->get('name');
+                 $codecard = '';
+                 if ($req->get('codecard')){
+                    $codecard = $req->get('codecard');
+                 }
                  if (($detail_id >= 51) && ($detail_id <= 59)){
                     $info = Information::getInformationEx($req->get('phone'));
                     if ($info){
@@ -100,6 +104,7 @@ class HattonPayController extends Controller
                     'phone' => $req->get('phone'),
                     'shop_id' => $req->get('shop_id'),
                     'name' => $name,
+                    'codecard' => $codecard,
                  ];
                  Tradetmp::payInsert($trade);
                  $resultPay = GuzzleHttp:: postXml($urlPay, $data);
