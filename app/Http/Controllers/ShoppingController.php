@@ -98,6 +98,7 @@ class ShoppingController extends Controller
                         "id" => $shopping->id,
                         "name" => $shopping->name,
                         "price" => $shopping->price,
+                        "vip_price" => $shopping->vip_price,
                         "lunbo" => Image::GetImageUrlByParentId($shopping->id,$lunbo,$shopping->type),
                         "detail" => Image::GetImageUrlByParentId($shopping->id,$detail,$shopping->type),
                         "video" => Image::GetImageUrlByParentId($shopping->id,$video,$shopping->type),
