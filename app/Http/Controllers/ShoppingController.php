@@ -130,6 +130,7 @@ class ShoppingController extends Controller
         return [
             "name" => $shopping->name,
             "charge" => $shopping->price,
+            "vip_price" => $shopping->vip_price,
             "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
             "address" => $address
         ];
