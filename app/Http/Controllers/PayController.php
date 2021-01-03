@@ -1052,7 +1052,6 @@ class PayController extends Controller
                  if ($vip_flag == 1){
                     $retail_price = $shopping->vip_price;
                  }
-                 if ()
                  $childtrade = [
                     'shopping_id' => $req->get('detail_id'),
                     'num' => $req->get('num'),
