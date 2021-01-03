@@ -206,6 +206,7 @@ class PayController extends Controller
     }
 
     public function getOrderAllForPerson(Request $req) {
+        return;
         $wx_id = $req->get('wx_id');
         $trades = Trade::getOrderAllForPerson($wx_id);
         $title = "title";
