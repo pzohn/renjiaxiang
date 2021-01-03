@@ -13,9 +13,14 @@ use App\Models\FixedAddress;
 class ShoppingController extends Controller
 {
     public function shoppingInsert(Request $req) {
+        $vip_price = 0;
+        if ($req->get('vip_price')){
+            $vip_price = $req->get('vip_price');
+        }
         $params = [
             'name' => $req->get('name'),
             'price' => $req->get('price'),
+            'vip_price' => $vip_price,
             'type' => $req->get('type'),
             'oper' => $req->get('oper'),
             'royalty' => $req->get('royalty'),
@@ -190,10 +195,15 @@ class ShoppingController extends Controller
     }
 
     public function shoppingUpdatePart(Request $req) {
+        $vip_price = 0;
+        if ($req->get('vip_price')){
+            $vip_price = $req->get('vip_price');
+        }
         $params = [
             "id" => $req->get('id'),
             "name" => $req->get('name'),
             "price" => $req->get('price'),
+            "vip_price" => $vip_price,
             "royalty" => $req->get('royalty'),
             "integral" => $req->get('integral'),
             "stock" => $req->get('stock'),

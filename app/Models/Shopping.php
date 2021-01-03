@@ -77,6 +77,7 @@ class  Shopping extends Model {
         $shopping = new self;
         $shopping->name = array_get($params,"name");
         $shopping->price = array_get($params,"price");
+        $shopping->vip_price = array_get($params,"vip_price");
         $shopping->type = array_get($params,"type");
         $shopping->oper = array_get($params,"oper");
         $shopping->shop_id = array_get($params,"shop_id");
@@ -92,6 +93,7 @@ class  Shopping extends Model {
         if ($shopping) {
             $shopping->name = array_get($params,"name");
             $shopping->price = array_get($params,"price");
+            $shopping->vip_price = array_get($params,"vip_price");
             $shopping->royalty = array_get($params,"royalty");
             $shopping->integral = array_get($params,"integral");
             $shopping->type = array_get($params,"type");
@@ -111,7 +113,7 @@ class  Shopping extends Model {
     }
 
     public static function shoppingRepeat($params) {
-        $shopping = Shopping::where("name", array_get($params,"name"))->where("price", array_get($params,"price"))->where("type", array_get($params,"type"))->where("oper", array_get($params,"oper"))->where("shop_id", array_get($params,"shop_id"))->where("royalty", array_get($params,"royalty"))->where("integral", array_get($params,"integral"))->where("stock", array_get($params,"stock"))->first();
+        $shopping = Shopping::where("name", array_get($params,"name"))->where("price", array_get($params,"price"))->where("vip_price", array_get($params,"vip_price"))->where("type", array_get($params,"type"))->where("oper", array_get($params,"oper"))->where("shop_id", array_get($params,"shop_id"))->where("royalty", array_get($params,"royalty"))->where("integral", array_get($params,"integral"))->where("stock", array_get($params,"stock"))->first();
         if ($shopping) {
             return $shopping->id;
         }else{
