@@ -432,7 +432,7 @@ class PayController extends Controller
                     $shopping = Shopping::shoppingSelect($v1->shopping_id);
                     if ($shopping){
                         $count += 1;
-                        $retail_price = $v1->retail_price;
+                        $retail_price = $shopping->price;
                         if ($retail_price == 0){
                             $retail_price = $shopping->price;
                         }
