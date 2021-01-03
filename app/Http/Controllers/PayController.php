@@ -221,7 +221,7 @@ class PayController extends Controller
                         $count += 1;
                         $retail_price = $v1->retail_price;
                         if ($retail_price == 0){
-                            $retail_price = $shopping->price
+                            $retail_price = $shopping->price;
                         }
                         $childtradesTmp[] = [
                             "name" => $shopping->name,
@@ -433,7 +433,7 @@ class PayController extends Controller
                         $count += 1;
                         $retail_price = $v1->retail_price;
                         if ($retail_price == 0){
-                            $retail_price = $shopping->price
+                            $retail_price = $shopping->price;
                         }
                         $childtradesTmp[] = [
                             "name" => $shopping->name,
@@ -529,7 +529,7 @@ class PayController extends Controller
                         $count += 1;
                         $retail_price = $v1->retail_price;
                         if ($retail_price == 0){
-                            $retail_price = $shopping->price
+                            $retail_price = $shopping->price;
                         }
                         $childtradesTmp[] = [
                             "name" => $shopping->name,
@@ -626,7 +626,7 @@ class PayController extends Controller
                         $count += 1;
                         $retail_price = $v1->retail_price;
                         if ($retail_price == 0){
-                            $retail_price = $shopping->price
+                            $retail_price = $shopping->price;
                         }
                         $childtradesTmp[] = [
                             "name" => $shopping->name,
@@ -682,7 +682,7 @@ class PayController extends Controller
                         $count += 1;
                         $retail_price = $v1->retail_price;
                         if ($retail_price == 0){
-                            $retail_price = $shopping->price
+                            $retail_price = $shopping->price;
                         }
                         $childtradesTmp[] = [
                             "name" => $shopping->name,
@@ -1535,7 +1535,7 @@ class PayController extends Controller
                         $count += 1;
                         $retail_price = $v1->retail_price;
                         if ($retail_price == 0){
-                            $retail_price = $shopping->price
+                            $retail_price = $shopping->price;
                         }
                         $childtradesTmp[] = [
                             "name" => $shopping->name,
