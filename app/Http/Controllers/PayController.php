@@ -524,10 +524,9 @@ class PayController extends Controller
                     $shopping = Shopping::shoppingSelect($v1->shopping_id);
                     if ($shopping){
                         $count += 1;
-                        $retail_price = $v1->retail_price;
                         $childtradesTmp[] = [
                             "name" => $shopping->name,
-                            "charge" => $retail_price ,
+                            "charge" => $shopping->price ,
                             "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
                             "shopping_id" => $shopping->id,
                             "num" => $v1->num
