@@ -37,6 +37,7 @@ class CertController extends Controller
                   "name" => $shopping->name,
                   "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
                   "price" => $shopping->price,
+                  "vip_price" => $shopping->vip_price,
                   "count" => $v->count,
                   "id" => $v->id
                   ];

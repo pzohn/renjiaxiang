@@ -1035,6 +1035,7 @@ class PayController extends Controller
                     'use_royalty' => $req->get('use_royalty')
                  ];
                  $tradeNew = Trade::payInsertForId($trade);
+                 $retail_price = 0;
                  $childtrade = [
                     'shopping_id' => $req->get('detail_id'),
                     'num' => $req->get('num'),
