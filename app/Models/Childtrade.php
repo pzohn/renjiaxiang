@@ -14,6 +14,7 @@ class  Childtrade extends Model {
         $childtrade->num = array_get($params,"num");
         $childtrade->trade_id = array_get($params,"trade_id");
         $childtrade->use_num = array_get($params,"num");
+        $childtrade->retail_price = array_get($params,"retail_price");
         $childtrade->save();
         return $childtrade;
     }

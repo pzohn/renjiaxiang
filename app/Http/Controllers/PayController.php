@@ -894,10 +894,16 @@ class PayController extends Controller
                     'use_royalty' => $req->get('use_royalty')
                  ];
                  $tradeNew = Trade::payInsertForId($trade);
+                 $vip_flag = $req->get('vip_flag');
+                 $retail_price = $shopping->price;
+                 if ($vip_flag == 1){
+                    $retail_price = $shopping->vip_price;
+                 }
                  $childtrade = [
                     'shopping_id' => $req->get('detail_id'),
                     'num' => $req->get('num'),
-                    'trade_id' => $tradeNew->id
+                    'trade_id' => $tradeNew->id,
+                    'retail_price' => $retail_price
                  ];
                  Childtrade::payInsert($childtrade);
                  $this->insertAddress($req->get('address_id'),$tradeNew->id);
@@ -944,10 +950,16 @@ class PayController extends Controller
             'use_royalty' => $req->get('use_royalty')
          ];
          $tradeNew = Trade::payInsertForIdDown($trade);
+         $vip_flag = $req->get('vip_flag');
+         $retail_price = $shopping->price;
+         if ($vip_flag == 1){
+            $retail_price = $shopping->vip_price;
+         }
          $childtrade = [
             'shopping_id' => $req->get('detail_id'),
             'num' => $req->get('num'),
-            'trade_id' => $tradeNew->id
+            'trade_id' => $tradeNew->id,
+            'retail_price' => $retail_price
          ];
          Childtrade::payInsert($childtrade);
          $this->insertAddress($req->get('address_id'),$tradeNew->id);
@@ -1035,11 +1047,17 @@ class PayController extends Controller
                     'use_royalty' => $req->get('use_royalty')
                  ];
                  $tradeNew = Trade::payInsertForId($trade);
-                 $retail_price = 0;
+                 $vip_flag = $req->get('vip_flag');
+                 $retail_price = $shopping->price;
+                 if ($vip_flag == 1){
+                    $retail_price = $shopping->vip_price;
+                 }
+                 if ()
                  $childtrade = [
                     'shopping_id' => $req->get('detail_id'),
                     'num' => $req->get('num'),
-                    'trade_id' => $tradeNew->id
+                    'trade_id' => $tradeNew->id,
+                    'retail_price' => $retail_price
                  ];
                  Childtrade::payInsert($childtrade);
                  $this->insertAddressFix($req->get('address_id'),$tradeNew->id);
@@ -1424,12 +1442,19 @@ class PayController extends Controller
             $arryItem = preg_split("/,/",$item);
             $id = $arryItem[0];
             $num = $arryItem[1];
+            $vip_flag = $req->get('vip_flag');
+            $shopping = Shopping::shoppingSelect($req->get($id));
+            $retail_price = $shopping->price;
+            if ($vip_flag == 1){
+                $retail_price = $shopping->vip_price;
+            } 
             $childtrade = [
                 'shopping_id' => $id,
                 'num' => $num,
-                'trade_id' => $trade_id
-             ];
-            Childtrade::payInsert($childtrade);
+                'trade_id' => $trade_id,
+                'retail_price' => $retail_price
+             ];           
+             Childtrade::payInsert($childtrade);
         }
     }
 
@@ -2034,10 +2059,16 @@ class PayController extends Controller
             'use_royalty' => $req->get('use_royalty')
             ];
         $trade =Trade::payInsertFree($params,$zhang->pay_status);
+        $vip_flag = $req->get('vip_flag');
+        $retail_price = $shopping->price;
+        if ($vip_flag == 1){
+            $retail_price = $shopping->vip_price;
+        }
         $childtrade = [
             'shopping_id' => $shopping->id,
             'num' => $req->get('num'),
-            'trade_id' => $trade->id
+            'trade_id' => $trade->id,
+            'retail_price' => $retail_price
          ];
         Childtrade::payInsert($childtrade);
         if ($zhang->pay_status == 1){
