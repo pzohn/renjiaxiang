@@ -219,9 +219,13 @@ class PayController extends Controller
                     $shopping = Shopping::shoppingSelect($v1->shopping_id);
                     if ($shopping){
                         $count += 1;
+                        $retail_price = $v1->retail_price;
+                        if ($retail_price == 0){
+                            $retail_price = $shopping->price
+                        }
                         $childtradesTmp[] = [
                             "name" => $shopping->name,
-                            "charge" => $shopping->price,
+                            "charge" => $retail_price,
                             "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
                             "shopping_id" => $shopping->id,
                             "num" => $v1->num
@@ -427,9 +431,13 @@ class PayController extends Controller
                     $shopping = Shopping::shoppingSelect($v1->shopping_id);
                     if ($shopping){
                         $count += 1;
+                        $retail_price = $v1->retail_price;
+                        if ($retail_price == 0){
+                            $retail_price = $shopping->price
+                        }
                         $childtradesTmp[] = [
                             "name" => $shopping->name,
-                            "charge" => $shopping->price,
+                            "charge" => $retail_price ,
                             "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
                             "shopping_id" => $shopping->id,
                             "num" => $v1->num
@@ -519,9 +527,13 @@ class PayController extends Controller
                     $shopping = Shopping::shoppingSelect($v1->shopping_id);
                     if ($shopping){
                         $count += 1;
+                        $retail_price = $v1->retail_price;
+                        if ($retail_price == 0){
+                            $retail_price = $shopping->price
+                        }
                         $childtradesTmp[] = [
                             "name" => $shopping->name,
-                            "charge" => $shopping->price,
+                            "charge" => $retail_price ,
                             "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
                             "shopping_id" => $shopping->id,
                             "num" => $v1->num
@@ -612,9 +624,13 @@ class PayController extends Controller
                     $shopping = Shopping::shoppingSelect($v1->shopping_id);
                     if ($shopping){
                         $count += 1;
+                        $retail_price = $v1->retail_price;
+                        if ($retail_price == 0){
+                            $retail_price = $shopping->price
+                        }
                         $childtradesTmp[] = [
                             "name" => $shopping->name,
-                            "charge" => $shopping->price,
+                            "charge" => $retail_price,
                             "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
                             "shopping_id" => $shopping->id,
                             "num" => $v1->num
@@ -664,9 +680,13 @@ class PayController extends Controller
                     $shopping = Shopping::shoppingSelect($v1->shopping_id);
                     if ($shopping){
                         $count += 1;
+                        $retail_price = $v1->retail_price;
+                        if ($retail_price == 0){
+                            $retail_price = $shopping->price
+                        }
                         $childtradesTmp[] = [
                             "name" => $shopping->name,
-                            "charge" => $shopping->price,
+                            "charge" => $retail_price ,
                             "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
                             "shopping_id" => $shopping->id,
                             "num" => $v1->num
@@ -1513,9 +1533,13 @@ class PayController extends Controller
                     $shopping = Shopping::shoppingSelect($v1->shopping_id);
                     if ($shopping){
                         $count += 1;
+                        $retail_price = $v1->retail_price;
+                        if ($retail_price == 0){
+                            $retail_price = $shopping->price
+                        }
                         $childtradesTmp[] = [
                             "name" => $shopping->name,
-                            "charge" => $shopping->price,
+                            "charge" => $retail_price,
                             "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
                             "shopping_id" => $shopping->id,
                             "num" => $v1->num
