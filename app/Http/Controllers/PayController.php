@@ -418,7 +418,6 @@ class PayController extends Controller
     }
 
     public function getOrderUnPayForPerson(Request $req) {
-        return;
         $wx_id = $req->get('wx_id');
         $trades = Trade::getOrderUnPayForPerson($wx_id);
         $title = "title";
