@@ -1444,6 +1444,7 @@ class PayController extends Controller
             $vip_flag = $req->get('vip_flag');
             $shopping = Shopping::shoppingSelect($req->get($id));
             $retail_price = $shopping->price;
+            $vip_flag = $req->get('vip_flag');
             if ($vip_flag == 1){
                 $retail_price = $shopping->vip_price;
             } 
