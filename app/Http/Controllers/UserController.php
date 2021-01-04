@@ -249,6 +249,14 @@ class UserController extends Controller
         }
     }
 
+    public function GetShareForUser(Request $req) {
+        $parter = Parter::getParterForId($req->get('share_id'));
+        if ($parter){
+            return 1;
+        }
+        return 0;
+    }
+
     public function updateWxBaseInfo(Request $req) {
         $params = [
             'id' => $req->get('id'),
