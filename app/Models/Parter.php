@@ -59,6 +59,10 @@ class Parter extends Model {
         $parter = Parter::where("id", $id)->first();
         return $parter;
     }
+    public static function getParterForIdNoDel($id) {
+        $parter = Parter::where("id", $id)->where("is_delete", 0)->first();
+        return $parter;
+    }
 
     public static function getParterForWxEx() {
         $parters = Parter::where("type_id", 2)->get();

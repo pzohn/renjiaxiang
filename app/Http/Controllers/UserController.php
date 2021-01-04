@@ -250,7 +250,7 @@ class UserController extends Controller
     }
 
     public function GetShareForUser(Request $req) {
-        $parter = Parter::getParterForId($req->get('share_id'));
+        $parter = Parter::getParterForIdNoDel($req->get('share_id'));
         if ($parter){
             return 1;
         }
