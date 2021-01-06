@@ -15,6 +15,7 @@ use App\Models\Childexpress;
 use App\Libs\GuzzleHttp;
 use App\Models\Usermanager;
 use App\Models\Submitlocation;
+use App\Models\Shopping;
 
 class UserController extends Controller
 {
@@ -422,6 +423,16 @@ class UserController extends Controller
         if ($req->get('wx_id') != 0){
             $parters = Parter::getAreasFirstEx($req->get('wx_id'));
         }
+        $shoppings = Shopping::shoppingGetByType($req->get('type_id'),$req->get('shop_id'));
+        $shoppingsTmp = [];
+        if ($shoppings){
+            foreach ($shoppings as $k3 => $v3) {
+                $shoppingsTmp[] = [
+                "id" => $v3->id,
+                "name" => $v3->name,
+                ];
+            }
+        }
         if ($parters){
             $partersFirst = [];
             foreach ($parters as $k => $v) {
@@ -461,7 +472,8 @@ class UserController extends Controller
                 'msg' => '查询成功',
                 'count' => count($partersFirst),
                 'data' => $partersFirst,
-                'second_flag' => $second
+                'second_flag' => $second,
+                'shoppings' => $shoppingsTmp
             ];
         }
         else{
