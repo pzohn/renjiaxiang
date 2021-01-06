@@ -1763,6 +1763,10 @@ class PayController extends Controller
             $date_begin = $req->get('date_begin') . " " . date("H:i:s", mktime(0,0,0));
             $date_after = $req->get('date_after') . " " . date("H:i:s", mktime(23,59,59));
         }
+        $shopping_id = 0;
+        if ($req->get('shopping_id')){
+            $shopping_id = $req->get('shopping_id');
+        }
         $share_count = 0;
         $tradesTwo = [];
         $parters = Parter::getParterForWxEx();
@@ -1771,6 +1775,9 @@ class PayController extends Controller
                 $share_two_id = $v1->id;
                 $share_name = $v1->name;
                 $trades_Two = Trade::getShareForPersonEx3($share_two_id,$date_begin,$date_after);
+                if ($shopping_id > 0){
+                    $trades_Two = Trade::getShareForPersonEx31($share_two_id,$date_begin,$date_after,$shopping_id);
+                }
                 foreach ($trades_Two as $k2 => $v2) {
                     $childtrades = Childtrade::paySelectById($v2->id);
                     $share_count += $childtrades[0]->num;
@@ -1797,6 +1804,9 @@ class PayController extends Controller
                 }
 
                 $trades_Two = Trade::getShareForPersonEx4($share_two_id,$date_begin,$date_after);
+                if ($shopping_id > 0){
+                    $trades_Two = Trade::getShareForPersonEx41($share_two_id,$date_begin,$date_after,$shopping_id);
+                }
                 foreach ($trades_Two as $k2 => $v2) {
                     $childtrades = Childtrade::paySelectById($v2->id);
                     $share_count += $childtrades[0]->num;
