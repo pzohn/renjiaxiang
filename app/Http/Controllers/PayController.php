@@ -1784,7 +1784,6 @@ class PayController extends Controller
                 }
                 foreach ($trades_Two as $k2 => $v2) {
                     $childtrades = Childtrade::paySelectById($v2->id);
-                    $share_count += $childtrades[0]->num;
                     $address = SendAddress::GetAddress($v2->id);
                     $trade_addr = "";
                     $trade_phone = "";
@@ -1800,6 +1799,7 @@ class PayController extends Controller
                             }
                         }
                     }
+                    $share_count += $childtrades[0]->num;
                     $tradesTwo[] = [
                         "time" => $v2->created_at->format('Y-m-d H:i:s'),
                         "tradeid" => $v2->out_trade_no,
@@ -1819,7 +1819,6 @@ class PayController extends Controller
                 }
                 foreach ($trades_Two as $k2 => $v2) {
                     $childtrades = Childtrade::paySelectById($v2->id);
-                    $share_count += $childtrades[0]->num;
                     $address = SendAddress::GetAddress($v2->id);
                     $trade_addr = "";
                     $trade_phone = "";
@@ -1835,6 +1834,7 @@ class PayController extends Controller
                             }
                         }
                     }
+                    $share_count += $childtrades[0]->num;
                     $tradesTwo[] = [
                         "time" => $v2->created_at->format('Y-m-d H:i:s'),
                         "tradeid" => $v2->out_trade_no,
