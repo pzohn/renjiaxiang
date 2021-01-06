@@ -1854,6 +1854,10 @@ class PayController extends Controller
         if ($req->get('shopping_id')){
             $shopping_id = $req->get('shopping_id');
         }
+        $area = "";
+        if ($req->get('area')){
+            $area = $req->get('area');
+        }
         $share_count = 0;
         $tradesTwo = [];
         $parter = Parter::getParterForId($req->get('second_id'));
@@ -1875,6 +1879,12 @@ class PayController extends Controller
                     $trade_addr = $address->province.$address->city.$address->area.$address->detail; 
                     $trade_phone = $address->phone;
                     $trade_name = $address->name;
+                    if ($area != ""){
+                        $pos = strpos($trade_addr, $area);
+                        if ($pos === false){
+                            continue;
+                        }
+                    }
                 }
                 $tradesTwo[] = [
                     "time" => $v2->created_at->format('Y-m-d H:i:s'),
@@ -1904,6 +1914,12 @@ class PayController extends Controller
                     $trade_addr = $address->province.$address->city.$address->area.$address->detail; 
                     $trade_phone = $address->phone;
                     $trade_name = $address->name;
+                    if ($area != ""){
+                        $pos = strpos($trade_addr, $area);
+                        if ($pos === false){
+                            continue;
+                        }
+                    }
                 }
                 $tradesTwo[] = [
                     "time" => $v2->created_at->format('Y-m-d H:i:s'),
