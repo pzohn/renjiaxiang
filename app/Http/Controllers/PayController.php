@@ -1742,7 +1742,7 @@ class PayController extends Controller
                 'count' => $share_count,
                 'First_count' => count($tradesOne),
                 'Second_count' => count($tradesTwo),
-                'tradesOne' => $tradesOne,
+                'tradesOne' => array_values($tradesOne),
                 'tradesTwo' => $tradesTwo
             ];
             return $result_data;
