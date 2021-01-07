@@ -1742,9 +1742,17 @@ class PayController extends Controller
                 'count' => $share_count,
                 'First_count' => count($tradesOne),
                 'Second_count' => count($tradesTwo),
-                'tradesOne' => array_values($tradesOne),
+                'tradesOne' => $tradesOne,
                 'tradesTwo' => $tradesTwo
             ];
+            $tradesSort = $result_data['tradesOne'];
+            $arr = [];
+            foreach($tradesSort as $trade) {
+                $time = $trade['time'];
+                $arr[$time] = $trade;
+            }
+            krsort($arr);
+            $result_data['tradesOne'] = array_values($arr);
             return $result_data;
 
         }else {
