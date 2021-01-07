@@ -1745,8 +1745,8 @@ class PayController extends Controller
                 'tradesOne' => $tradesOne,
                 'tradesTwo' => $tradesTwo
             ];
-            $result_data = sortData($result_data,'tradesOne');
-            $result_data = sortData($result_data,'tradesTwo');
+            $result_data = $this->sortData($result_data,'tradesOne');
+            $result_data = $this->sortData($result_data,'tradesTwo');
             return $result_data;
         }else {
             return [
