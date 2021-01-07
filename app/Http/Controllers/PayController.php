@@ -1745,16 +1745,9 @@ class PayController extends Controller
                 'tradesOne' => $tradesOne,
                 'tradesTwo' => $tradesTwo
             ];
-            $tradesSort = $result_data['tradesOne'];
-            $arr = [];
-            foreach($tradesSort as $trade) {
-                $time = $trade['time'];
-                $arr[$time] = $trade;
-            }
-            krsort($arr);
-            $result_data['tradesOne'] = array_values($arr);
+            $result_data = sortData($result_data,'tradesOne');
+            $result_data = sortData($result_data,'tradesTwo');
             return $result_data;
-
         }else {
             return [
                 'code' => 1,
@@ -2359,6 +2352,18 @@ class PayController extends Controller
                 }
             }
         }
+    }
+
+    protected function sortData($data,$str) {
+        $trades = $data[$str];
+        $arr = [];
+        foreach($trades as $trade) {
+            $time = $trade['time'];
+            $arr[$time] = $trade;
+        }
+        krsort($arr);
+        $data[$str] = array_values($arr);
+        return $data;
     }
 
     public function updateStatus(Request $req) {
