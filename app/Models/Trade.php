@@ -313,6 +313,13 @@ class  Trade extends Model {
         }
     }
 
+    public static function getOrderFinishForPersonForZhaobo($wx_id) {
+        $trades = Trade::where("wx_id", $wx_id)->where("show_status", 1)->where("finish_refund_status", 0)->where("pay_status", 1)->where("finish_status", 1)->orderBy('updated_at', 'desc')->get();
+        if ($trades) {
+            return $trades;
+        }
+    }
+
     public static function getOrderUnUse() {
         $trades = Trade::where("pay_status", 1)->where("use_status", 0)->orderBy('updated_at', 'desc')->get();
         if ($trades) {

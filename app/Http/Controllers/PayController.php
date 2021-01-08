@@ -722,6 +722,62 @@ class PayController extends Controller
         }
     }   
 
+    public function getOrderFinishForPersonForZhaobo(Request $req) {
+        $wx_id = $req->get('wx_id');
+        $trades = Trade::getOrderFinishForPersonForZhaobo($wx_id);
+        $title = "title";
+        if ($trades){
+            $tradesTmp = [];
+            foreach ($trades as $k => $v) {
+                $count = 0;
+                $childtrades = Childtrade::paySelectById($v->id);
+                $childtradesTmp = [];
+                foreach ($childtrades as $k1 => $v1) {
+                    $shopping = Shopping::shoppingSelect($v1->shopping_id);
+                    if ($shopping){
+                        $count += 1;
+                        $retail_price = $v1->retail_price;
+                        if ($retail_price == 0){
+                            $retail_price = $shopping->price;
+                        }
+                        $childtradesTmp[] = [
+                            "name" => $shopping->name,
+                            "charge" => $retail_price,
+                            "title_pic" => Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type),
+                            "shopping_id" => $shopping->id,
+                            "num" => $v1->num
+                        ]; 
+                    }
+                }
+
+                if ($count){
+                    $tradesTmp[] = [
+                        "time" => $v->updated_at->format('Y-m-d H:i:s'),
+                        "tradeid" => $v->out_trade_no,
+                        "charge" => $v->total_fee,
+                        "count" => $count,
+                        "detail" => $childtradesTmp,
+                        "address" => SendAddress::GetAddressEx($v->id),
+                        "status" => '已完成',
+                        "color" => 'green',
+                        "phone" =>  $v->phone,
+                        "body" => $v->body,
+                        "id" => $v->id,
+                        "use_royalty" => $v->use_royalty,
+                        "express" => Express::getExpressNum($v->id)                
+                    ];
+                }
+            }
+            $result_data = [
+                'code' => 0,
+                'msg' => '',
+                'count' => count($tradesTmp),
+                'data' => $tradesTmp
+            ];
+            return $result_data;
+        }
+    }   
+
     public function getOrderSend(Request $req) {
         $phone = $req->get('phone');
         $trades = Trade::getOrderUse($phone);
