@@ -23,6 +23,11 @@ class  Wxuser extends Model {
         return "";
     }
 
+    public static function getWxInfo($id) {
+        $wxuser = Wxuser::where("id", $id)->first();
+        return $wxuser;
+    }
+
     public static function updateBaseInfo($params) {
         $wxuser = Wxuser::where("id", array_get($params,"id"))->first();
         if ($wxuser) {
