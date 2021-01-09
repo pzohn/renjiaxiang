@@ -207,7 +207,7 @@ class PayController extends Controller
 
     public function getOrderAllForPerson(Request $req) {
         $wx_id = $req->get('wx_id');
-        $shop_id = $wxuser->shop_id;
+        $shop_id = $req->get('shop_id');
         $trades = Trade::getOrderAllForPerson($wx_id);
         $title = "title";
         if ($trades){
@@ -673,8 +673,7 @@ class PayController extends Controller
 
     public function getOrderFinishForPerson(Request $req) {
         $wx_id = $req->get('wx_id');
-        $wxuser = Wxuser::getWxInfo($wx_id);
-        $shop_id = $wxuser->shop_id;
+        $shop_id = $req->get('shop_id');
         $trades = Trade::getOrderFinishForPerson($wx_id);
         if ($shop_id == 5){
             $trades = Trade::getOrderFinishForPersonForZhaobo($wx_id);
