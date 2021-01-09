@@ -235,9 +235,9 @@ class PayController extends Controller
                 }
 
                 if ($count){
-                    $status = $this->getStatus($v->pay_status,$v->send_status,$v->finish_status)
+                    $status = $this->getStatus($v->pay_status,$v->send_status,$v->finish_status);
                     if ($shop_id == 5){
-                        $status = $this->getStatusZhaobo($v->pay_status,$v->send_status,$v->finish_status)
+                        $status = $this->getStatusZhaobo($v->pay_status,$v->send_status,$v->finish_status);
                     }
                     $tradesTmp[] = [
                         "time" => $v->updated_at->format('Y-m-d H:i:s'),
