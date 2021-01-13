@@ -7,8 +7,13 @@ class  Signature extends Model {
     
     public $timestamps = false;
 
-    public static function DelImageUrl($id) {
-        Signature::where("id", $id)->delete();
+    public static function urlUpdate($params) {
+        $signature = Signature::where("id", array_get($params,"id"))->first();
+        if ($signature) {
+            $signature->url = array_get($params,"url");
+            $signature->update();
+            return $signature;
+        }
     }
 
     public static function urlInsert($params) {
