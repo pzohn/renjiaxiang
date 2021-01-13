@@ -73,8 +73,10 @@ class FileController extends Controller
                     $del_path = $signature->file . "/" . $signature->url;
                     Storage::disk('public')->delete($del_path); 
                     Signature::DelImageUrl($signature->id);
+                    return 1;
                 }else{
                     Signature::urlInsert($params);
+                    return 2;
                 }
             }
         }
