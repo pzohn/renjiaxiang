@@ -7,10 +7,10 @@ class  Signature extends Model {
     
     public $timestamps = false;
 
-    public static function urlUpdate($params) {
-        $signature = Signature::where("id", array_get($params,"id"))->first();
+    public static function urlUpdate($id,$url) {
+        $signature = Signature::where("id", $id)->first();
         if ($signature) {
-            $signature->url = array_get($params,"url");
+            $signature->url = $url;
             $signature->update();
             return $signature;
         }
