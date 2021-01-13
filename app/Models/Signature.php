@@ -7,7 +7,7 @@ class  Signature extends Model {
     
     public $timestamps = false;
 
-    public static function DelImageUrl($id,$file,$shop_id) {
+    public static function DelImageUrl($id) {
         Signature::where("id", $id))->delete();
     }
 
