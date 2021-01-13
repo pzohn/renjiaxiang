@@ -8,7 +8,7 @@ class  Signature extends Model {
     public $timestamps = false;
 
     public static function DelImageUrl($id) {
-        Signature::where("id", $id))->delete();
+        Signature::where("id", $id)->delete();
     }
 
     public static function urlInsert($params) {
