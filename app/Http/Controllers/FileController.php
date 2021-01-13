@@ -74,33 +74,17 @@ class FileController extends Controller
                     Storage::disk('public')->delete($del_path); 
                     $signature = Signature::urlUpdate($signature->id,$url);
                     if ($signature){
-                        return [
-                            'code' => 0,
-                            'msg' => "签名上传成功",
-                            'data' => [
-                                'signature_id' => $signature->id
-                            ]
-                        ];
+                        return 0;
                     }
                 }else{
                     $signature = Signature::urlInsert($params);
                     if ($signature){
-                        return [
-                            'code' => 0,
-                            'msg' => "签名上传成功",
-                            'data' => [
-                                'signature_id' => $signature->id
-                            ]
-                        ];
+                        return 0;
                     }
                 }
             }
         }
-        return [
-            'code' => 1,
-            'msg' => "签名上传失败",
-            'data' => []
-        ];
+        return 1;
     }
 
     public function getPostcard(Request $req) {
