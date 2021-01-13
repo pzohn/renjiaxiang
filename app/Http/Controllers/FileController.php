@@ -75,10 +75,10 @@ class FileController extends Controller
                     $signature = Signature::urlUpdate($signature->id,$url);
                     if ($signature){
                         return [
-                            "code" => 0,
-                            "msg" => "签名上传成功",
-                            "data" => [
-                                "signature_id" => $signature->id
+                            'code' => 0,
+                            'msg' => "签名上传成功",
+                            'data' => [
+                                'signature_id' => $signature->id
                             ]
                         ];
                     }
@@ -86,10 +86,10 @@ class FileController extends Controller
                     $signature = Signature::urlInsert($params);
                     if ($signature){
                         return [
-                            "code" => 0,
-                            "msg" => "签名上传成功",
-                            "data" => [
-                                "signature_id" => $signature->id
+                            'code' => 0,
+                            'msg' => "签名上传成功",
+                            'data' => [
+                                'signature_id' => $signature->id
                             ]
                         ];
                     }
@@ -97,9 +97,9 @@ class FileController extends Controller
             }
         }
         return [
-            "code" => 1,
-            "msg" => "签名上传失败",
-            "data" => []
+            'code' => 1,
+            'msg' => "签名上传失败",
+            'data' => []
         ];
     }
 
