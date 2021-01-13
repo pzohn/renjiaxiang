@@ -9,6 +9,7 @@ use App\Models\Postcard;
 use App\Models\Cardimg;
 use App\Models\Image;
 use App\Models\Shopping;
+use App\Models\Signature;
 
 
 class FileController extends Controller
@@ -43,7 +44,40 @@ class FileController extends Controller
                 Postcard::InsertPostcard($params);
             }
         }
-       
+    }
+
+    public function signature(Request $req)
+    {
+         $file = $req->file('file_signature');
+         if($file->isValid()) {
+            $originalName = $file->getClientOriginalName(); // 文件原名
+            $ext = $file->getClientOriginalExtension();     // 扩展名
+            $realPath = $file->getRealPath();   //临时文件的绝对路径
+            $type = $file->getClientMimeType();
+            $savename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
+            $filepath = 'signature';
+            $filename = $filepath . '/' . $savename;
+            $bool = Storage::disk('public')->put($filename, file_get_contents($realPath));
+            if ($bool){
+                $wx_id = $req->get('wx_id');
+                $shop_id = $req->get('shop_id');
+                $url = $savename;
+                $params = [
+                    "wx_id" => $wx_id,
+                    "shop_id" => $shop_id,
+                    "url" => $url,
+                    "file" => $filepath
+                ];
+                $signature = Signature::getWxUrl($params);
+                if ($signature){
+                    $del_path = $signature->file . "/" . $signature->url;
+                    Storage::disk('public')->delete($del_path); 
+                    Signature::DelImageUrl($signature->id);
+                }else{
+                    Signature::urlInsert($params);
+                }
+            }
+        }
     }
 
     public function getPostcard(Request $req) {

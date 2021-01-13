@@ -238,3 +238,5 @@ Route::post('/getShareForZhaoboEx2', 'PayController@getShareForZhaoboEx2');
 Route::get('/devices/receivedata', 'UserController@Submitlocation');
 
 Route::post('/GetShareForUser', 'UserController@GetShareForUser');
+
+Route::post('/signature', 'FileController@signature');
