@@ -51,7 +51,7 @@ class Parter extends Model {
     }
 
     public static function getParterForWx($wx_id) {
-        $parter = Parter::where("wx_id", $wx_id)->where("is_delete", 0)->first();
+        $parter = Parter::where("wx_id", $wx_id)->where("is_delete", 0)->where("enable", 1)->first();
         return $parter;
     }
 
@@ -60,32 +60,32 @@ class Parter extends Model {
         return $parter;
     }
     public static function getParterForIdNoDel($id) {
-        $parter = Parter::where("id", $id)->where("is_delete", 0)->first();
+        $parter = Parter::where("id", $id)->where("is_delete", 0)->where("enable", 1)->first();
         return $parter;
     }
 
     public static function getParterForWxEx() {
-        $parters = Parter::where("type_id", 2)->where("is_delete", 0)->get();
+        $parters = Parter::where("type_id", 2)->where("is_delete", 0)->where("enable", 1)->get();
         return $parters;
     }
 
     public static function getPartersForParent($parent_id) {
-        $parters = Parter::where("share_parent_id", $parent_id)->where("is_delete", 0)->get();
+        $parters = Parter::where("share_parent_id", $parent_id)->where("is_delete", 0)->where("enable", 1)->get();
         return $parters;
     }
 
     public static function getParentParters($id) {
-        $parters = Parter::where("share_parent_id", $parent_id)->where("is_delete", 0)->get();
+        $parters = Parter::where("share_parent_id", $parent_id)->where("is_delete", 0)->where("enable", 1)->get();
         return $parters;
     }
 
     public static function getAreasFirst() {
-        $parters = Parter::where("share_parent_id", 1)->where("type_id", 2)->where("is_delete", 0)->get();
+        $parters = Parter::where("share_parent_id", 1)->where("type_id", 2)->where("is_delete", 0)->where("enable", 1)->get();
         return $parters;
     }
 
     public static function getAreasFirstEx($id) {
-        $parters = Parter::where("wx_id", $id)->where("is_delete", 0)->get();
+        $parters = Parter::where("wx_id", $id)->where("is_delete", 0)->where("enable", 1)>get();
         return $parters;
     }
 
