@@ -55,6 +55,11 @@ class Parter extends Model {
         return $parter;
     }
 
+    public static function getParterForWxNoSig($wx_id) {
+        $parter = Parter::where("wx_id", $wx_id)->where("is_delete", 0)->first();
+        return $parter;
+    }
+
     public static function getParterForId($id) {
         $parter = Parter::where("id", $id)->first();
         return $parter;
