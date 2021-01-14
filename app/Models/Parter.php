@@ -90,7 +90,7 @@ class Parter extends Model {
     }
 
     public static function getAreasFirstEx($id) {
-        $parters = Parter::where("wx_id", $id)->where("is_delete", 0)->where("enable", 1)>get();
+        $parters = Parter::where("wx_id", $id)->where("is_delete", 0)->where("enable", 1)->get();
         return $parters;
     }
 
