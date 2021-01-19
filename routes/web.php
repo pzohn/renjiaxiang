@@ -240,3 +240,5 @@ Route::get('/devices/receivedata', 'UserController@Submitlocation');
 Route::post('/GetShareForUser', 'UserController@GetShareForUser');
 
 Route::post('/signature', 'FileController@signature');
+
+Route::post('/getAddressByLoginIdEx', 'UserController@getAddressByLoginIdEx');

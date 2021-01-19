@@ -91,6 +91,23 @@ class UserController extends Controller
         return $address;
     }
 
+    public function getAddressByLoginIdEx(Request $req) {
+        $address = Address::GetAddressByLoginIdEx($req->get('login_id'));
+        $addressTmp = [];
+        if ($address){
+            foreach ($address as $k => $v) {
+                $addressTmp[] = [
+                    "phone" => $v->phone,
+                    "name" => $v->name,
+                    "id" => $v->id,
+                    "addr" => $v->province.$v->city.$v->area.$v->detail,
+                    "default" => $v->default_flag
+                ];
+            }
+        }
+        return $addressTmp;
+    }
+
     public function insertAddress(Request $req) {
         $params = [
             "name" => $req->get('name'),

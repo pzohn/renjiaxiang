@@ -23,6 +23,11 @@ class  Address extends Model {
         }
     }
 
+    public static function GetAddressByLoginIdEx($login_id) {
+        $address = Address::where("login_id", $login_id)->get();
+        return $address;
+    }
+
     public static function GetAddressById($id) {
         $address = Address::where("id", $id)->first();
         if ($address) {
