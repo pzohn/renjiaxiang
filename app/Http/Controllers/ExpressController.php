@@ -17,7 +17,7 @@ class ExpressController extends Controller
         $paramsToken = [
         	'appid' => $zhang->a,
             'secret' => $zhang->b,
-            'grant_type' => "authorization_code"
+            'grant_type' => "client_credential"
         ];
         $resultToken = GuzzleHttp::guzzleGet($urlToken, $paramsToken);
         if (isset($resultToken['errcode']))
