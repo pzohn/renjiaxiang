@@ -33,12 +33,9 @@ class ExpressController extends Controller
         	'access_token' => $access_token
         ];
         $resultGetall = GuzzleHttp::guzzleGet($urlGetall, $paramsGetall);
-        if (isset($resultGetall['errcode']))
-        {
-            return [
-                "count" => $resultGetall['count'],
-                "data" => $resultGetall['data']
-            ];
-        }
+        return [
+            "count" => $resultGetall['count'],
+            "data" => $resultGetall['data']
+        ];
     }
 }
