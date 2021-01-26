@@ -242,3 +242,5 @@ Route::post('/GetShareForUser', 'UserController@GetShareForUser');
 Route::post('/signature', 'FileController@signature');
 
 Route::post('/getAddressByLoginIdEx', 'UserController@getAddressByLoginIdEx');
+
+Route::post('/getAllDelivery', 'ExpressController@getAllDelivery');
