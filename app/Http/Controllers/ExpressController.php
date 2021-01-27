@@ -48,6 +48,23 @@ class ExpressController extends Controller
     public function addOrder(Request $req)
     {
         $zhang = Zhang::getZhang($req->get('shop_id'));
+        $urlLogin = "https://api.weixin.qq.com/sns/jscode2session";
+        $paramsLogin = [
+            'appid' => $zhang->a,
+            'secret' => $zhang->b,
+            'js_code' => $req->get('js_code'),
+            'grant_type' => "authorization_code",
+        ];
+        $resultLogin = GuzzleHttp::guzzleGet($urlLogin, $paramsLogin);
+        if (isset($resultLogin['errcode']))
+        {
+            return [
+                "errcode0" => $resultLogin['errcode'],
+                "errmsg0" => $resultLogin['errmsg']
+            ];
+        }
+        $openId = $resultLogin["openid"];
+
         $urlToken = "https://api.weixin.qq.com/cgi-bin/token";
         $paramsToken = [
         	'appid' => $zhang->a,
@@ -58,8 +75,8 @@ class ExpressController extends Controller
         if (isset($resultToken['errcode']))
         {
             return [
-                "errcode0" => $resultToken['errcode'],
-                "errmsg0" => $resultToken['errmsg']
+                "errcode1" => $resultToken['errcode'],
+                "errmsg1" => $resultToken['errmsg']
             ];
         }
         $access_token = $resultToken["access_token"];
@@ -132,7 +149,7 @@ class ExpressController extends Controller
             'add_source' => 0,
             'wx_appid' => $zhang->a,
             'order_id' => $trade->out_trade_no,
-            'openid' => 'openid123456',
+            'openid' => $openId,
             'delivery_id' => $excompany->delivery_id,
             'biz_id' => $excompany->biz_id,
             'sender' => $sender,
@@ -149,9 +166,8 @@ class ExpressController extends Controller
         if (isset($resultAdd['errcode']))
         {
             return [
-                "errcode1" => $resultAdd['errcode'],
-                "errmsg1" => $resultAdd['errmsg'],
-                "appid" => $zhang->a
+                "errcode2" => $resultAdd['errcode'],
+                "errmsg2" => $resultAdd['errmsg'],
             ];
         }
         return $resultAdd;
