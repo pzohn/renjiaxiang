@@ -101,7 +101,7 @@ class ExpressController extends Controller
                     "name" => $shopping->name,
                     "num" => $v->num
                 ];
-                $img_url = Image::Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type)
+                $img_url = Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type)
                 $shop_names = $shop_names . $shopping->name;
                 if ($index != $count){
                     $shop_names = $shop_names . '&';
