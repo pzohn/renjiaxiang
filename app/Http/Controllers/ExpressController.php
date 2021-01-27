@@ -58,8 +58,8 @@ class ExpressController extends Controller
         if (isset($resultToken['errcode']))
         {
             return [
-                "errcode" => $resultToken['errcode'],
-                "errmsg" => $resultToken['errmsg']
+                "errcode0" => $resultToken['errcode'],
+                "errmsg0" => $resultToken['errmsg']
             ];
         }
         $access_token = $resultToken["access_token"];
@@ -148,8 +148,8 @@ class ExpressController extends Controller
         if (isset($resultAdd['errcode']))
         {
             return [
-                "errcode" => $resultAdd['errcode'],
-                "errmsg" => $resultAdd['errmsg']
+                "errcode1" => $resultAdd['errcode'],
+                "errmsg1" => $resultAdd['errmsg']
             ];
         }
         return $resultAdd;
