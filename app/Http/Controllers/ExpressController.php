@@ -130,7 +130,6 @@ class ExpressController extends Controller
             'service_name' => $excompany->service_name
         ];
         $paramsAdd = [
-            'access_token' => $access_token,
             'add_source' => 0,
             'wx_appid' => $zhang->a,
             'order_id' => $trade->out_trade_no,
@@ -143,7 +142,7 @@ class ExpressController extends Controller
             'insured' => $insured,
             'service' => $service
         ];
-        $urlAdd = 'https://api.weixin.qq.com/cgi-bin/express/business/order/add';
+        $urlAdd = 'https://api.weixin.qq.com/cgi-bin/express/business/order/add?access_token ='.$access_token;
         $resultAdd = GuzzleHttp::guzzlePost($urlToken, $paramsAdd);
         if (isset($resultAdd['errcode']))
         {
