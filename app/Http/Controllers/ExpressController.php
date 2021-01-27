@@ -87,14 +87,13 @@ class ExpressController extends Controller
         $shop_names = '';
         $count = count($childtrades);
         $index = 0;
-        $img_url = '';
         $wxa_path = '/pages/index/index';
         $img_url = '';
         foreach ($childtrades as $k => $v) {
             $shopping = Shopping::shoppingSelect($v->shopping_id);
             $index ++;
             if ($index == 1){
-                $img_url = Image::GetImageUrlByParentId($shopping->id,'title',$shopping->type);
+                $img_url = Image::GetImageUrlByParentId($shopping->id,'title',$shopping->type)[0];
             }
             if ($shopping){
                 $childtradesTmp[] = [
