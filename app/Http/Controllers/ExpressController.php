@@ -139,11 +139,12 @@ class ExpressController extends Controller
             'sender' => $sender,
             'receiver' => $receiver,
             'shop' => $shop,
+            'cargo' => $cargo,
             'insured' => $insured,
             'service' => $service
         ];
         $urlAdd = 'https://api.weixin.qq.com/cgi-bin/express/business/order/add?access_token='.$access_token;
-        $resultAdd = GuzzleHttp::guzzlePost($urlAdd, $paramsAdd);
+        $resultAdd = GuzzleHttp::guzzlePost($urlToken, $paramsAdd);
         if (isset($resultAdd['errcode']))
         {
             return [
