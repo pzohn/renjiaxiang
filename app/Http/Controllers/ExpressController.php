@@ -10,6 +10,7 @@ use App\Models\Excompany;
 use App\Models\SendAddress;
 use App\Models\Childtrade;
 use App\Models\Image;
+use App\Models\Trade;
 
 
 class ExpressController extends Controller
@@ -80,6 +81,7 @@ class ExpressController extends Controller
             'address' => $sendAddress->detail
         ];
         $childtrades = Childtrade::paySelectById($req->get('trade_id'));
+        $trade = Trade::paySelectById($req->get('trade_id'));
         $childtradesTmp = [];
         $shop_names = '';
         $shop_names = '';
@@ -132,7 +134,7 @@ class ExpressController extends Controller
             'access_token' => $access_token,
             'add_source' => 0,
             'wx_appid' => $zhang->a,
-            'order_id' => 'hubinceshibaishi20210126',
+            'order_id' => $trade->out_trade_no,
             'openid' => 'openid123456',
             'delivery_id' => $excompany->delivery_id,
             'biz_id' => $excompany->biz_id,
