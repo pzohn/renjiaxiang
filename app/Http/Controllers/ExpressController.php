@@ -163,13 +163,13 @@ class ExpressController extends Controller
         $resultAdd = GuzzleHttp::postJson($urlAdd, $paramsAdd);
         \Log::info("-----access_token------", [$access_token]);
         \Log::info("-----paramsAdd------", $paramsAdd);
-        if (isset($resultAdd['errcode']))
-        {
-            return [
-                "errcode2" => $resultAdd['errcode'],
-                "errmsg2" => $resultAdd['errmsg'],
-            ];
-        }
+        // if (isset($resultAdd['errcode']))
+        // {
+        //     return [
+        //         "errcode2" => $resultAdd['errcode'],
+        //         "errmsg2" => $resultAdd['errmsg'],
+        //     ];
+        // }
         return $resultAdd;
     }
 }
