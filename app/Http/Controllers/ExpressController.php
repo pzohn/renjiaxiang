@@ -149,7 +149,8 @@ class ExpressController extends Controller
         {
             return [
                 "errcode1" => $resultAdd['errcode'],
-                "errmsg1" => $resultAdd['errmsg']
+                "errmsg1" => $resultAdd['errmsg'],
+                "appid" => $zhang->a
             ];
         }
         return $resultAdd;
