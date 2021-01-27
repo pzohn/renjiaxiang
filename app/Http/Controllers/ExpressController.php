@@ -93,7 +93,7 @@ class ExpressController extends Controller
             $shopping = Shopping::shoppingSelect($v->shopping_id);
             $index ++;
             if ($index == 1){
-                $img_url = 'https://www.hattonstar.com/storage/' . Image::GetTitleUrlByParentId($shopping->id,'title',$shopping->type);
+                $img_url = 'https://www.hattonstar.com/storage/' . Image::GetTitleUrlByParentId($shopping->id,$shopping->type);
             }
             if ($shopping){
                 $childtradesTmp[] = [
