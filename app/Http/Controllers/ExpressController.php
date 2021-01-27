@@ -84,7 +84,6 @@ class ExpressController extends Controller
         $trade = Trade::paySelectById($req->get('trade_id'));
         $childtradesTmp = [];
         $shop_names = '';
-        $shop_names = '';
         $count = count($childtrades);
         $index = 0;
         $img_url = '';
