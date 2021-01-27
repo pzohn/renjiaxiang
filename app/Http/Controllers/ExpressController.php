@@ -97,10 +97,10 @@ class ExpressController extends Controller
             }
             if ($shopping){
                 $childtradesTmp[] = [
-                    "name" => $shopping->name,
-                    "num" => $v->num
+                    'name' => $shopping->name,
+                    'num' => $v->num
                 ];
-                $img_url = Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type)
+                $img_url = Image::GetImageUrlByParentId($shopping->id,$title,$shopping->type);
                 $shop_names = $shop_names . $shopping->name;
                 if ($index != $count){
                     $shop_names = $shop_names . '&';
