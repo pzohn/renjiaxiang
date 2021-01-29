@@ -163,6 +163,20 @@ class ExpressController extends Controller
         $resultAdd = GuzzleHttp::postJson($urlAdd, $paramsAdd);
         \Log::info("-----access_token------", [$access_token]);
         \Log::info("-----paramsAdd------", $paramsAdd);
+
+        $urlCourier = 'https://api.weixin.qq.com/cgi-bin/express/business/printer/update?access_token='. $access_token;
+        $paramsCourier = [
+            'openid' => $openId,
+            'update_type' => 'bind'
+        ];
+        $resultCourier = GuzzleHttp::postJson($urlCourier, $paramsCourier);
+        if (isset($resultCourier['errcode']))
+        {
+            return [
+                "errcode2" => $resultCourier['errcode'],
+                "errmsg2" => $resultCourier['errmsg']
+            ];
+        }
         // if (isset($resultAdd['errcode']))
         // {
         //     return [
