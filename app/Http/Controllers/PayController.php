@@ -207,6 +207,15 @@ class PayController extends Controller
 
     public function getOrderAllForPerson(Request $req) {
         $wx_id = $req->get('wx_id');
+        if ($wx_id == 0){
+            $result_data = [
+                'code' => 0,
+                'msg' => 'wx_id == 0',
+                'count' => 0,
+                'data' => []
+            ];
+            return $result_data;
+        }
         $shop_id = $req->get('shop_id');
         $trades = Trade::getOrderAllForPerson($wx_id);
         $title = "title";
@@ -268,6 +277,15 @@ class PayController extends Controller
 
     public function getOrderAllForShopManger(Request $req) {
         $shop_id = $req->get('shop_id');
+        if ($shop_id == 0){
+            $result_data = [
+                'code' => 0,
+                'msg' => 'shop_id == 0',
+                'count' => 0,
+                'data' => []
+            ];
+            return $result_data;
+        }
         $trades = Trade::getOrderAllForShop($shop_id);
         $title = "title";
         if ($trades){
@@ -320,6 +338,15 @@ class PayController extends Controller
 
     public function getOrderAllForShopMangerUnFinish(Request $req) {
         $shop_id = $req->get('shop_id');
+        if ($shop_id == 0){
+            $result_data = [
+                'code' => 0,
+                'msg' => 'shop_id == 0',
+                'count' => 0,
+                'data' => []
+            ];
+            return $result_data;
+        }
         $trades = Trade::getOrderAllForShopEx($shop_id);
         $title = "title";
         if ($trades){
@@ -372,6 +399,15 @@ class PayController extends Controller
 
     public function getOrderAllForShopMangerFinish(Request $req) {
         $shop_id = $req->get('shop_id');
+        if ($shop_id == 0){
+            $result_data = [
+                'code' => 0,
+                'msg' => 'shop_id == 0',
+                'count' => 0,
+                'data' => []
+            ];
+            return $result_data;
+        }
         $trades = Trade::getOrderAllForShopEx1($shop_id);
         $title = "title";
         if ($trades){
@@ -424,6 +460,15 @@ class PayController extends Controller
 
     public function getOrderUnPayForPerson(Request $req) {
         $wx_id = $req->get('wx_id');
+        if ($wx_id == 0){
+            $result_data = [
+                'code' => 0,
+                'msg' => 'wx_id == 0',
+                'count' => 0,
+                'data' => []
+            ];
+            return $result_data;
+        }
         $trades = Trade::getOrderUnPayForPerson($wx_id);
         $title = "title";
         if ($trades){
@@ -520,6 +565,15 @@ class PayController extends Controller
 
     public function getOrderUnsendForPerson(Request $req) {
         $wx_id = $req->get('wx_id');
+        if ($wx_id == 0){
+            $result_data = [
+                'code' => 0,
+                'msg' => 'wx_id == 0',
+                'count' => 0,
+                'data' => []
+            ];
+            return $result_data;
+        }
         $trades = Trade::getOrderUnsendForPerson($wx_id);
         $title = "title";
         if ($trades){
@@ -617,6 +671,15 @@ class PayController extends Controller
 
     public function getOrderUnreceiveForPerson(Request $req) {
         $wx_id = $req->get('wx_id');
+        if ($wx_id == 0){
+            $result_data = [
+                'code' => 0,
+                'msg' => 'wx_id == 0',
+                'count' => 0,
+                'data' => []
+            ];
+            return $result_data;
+        }
         $trades = Trade::getOrderUnreceiveForPerson($wx_id);
         $title = "title";
         if ($trades){
@@ -674,6 +737,15 @@ class PayController extends Controller
     public function getOrderFinishForPerson(Request $req) {
         $wx_id = $req->get('wx_id');
         $shop_id = $req->get('shop_id');
+        if ($wx_id == 0 || $shop_id == 0){
+            $result_data = [
+                'code' => 0,
+                'msg' => 'wx_id == 0 || shop_id == 0',
+                'count' => 0,
+                'data' => []
+            ];
+            return $result_data;
+        }
         $trades = Trade::getOrderFinishForPerson($wx_id);
         if ($shop_id == 5){
             $trades = Trade::getOrderFinishForPersonForZhaobo($wx_id);
@@ -1530,6 +1602,16 @@ class PayController extends Controller
     }
 
     public function getOrderRefundForPerson(Request $req) {
+        $wx_id = $req->get('wx_id');
+        if ($wx_id == 0){
+            $result_data = [
+                'code' => 0,
+                'msg' => 'wx_id == 0',
+                'count' => 0,
+                'data' => []
+            ];
+            return $result_data;
+        }
         $trades = Trade::getOrderRefundForPerson($req->get('wx_id'));
         $title = "title";
         if ($trades){
@@ -1620,6 +1702,15 @@ class PayController extends Controller
     }
 
     public function getShareForZhaobo(Request $req) {
+        if ($req->get('wx_id') == 0){
+            $result_data = [
+                'code' => 0,
+                'msg' => 'wx_id == 0',
+                'count' => 0,
+                'data' => []
+            ];
+            return $result_data;
+        }
         $parter = Parter::getParterForWx($req->get('wx_id'));
         $dateflag = $req->get('dateflag');
         $date_begin = date("Y-m-d H:i:s", mktime(0,0,0,date('m'),1,date('Y')));
