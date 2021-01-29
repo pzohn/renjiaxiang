@@ -170,13 +170,6 @@ class ExpressController extends Controller
             'update_type' => 'bind'
         ];
         $resultCourier = GuzzleHttp::postJson($urlCourier, $paramsCourier);
-        if (isset($resultCourier['errcode']))
-        {
-            return [
-                "errcode2" => $resultCourier['errcode'],
-                "errmsg2" => $resultCourier['errmsg']
-            ];
-        }
         // if (isset($resultAdd['errcode']))
         // {
         //     return [
