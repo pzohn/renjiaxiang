@@ -534,12 +534,12 @@ class UserController extends Controller
         $travel = [];
         $index = 0;
         foreach ($submitlocations as $k => $v){
-            index ++;
+            $index ++;
             $travel[] = [
                 "lng" => $v->longitude,
                 "lat" => $v->latitude
             ]; 
-            if (index == 7){
+            if ($index == 7){
                 break;
             }
         }
