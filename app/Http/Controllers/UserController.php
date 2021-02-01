@@ -543,9 +543,6 @@ class UserController extends Controller
                 break;
             }
         }
-        return [
-            'code' => 0,
-            'path' => $travel
-        ];
+        return $travel;
     }
 }
