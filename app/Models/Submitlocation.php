@@ -23,4 +23,9 @@ class Submitlocation extends Model {
         $submitlocation = Submitlocation::where("deviceid", $deviceid)->orderBy('updated_at', 'desc')->first();
         return $submitlocation;
     }
+
+    public static function getTravel($deviceid) {
+        $submitlocations = Submitlocation::where("deviceid", $deviceid)->orderBy('updated_at', 'desc')->get();
+        return $submitlocations;
+    }
 }

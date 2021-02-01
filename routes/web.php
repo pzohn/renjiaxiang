@@ -239,6 +239,8 @@ Route::get('/devices/receivedata', 'UserController@Submitlocation');
 
 Route::get('/devices/getInfo', 'UserController@getDeviceInfo');
 
+Route::get('/devices/travel', 'UserController@getTravel');
+
 Route::post('/GetShareForUser', 'UserController@GetShareForUser');
 
 Route::post('/signature', 'FileController@signature');

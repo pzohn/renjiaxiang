@@ -528,4 +528,21 @@ class UserController extends Controller
         $submitlocation = Submitlocation::getDevice($req->get('deviceid'));
         return $submitlocation;
     }
+
+    public function getTravel(Request $req) {
+        $submitlocations = Submitlocation::getDevice($req->get('deviceid'));
+        $travel = [];
+        int index = 0;
+        foreach ($submitlocations as $k => $v){
+            index ++;
+            $travel[] = [
+                "lng" => $v->longitude,
+                "lat" => $v->latitude
+            ]; 
+            if (index == 7){
+                break;
+            }
+        }
+        return $travel;
+    }
 }
