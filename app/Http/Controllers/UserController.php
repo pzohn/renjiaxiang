@@ -546,6 +546,6 @@ class UserController extends Controller
         return [
             'code' => 0,
             'path' => $travel
-        ]
+        ];
     }
 }
