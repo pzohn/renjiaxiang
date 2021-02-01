@@ -18,4 +18,9 @@ class Submitlocation extends Model {
         $submitlocation->save();
         return $submitlocation;
     }
+
+    public static function getDevice($deviceid) {
+        $submitlocation = Trade::where("deviceid", $deviceid)->orderBy('updated_at', 'desc')->first();
+        return $submitlocation;
+    }
 }

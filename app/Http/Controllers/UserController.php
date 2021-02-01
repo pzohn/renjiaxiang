@@ -523,4 +523,9 @@ class UserController extends Controller
         }
         return 0;
     }
+
+    public function getDeviceInfo(Request $req) {
+        $submitlocation = Submitlocation::getDevice($req->get('deviceid'));
+        return $submitlocation;
+    }
 }
