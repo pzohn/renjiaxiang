@@ -539,9 +539,6 @@ class UserController extends Controller
                 "lng" => $v->longitude,
                 "lat" => $v->latitude
             ]; 
-            if ($index == 7){
-                break;
-            }
         }
         return $travel;
     }
