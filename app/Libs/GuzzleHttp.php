@@ -62,16 +62,37 @@ class GuzzleHttp {
         return self::tryDecodeJson($res, true);
     }
 
-    public static function postJson($url, $data_arr) {
-        $http_client = new Client();
-        $response = $http_client->post($url, self::options($data_arr, true));
-        $rs_code = $response->getStatusCode();
-        $res     = $response->getBody()->getContents();
-        if ($rs_code != 200) {
-            throw new \Exception("http status error($rs_code), $res");
-        }
+    // public static function postJson($url, $data_arr) {
+    //     $http_client = new Client();
+    //     $response = $http_client->post($url, self::options($data_arr, true));
+    //     $rs_code = $response->getStatusCode();
+    //     $res     = $response->getBody()->getContents();
+    //     if ($rs_code != 200) {
+    //         throw new \Exception("http status error($rs_code), $res");
+    //     }
 
-        return self::tryDecodeJson($res, true);
+    //     return self::tryDecodeJson($res, true);
+    // }
+
+    public static function postJson($url, $data_arr) {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => json_encode($data_arr, JSON_UNESCAPED_UNICODE),
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json'
+            ),
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        return self::tryDecodeJson($response, true);
     }
 
     public static  function tryDecodeJson($str, $is_true = true) {
