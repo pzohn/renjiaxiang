@@ -9,10 +9,6 @@ class  Zhang extends Model {
     
     public static function getZhang($id) {
         $zhang = Zhang::where("parent_id", $id)->first();
-        if ($zhang) {
-            return $zhang;
-        }else {
-            return 0;
-        }
+        return $zhang;
     }
 }
