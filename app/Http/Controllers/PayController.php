@@ -1858,8 +1858,7 @@ class PayController extends Controller
 
     public function getShareForZhaoboEx(Request $req) {
         $zhang = Zhang::getZhang($req->get('shop_id'));
-        return $zhang;
-        if(empty($zhang) == false){
+        if($zhang == 0){
             return [
                 'code' => 1,
                 'msg' => '不存在该小程序'
