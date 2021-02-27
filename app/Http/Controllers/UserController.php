@@ -438,8 +438,13 @@ class UserController extends Controller
     }
 
     public function getAreasFirst(Request $req) {
+        $zhang = Zhang::getZhang($req->get('shop_id'));
+        $proviceId = 1;
+        if(!empty($zhang)){
+            $proviceId = $zhang->pr;
+        }
         $second = false;
-        $parters = Parter::getAreasFirst();
+        $parters = Parter::getAreasFirst($proviceId);
         if ($req->get('wx_id') != 0){
             $parters = Parter::getAreasFirstEx($req->get('wx_id'));
         }

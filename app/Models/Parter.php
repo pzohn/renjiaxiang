@@ -84,8 +84,8 @@ class Parter extends Model {
         return $parters;
     }
 
-    public static function getAreasFirst() {
-        $parters = Parter::where("share_parent_id", 1)->where("type_id", 2)->where("is_delete", 0)->where("enable", 1)->get();
+    public static function getAreasFirst($proviceId) {
+        $parters = Parter::where("share_parent_id", 1)->where("type_id", 2)->where("is_delete", 0)->where("enable", 1)->where("provice_id", $proviceId)->get();
         return $parters;
     }
 
