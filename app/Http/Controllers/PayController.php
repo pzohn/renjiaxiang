@@ -1858,13 +1858,17 @@ class PayController extends Controller
 
     public function getShareForZhaoboEx(Request $req) {
         $zhang = Zhang::getZhang($req->get('shop_id'));
-        if($zhang == 0){
-            return [
-                'code' => 1,
-                'msg' => '不存在该小程序'
-            ];
+        // if($zhang == 0){
+        //     return [
+        //         'code' => 1,
+        //         'msg' => '不存在该小程序'
+        //     ];
+        // }
+        $proviceId = 1;
+        if($zhang != 0){
+            $proviceId = $zhang->pr;
         }
-        $proviceId = $zhang->pr;
+    
         $dateflag = $req->get('dateflag');
         $date_begin = date("Y-m-d H:i:s", mktime(0,0,0,date('m'),1,date('Y')));
         $date_after = date("Y-m-d H:i:s", mktime(23,59,59,date('m'),date('t'),date('Y')));
