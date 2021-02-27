@@ -1865,7 +1865,7 @@ class PayController extends Controller
         //     ];
         // }
         $proviceId = 1;
-        if($zhang != 0){
+        if(!($zhang == 0)){
             $proviceId = $zhang->pr;
         }
     
