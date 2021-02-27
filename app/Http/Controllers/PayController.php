@@ -1857,7 +1857,6 @@ class PayController extends Controller
     }
 
     public function getShareForZhaoboEx(Request $req) {
-        return $req->get('shop_id');
         $zhang = Zhang::getZhang($req->get('shop_id'));
         if(empty($zhang)){
             return [
