@@ -69,8 +69,8 @@ class Parter extends Model {
         return $parter;
     }
 
-    public static function getParterForWxEx() {
-        $parters = Parter::where("type_id", 2)->where("is_delete", 0)->where("enable", 1)->get();
+    public static function getParterForWxEx($proviceId) {
+        $parters = Parter::where("type_id", 2)->where("is_delete", 0)->where("enable", 1)->where("provice_id", $proviceId)->get();
         return $parters;
     }
 

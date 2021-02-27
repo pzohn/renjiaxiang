@@ -1857,6 +1857,14 @@ class PayController extends Controller
     }
 
     public function getShareForZhaoboEx(Request $req) {
+        $zhang = Zhang::getZhang($req->get('shop_id'));
+        if(empty($zhang) == false){
+            return [
+                'code' => 1,
+                'msg' => '不存在该小程序'
+            ];
+        }
+        $proviceId = $zhang->pr;
         $dateflag = $req->get('dateflag');
         $date_begin = date("Y-m-d H:i:s", mktime(0,0,0,date('m'),1,date('Y')));
         $date_after = date("Y-m-d H:i:s", mktime(23,59,59,date('m'),date('t'),date('Y')));
@@ -1874,7 +1882,7 @@ class PayController extends Controller
         }
         $share_count = 0;
         $tradesTwo = [];
-        $parters = Parter::getParterForWxEx();
+        $parters = Parter::getParterForWxEx($proviceId);
         if ($parters){
             foreach ($parters as $k1 => $v1) {
                 $share_two_id = $v1->id;
