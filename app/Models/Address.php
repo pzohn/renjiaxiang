@@ -62,6 +62,16 @@ class  Address extends Model {
         }
     }
 
+    public static function updateAddressDefault($params) {
+        Address::where("login_id", array_get($params,"login_id"))->update(['default_flag'=>0]);
+        $address = Address::where("id", array_get($params,"id"))->first();
+        if ($address) {
+            $address->default_flag = 1;
+            $address->update();
+            return $address;
+        }
+    }
+
     public static function addressDel($id) {
         $address = Address::where("id", $id)->first();
         if ($address){

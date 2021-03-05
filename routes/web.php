@@ -165,6 +165,8 @@ Route::post('/getAddressByLoginId', 'UserController@getAddressByLoginId');
 
 Route::post('/updateAddress', 'UserController@updateAddress');
 
+Route::post('/updateAddressDefault', 'UserController@updateAddressDefault');
+
 Route::post('/delAddress', 'UserController@delAddress');
 
 Route::post('/collect', 'UserController@collect');

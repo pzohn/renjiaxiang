@@ -141,6 +141,17 @@ class UserController extends Controller
         }
     }
 
+    public function updateAddressDefault(Request $req) {
+        $params = [
+            "login_id" => $req->get('login_id'),
+            "id" => $req->get('id')
+        ];
+        $address = Address::updateAddressDefault($params);
+        if ($address){
+            return $address;
+        }
+    }
+
     public function delAddress(Request $req) {
         Address::addressDel($req->get('id'));
         return 1;
