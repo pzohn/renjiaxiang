@@ -8,9 +8,14 @@ class  Address extends Model {
     public $timestamps = false;
 
     public static function GetAddress($id) {
-        $address = Address::where("login_id", $id)->first();
+        $address = Address::where("login_id", $id)->where("default_flag", 1)->first();
         if ($address) {
             return $address;
+        }else {
+            $address = Address::where("login_id", $id)->first();
+            if ($address) {
+                return $address;
+            }
         }
     }
 
