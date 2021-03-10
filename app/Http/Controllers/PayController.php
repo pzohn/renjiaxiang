@@ -2486,7 +2486,7 @@ class PayController extends Controller
     }
 
     public function getPreBuyStaus(Request $req) {
-        $zhang = Zhang::getZhang($shopping->shop_id);
+        $zhang = Zhang::getZhang($req->get('shop_id'));
         if(empty($zhang)){
             return 0;
         }else{
