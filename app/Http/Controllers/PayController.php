@@ -2484,4 +2484,13 @@ class PayController extends Controller
     public function updateStatus(Request $req) {
         return Trade::updateStatus($req->get('id'),$req->get('status'));
     }
+
+    public function getPreBuyStaus(Request $req) {
+        $zhang = Zhang::getZhang($shopping->shop_id);
+        if(empty($zhang)){
+            return 0;
+        }else{
+            return $zhang->xx;
+        }
+    }
 }

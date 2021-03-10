@@ -250,4 +250,7 @@ Route::post('/signature', 'FileController@signature');
 Route::post('/getAddressByLoginIdEx', 'UserController@getAddressByLoginIdEx');
 
 Route::get('/getAllDelivery', 'ExpressController@getAllDelivery');
+
 Route::post('/addOrder', 'ExpressController@addOrder');
+
+Route::post('/getPreBuyStaus', 'PayController@getPreBuyStaus');
