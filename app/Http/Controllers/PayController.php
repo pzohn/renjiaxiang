@@ -245,7 +245,7 @@ class PayController extends Controller
 
                 if ($count){
                     $status = $this->getStatus($v->pay_status,$v->send_status,$v->finish_status);
-                    if ($shop_id == 5){
+                    if ($shop_id == 5 || $shop_id == 6){
                         $status = $this->getStatusZhaobo($v->pay_status,$v->send_status,$v->finish_status);
                     }
                     $tradesTmp[] = [
@@ -747,7 +747,7 @@ class PayController extends Controller
             return $result_data;
         }
         $trades = Trade::getOrderFinishForPerson($wx_id);
-        if ($shop_id == 5){
+        if ($shop_id == 5 || $shop_id == 6){
             $trades = Trade::getOrderFinishForPersonForZhaobo($wx_id);
         }
         $title = "title";
