@@ -1702,6 +1702,12 @@ class PayController extends Controller
     }
 
     public function getShareForZhaobo(Request $req) {
+        $zhang = Zhang::getZhang($req->get('shop_id'));
+        $shop_id = 5;
+        if(empty($zhang)){
+        }else{
+            $shop_id = $zhang->parent_id;
+        }
         if ($req->get('wx_id') == 0){
             $result_data = [
                 'code' => 0,
@@ -1723,7 +1729,7 @@ class PayController extends Controller
         $one_flag = 0;
         if ($parter){
             $share_id = $parter->id;
-            $trades = Trade::getShareForPersonEx3($share_id,$date_begin,$date_after);
+            $trades = Trade::getShareForPersonEx3($share_id,$date_begin,$date_after,$shop_id);
             $tradesOne = [];
             $tradesTwo = [];
             foreach ($trades as $k => $v) {
@@ -1750,7 +1756,7 @@ class PayController extends Controller
                 ];
             }
 
-            $trades = Trade::getShareForPersonEx4($share_id,$date_begin,$date_after);
+            $trades = Trade::getShareForPersonEx4($share_id,$date_begin,$date_after,$shop_id);
             foreach ($trades as $k => $v) {
                 $address = SendAddress::GetAddress($v->id);
                 $trade_addr = "";
@@ -1781,7 +1787,7 @@ class PayController extends Controller
                 foreach ($parters as $k1 => $v1) {
                     $share_two_id = $v1->id;
                     $share_name = $v1->name;
-                    $trades_Two = Trade::getShareForPersonEx3($share_two_id,$date_begin,$date_after);
+                    $trades_Two = Trade::getShareForPersonEx3($share_two_id,$date_begin,$date_after,$shop_id);
                     foreach ($trades_Two as $k2 => $v2) {
                         $childtrades = Childtrade::paySelectById($v2->id);
                         $share_count += $childtrades[0]->num;
@@ -1807,7 +1813,7 @@ class PayController extends Controller
                         ];
                     }
 
-                    $trades_Two = Trade::getShareForPersonEx4($share_two_id,$date_begin,$date_after);
+                    $trades_Two = Trade::getShareForPersonEx4($share_two_id,$date_begin,$date_after,$shop_id);
                     foreach ($trades_Two as $k2 => $v2) {
                         $childtrades = Childtrade::paySelectById($v2->id);
                         $share_count += $childtrades[0]->num;
