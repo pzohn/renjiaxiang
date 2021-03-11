@@ -207,8 +207,8 @@ class  Trade extends Model {
         }
     }
 
-    public static function getShareForPersonEx3($share_id,$date_begin,$date_after) {
-        $trades = Trade::where("share_id", $share_id)->where("shop_id", 5)->where("send_status", 0)
+    public static function getShareForPersonEx3($share_id,$date_begin,$date_after,$shop_id) {
+        $trades = Trade::where("share_id", $share_id)->where("shop_id", $shop_id)->where("send_status", 0)
         ->whereBetween("created_at", [$date_begin, $date_after])
         ->where("finish_refund_status", 0)->where("pay_status", 1)->orderBy('created_at', 'desc')->get();
         if ($trades) {
@@ -216,8 +216,8 @@ class  Trade extends Model {
         }
     }
 
-    public static function getShareForPersonEx31($share_id,$date_begin,$date_after,$shopping_id) {
-        $trades = Trade::where("share_id", $share_id)->where("shop_id", $shopping_id)->where("send_status", 0)
+    public static function getShareForPersonEx31($share_id,$date_begin,$date_after,$shopping_id,$shop_id) {
+        $trades = Trade::where("share_id", $share_id)->where("shop_id", $shop_id)->where("send_status", 0)
         ->whereBetween("created_at", [$date_begin, $date_after])->where("detail_id", $shopping_id)
         ->where("finish_refund_status", 0)->where("pay_status", 1)->orderBy('created_at', 'desc')->get();
         if ($trades) {
@@ -225,8 +225,8 @@ class  Trade extends Model {
         }
     }
 
-    public static function getShareForPersonEx4($share_id,$date_begin,$date_after) {
-        $trades = Trade::where("share_id", $share_id)->where("shop_id", 5)->where("send_status", 1)
+    public static function getShareForPersonEx4($share_id,$date_begin,$date_after,$shop_id) {
+        $trades = Trade::where("share_id", $share_id)->where("shop_id", $shop_id)->where("send_status", 1)
         ->whereBetween("created_at", [$date_begin, $date_after])
         ->where("finish_status", 1)->where("finish_refund_status", 0)->where("pay_status", 1)->orderBy('created_at', 'desc')->get();
         if ($trades) {
@@ -234,8 +234,8 @@ class  Trade extends Model {
         }
     }
 
-    public static function getShareForPersonEx41($share_id,$date_begin,$date_after,$shopping_id) {
-        $trades = Trade::where("share_id", $share_id)->where("shop_id", $shopping_id)->where("send_status", 1)
+    public static function getShareForPersonEx41($share_id,$date_begin,$date_after,$shopping_id,$shop_id) {
+        $trades = Trade::where("share_id", $share_id)->where("shop_id", $shop_id)->where("send_status", 1)
         ->whereBetween("created_at", [$date_begin, $date_after])->where("detail_id", $shopping_id)
         ->where("finish_status", 1)->where("finish_refund_status", 0)->where("pay_status", 1)->orderBy('created_at', 'desc')->get();
         if ($trades) {
