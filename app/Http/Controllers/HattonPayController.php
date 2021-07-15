@@ -38,7 +38,7 @@ class HattonPayController extends Controller
                 $params = [
                     'appid' => $paramsLogin["appid"],
                     'body' => $req->get('body'),
-                    'mch_id' => '1611406713',
+                    'mch_id' => '1509185861',
                     'nonce_str' => $this->createRand(32),
                     'notify_url' => "https://www.hattonstar.com/onPayBackForHatton",
                     'openid' => $openid,
