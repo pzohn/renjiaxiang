@@ -245,7 +245,7 @@ class PayController extends Controller
 
                 if ($count){
                     $status = $this->getStatus($v->pay_status,$v->send_status,$v->finish_status);
-                    if ($shop_id == 5 || $shop_id == 6){
+                    if ($shop_id == 7 || $shop_id == 6){
                         $status = $this->getStatusZhaobo($v->pay_status,$v->send_status,$v->finish_status);
                     }
                     $tradesTmp[] = [
@@ -747,7 +747,7 @@ class PayController extends Controller
             return $result_data;
         }
         $trades = Trade::getOrderFinishForPerson($wx_id);
-        if ($shop_id == 5 || $shop_id == 6){
+        if ($shop_id == 7 || $shop_id == 6){
             $trades = Trade::getOrderFinishForPersonForZhaobo($wx_id);
         }
         $title = "title";
@@ -1703,7 +1703,7 @@ class PayController extends Controller
 
     public function getShareForZhaobo(Request $req) {
         $zhang = Zhang::getZhang($req->get('shop_id'));
-        $shop_id = 5;
+        $shop_id = 7;
         if(empty($zhang)){
         }else{
             $shop_id = $zhang->parent_id;
@@ -1864,8 +1864,8 @@ class PayController extends Controller
 
     public function getShareForZhaoboEx(Request $req) {
         $zhang = Zhang::getZhang($req->get('shop_id'));
-        $proviceId = 1;
-        $shop_id = 5;
+        $proviceId = 3;
+        $shop_id = 7;
         if(empty($zhang)){
             // return [
             //     'code' => 1,
@@ -1981,7 +1981,7 @@ class PayController extends Controller
 
     public function getShareForZhaoboEx1(Request $req) {
         $zhang = Zhang::getZhang($req->get('shop_id'));
-        $shop_id = 5;
+        $shop_id = 7;
         if(empty($zhang)){
         }else{
             $shop_id = $zhang->parent_id;
@@ -2089,7 +2089,7 @@ class PayController extends Controller
 
     public function getShareForZhaoboEx2(Request $req) {
         $zhang = Zhang::getZhang($req->get('shop_id'));
-        $shop_id = 5;
+        $shop_id = 7;
         if(empty($zhang)){
         }else{
             $shop_id = $zhang->parent_id;
