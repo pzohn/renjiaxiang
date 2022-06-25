@@ -108,7 +108,9 @@ class HattonPayController extends Controller
                  ];
                  Tradetmp::payInsert($trade);
                  $resultPay = GuzzleHttp:: postXml($urlPay, $data);
+                 \Log::info("resultPay-----------", [$resultPay]);
                  $decode = $this->decodeXml($resultPay);
+                 \Log::info("decode-----------", [$decode]);
                  if ($decode["result_code"] == "SUCCESS")
                  {
                     $sian_time = (string)time();
